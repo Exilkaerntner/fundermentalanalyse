@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finanzanalyse | Financial Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --economist-red: #E3120B;
+  --economist-red-dark: #b30e08;
+  --ink: #1a1a1a;
+  --mid-grey: #6b6b6b;
+  --light-grey: #f2f2f0;
+  --border: #d4d4d0;
+  --white: #ffffff;
+  --accent-blue: #003a7d;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: var(--economist-red);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid var(--economist-red-dark);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+}
+
+.site-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+nav.main-nav {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+nav.main-nav a {
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid transparent;
+  transition: all 0.15s;
+}
+
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  color: var(--white);
+  border-bottom-color: var(--white);
+  background: rgba(0,0,0,0.1);
+}
+
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+  font-family: var(--font-body);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+
+.lang-btn:hover, .lang-btn.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-color: rgba(255,255,255,0.7);
+}
+
+.lang-flag { font-size: 1rem; }
+
+/* ─── PAGES ─── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─── HERO BAND ─── */
+.page-hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 52px 24px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--economist-red);
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--economist-red);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--economist-red);
+}
+
+.page-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+  max-width: 700px;
+}
+
+.page-hero .sub {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 600px;
+}
+
+/* ─── CONTENT AREA ─── */
+.content-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.content-area.narrow {
+  max-width: 780px;
+}
+
+/* ─── TYPOGRAPHY ─── */
+.section-rule {
+  border: none;
+  border-top: 2px solid var(--economist-red);
+  margin: 36px 0 28px;
+}
+
+.section-rule.thin {
+  border-top-width: 1px;
+  border-color: var(--border);
+}
+
+h2.section-head {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+h3.sub-head {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 28px 0 10px;
+  letter-spacing: 0.02em;
+}
+
+p { margin-bottom: 1.2rem; }
+
+p:last-child { margin-bottom: 0; }
+
+blockquote {
+  border-left: 3px solid var(--economist-red);
+  padding: 12px 20px;
+  margin: 24px 0;
+  background: var(--light-grey);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--mid-grey);
+}
+
+/* ─── CARDS / BOXES ─── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.card {
+  border: 1px solid var(--border);
+  padding: 20px;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--economist-red);
+}
+
+.card .kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid-grey);
+  margin-bottom: 6px;
+}
+
+.card .kpi-value {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.card .kpi-value.negative { color: var(--economist-red); }
+.card .kpi-value.positive { color: #1a6e1a; }
+
+.card .kpi-sub {
+  font-size: 0.78rem;
+  color: var(--mid-grey);
+  margin-top: 4px;
+}
+
+/* ─── TABLES (Economist style) ─── */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 24px 0;
+}
+
+.eco-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}
+
+.eco-table caption {
+  text-align: left;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+  padding-bottom: 8px;
+  font-weight: 600;
+}
+
+.eco-table thead tr {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.eco-table thead th {
+  padding: 8px 12px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.eco-table thead th:first-child {
+  text-align: left;
+}
+
+.eco-table tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.eco-table tbody tr:hover { background: var(--light-grey); }
+
+.eco-table tbody td {
+  padding: 7px 12px;
+  text-align: right;
+  color: var(--ink);
+}
+
+.eco-table tbody td:first-child {
+  text-align: left;
+  font-weight: 400;
+  padding-left: 0;
+}
+
+.eco-table tbody tr.subtotal td {
+  font-weight: 600;
+  background: var(--light-grey);
+}
+
+.eco-table tbody tr.total td {
+  font-weight: 700;
+  border-top: 1px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.eco-table tfoot td {
+  font-size: 0.72rem;
+  color: var(--mid-grey);
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+
+.neg { color: var(--economist-red); }
+.pos { color: #1a6e1a; }
+.indent { padding-left: 20px !important; }
+.indent2 { padding-left: 36px !important; }
+
+/* ─── CHART WRAPPER ─── */
+.chart-box {
+  border: 1px solid var(--border);
+  padding: 20px 20px 12px;
+  margin: 24px 0;
+  position: relative;
+}
+
+.chart-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.chart-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.chart-source {
+  font-size: 0.7rem;
+  color: var(--mid-grey);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ─── ABOUT ME ─── */
+.about-photo-area {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+.about-avatar {
+  background: var(--light-grey);
+  border: 1px solid var(--border);
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: var(--border);
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.badge {
+  background: var(--light-grey);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+  font-weight: 600;
+}
+
+.badge.red {
+  background: var(--economist-red);
+  color: white;
+  border-color: var(--economist-red-dark);
+}
+
+/* ─── AKZENT KURS ─── */
+.akzent-box {
+  background: var(--light-grey);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin: 20px 0;
+}
+
+.akzent-word {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border: 2px solid var(--border);
+  margin: 16px 0;
+  letter-spacing: 0.1em;
+}
+
+.akzent-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.akzent-btn {
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  background: white;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.akzent-btn:hover { border-color: var(--economist-red); }
+.akzent-btn.correct { border-color: #1a6e1a; background: #e8f5e8; color: #1a6e1a; }
+.akzent-btn.wrong { border-color: var(--economist-red); background: #fdecea; color: var(--economist-red); }
+.akzent-btn:disabled { cursor: default; }
+
+.akzent-feedback {
+  padding: 12px 16px;
+  border-left: 4px solid var(--economist-red);
+  background: white;
+  font-size: 0.9rem;
+  margin-top: 12px;
+  min-height: 60px;
+  display: none;
+}
+
+.akzent-feedback.show { display: block; }
+.akzent-feedback.correct-fb { border-left-color: #1a6e1a; }
+
+.akzent-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-next {
+  background: var(--economist-red);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-next:hover { background: var(--economist-red-dark); }
+
+.akzent-score {
+  font-size: 0.82rem;
+  color: var(--mid-grey);
+  font-family: var(--font-mono);
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  margin-bottom: 16px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--economist-red);
+  transition: width 0.3s ease;
+}
+
+/* ─── TAB CONTROLS ─── */
+.tab-row {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+  gap: 0;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--mid-grey);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+}
+
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--economist-red);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ─── PEER TABLE ─── */
+.peer-header {
+  display: grid;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.peer-name { font-weight: 700; font-size: 0.88rem; }
+.peer-ticker { font-size: 0.7rem; color: var(--mid-grey); font-family: var(--font-mono); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.55);
+  padding: 32px 24px;
+  margin-top: 60px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.78rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: white; }
+
+.disclaimer {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 16px;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .about-photo-area { grid-template-columns: 1fr; }
+  nav.main-nav a { font-size: 0.72rem; padding: 0 8px; letter-spacing: 0.03em; }
+  .site-title { font-size: 1rem; }
+  .akzent-options { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  nav.main-nav a { display: none; }
+  nav.main-nav a:nth-child(-n+3) { display: flex; }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--light-grey); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--mid-grey); }
+
+/* ─── PROJEKT BOX ─── */
+.info-box {
+  border-left: 4px solid var(--economist-red);
+  background: var(--light-grey);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+
+.info-box strong { color: var(--economist-red); }
+
+/* ─── RATING BADGES ─── */
+.rating-cell {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.r-b { color: var(--economist-red); }
+.r-bbb { color: #7a5a00; }
+.r-a { color: #003a7d; }
+
+/* lang hidden */
+[data-lang] { display: none; }
+[data-lang].lang-active { display: block; }
+span[data-lang].lang-active { display: inline; }
+
+.inline-lang { display: none; }
+.inline-lang.lang-active { display: inline; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="site-title" onclick="showPage('ueber-mich')">
+      <span data-lang="de" class="lang-active">Finanzanalyse</span>
+      <span data-lang="en">Financial Analysis</span>
+      <span data-lang="fr">Analyse Financière</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#" onclick="showPage('ueber-mich')" data-page="ueber-mich" class="active">
+        <span data-lang="de" class="lang-active">Über mich</span>
+        <span data-lang="en">About</span>
+        <span data-lang="fr">À propos</span>
+      </a>
+      <a href="#" onclick="showPage('das-projekt')" data-page="das-projekt">
+        <span data-lang="de" class="lang-active">Das Projekt</span>
+        <span data-lang="en">The Project</span>
+        <span data-lang="fr">Le Projet</span>
+      </a>
+      <a href="#" onclick="showPage('bilanz')" data-page="bilanz">
+        <span data-lang="de" class="lang-active">Bilanz</span>
+        <span data-lang="en">Balance Sheet</span>
+        <span data-lang="fr">Bilan</span>
+      </a>
+      <a href="#" onclick="showPage('cashflow')" data-page="cashflow">
+        <span data-lang="de" class="lang-active">Cash Flow</span>
+        <span data-lang="en">Cash Flow</span>
+        <span data-lang="fr">Flux de Trésorerie</span>
+      </a>
+      <a href="#" onclick="showPage('akzent')" data-page="akzent">
+        <span data-lang="de" class="lang-active">Akzent-Kurs</span>
+        <span data-lang="en">Accent Course</span>
+        <span data-lang="fr">Cours d'Accent</span>
+      </a>
+    </nav>
+
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('de')" id="btn-de">
+        <span class="lang-flag">🇦🇹</span> DE
+      </button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">
+        <span class="lang-flag">🇬🇧</span> EN
+      </button>
+      <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">
+        <span class="lang-flag">🇫🇷</span> FR
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1: ÜBER MICH
+════════════════════════════════════════════ -->
+<div class="page active" id="page-ueber-mich">
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="page-label">
+        <span data-lang="de" class="lang-active">Profil</span>
+        <span data-lang="en">Profile</span>
+        <span data-lang="fr">Profil</span>
+      </div>
+      <h1>
+        <span data-lang="de" class="lang-active">Über mich – oder: wie aus einem Kärntner ein Zahlen-Enthusiast wurde</span>
+        <span data-lang="en">About me – or: how a Carinthian became a numbers enthusiast</span>
+        <span data-lang="fr">À propos – ou: comment un Carinthien est devenu passionné de chiffres</span>
+      </h1>
+      <p class="sub">
+        <span data-lang="de" class="lang-active">Finanzanalyse. Künstliche Intelligenz. Und der gelegentliche Blick auf ein Eishockeyergebnis.</span>
+        <span data-lang="en">Financial analysis. Artificial intelligence. And the occasional glance at a hockey score.</span>
+        <span data-lang="fr">Analyse financière. Intelligence artificielle. Et un regard occasionnel sur les résultats de hockey.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="content-area narrow">
+
+    <!-- DE -->
+    <div data-lang="de" class="lang-active">
+      <div class="about-photo-area">
+        <div class="about-avatar">👤</div>
+        <div>
+          <h2 class="section-head">Wer bin ich — und warum sollte Sie das interessieren?</h2>
+          <div class="badge-row">
+            <span class="badge red">Exil-Kärntner</span>
+            <span class="badge">Finanzanalyst</span>
+            <span class="badge">KI-Enthusiast</span>
+            <span class="badge">Prompt Engineer</span>
+          </div>
+          <p>Aufgewachsen zwischen Wörthersee und Dolomiten, irgendwo in jenem Landstrich, wo man den Kaffee noch „Häferl" nennt und der Dialekt als eigene Sportart gilt — bin ich schon vor geraumer Zeit in die Welt der Zahlen, der Bilanzen und der Unternehmensbewertungen eingetaucht. Geblieben ist mir die kärntnerische Direktheit. Und die Liebe zum Puckgeräusch auf Eis. Aber dazu später.</p>
+          <p>Was mich wirklich antreibt? Die Überzeugung, dass gute Finanzanalyse keine Raketenwissenschaft sein muss — aber ein solides Werkzeug braucht. Und dieses Werkzeug heißt heute zunehmend: Künstliche Intelligenz.</p>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+      <h2 class="section-head">KI, Prompt Engineering & Finanzanalyse – wie passt das zusammen?</h2>
+
+      <p>Ehrlich gesagt: besser als man denkt. Die Frage, ob KI in der Wirtschaft eine Rolle spielt, stellt sich mittlerweile nicht mehr. Sie spielt eine. Eine große sogar. Wer heute Bilanzen analysiert, Cashflows modelliert oder Peer-Group-Vergleiche erstellt, ohne KI-Werkzeuge zumindest zu kennen und einzusetzen, der arbeitet — mit Verlaub — wie ein Schreiber, der noch auf der Schreibmaschine tippt, während alle anderen längst ein Textverarbeitungsprogramm nutzen.</p>
+
+      <blockquote>„KI ist kein Zauberstab. Aber wer ihn nicht lernt zu schwingen, verliert das Spiel."</blockquote>
+
+      <p>Genau hier kommt <strong>Prompt Engineering</strong> ins Spiel. Das Formulieren präziser, strukturierter Anfragen an ein KI-System ist eine Fertigkeit — vergleichbar dem Stellen einer guten Frage in einem Vorstandsmeeting. Wer diese Technik beherrscht, bekommt aus einem KI-Werkzeug heraus, was andere bestenfalls ahnen.</p>
+
+      <h3 class="sub-head">Warum KI gerade im Finanzbereich unumgänglich ist</h3>
+      <p>Finanzanalyse lebt von Daten, Vergleichen und Mustern. Genau das sind die Stärken moderner KI-Systeme. Ob es um die Auswertung von Jahresabschlüssen geht, um Monte-Carlo-Simulationen, um das Screening von Peer Groups oder um die Aufbereitung komplexer ESG-Kennzahlen — ein gut eingesetztes KI-System beschleunigt diese Prozesse erheblich und reduziert Fehlerquellen.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="kpi-label">Anwendungsgebiet</div>
+          <div style="font-weight:600;margin-top:4px;">Bilanzanalyse</div>
+          <div class="kpi-sub">Automatisierte Kennzahlenberechnung und Abweichungsanalyse</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Anwendungsgebiet</div>
+          <div style="font-weight:600;margin-top:4px;">Planung & Forecast</div>
+          <div class="kpi-sub">Szenariomodelle und Monte-Carlo-Simulation</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Anwendungsgebiet</div>
+          <div style="font-weight:600;margin-top:4px;">Peer-Group-Analyse</div>
+          <div class="kpi-sub">Strukturierter Vergleich von Wettbewerbern anhand einheitlicher KPIs</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Anwendungsgebiet</div>
+          <div style="font-weight:600;margin-top:4px;">Reporting</div>
+          <div class="kpi-sub">Narrative Interpretation komplexer Daten in klarer Sprache</div>
+        </div>
+      </div>
+
+      <p>Kurz gesagt: KI ist in der modernen Wirtschafts- und Finanzwelt kein Luxus mehr, sondern ein Handwerkszeug. Wer es nicht einsetzt, arbeitet mit angezogener Handbremse. Wer es richtig einsetzt, trifft fundierte Entscheidungen schneller, mit weniger Rauschen und mehr Substanz.</p>
+
+      <hr class="section-rule thin">
+      <h3 class="sub-head">Zur Methodik dieser Arbeit</h3>
+      <p>Diese Website ist das Ergebnis eines praxisorientierten Lernprojekts: die Verbindung von klassischer betriebswirtschaftlicher Analyse mit modernen KI-Werkzeugen. Die Daten stammen aus öffentlich zugänglichen Jahresberichten, Investor-Relations-Seiten und internen Arbeitsunterlagen. Alle Unternehmensnamen wurden anonymisiert — das analysierte Unternehmen heißt auf diesen Seiten schlicht: <strong>„Das Unternehmen"</strong>.</p>
+
+      <p>Die Vergleichsunternehmen der Peer Group werden als <strong>Peer A bis Peer D</strong> bezeichnet. Börsenindizes behalten ihre realen Namen.</p>
+    </div>
+
+    <!-- EN -->
+    <div data-lang="en">
+      <div class="about-photo-area">
+        <div class="about-avatar">👤</div>
+        <div>
+          <h2 class="section-head">Who am I — and why should you care?</h2>
+          <div class="badge-row">
+            <span class="badge red">Exile Carinthian</span>
+            <span class="badge">Financial Analyst</span>
+            <span class="badge">AI Enthusiast</span>
+            <span class="badge">Prompt Engineer</span>
+          </div>
+          <p>Growing up between the Wörthersee and the Dolomites, in a region where coffee is still called a "Häferl" and the local dialect is practically a competitive sport, I immersed myself in the world of numbers, balance sheets and company valuations some time ago. What stayed with me: the straight-talking Carinthian manner. And a fondness for the sound of a puck on ice. But more on that another time.</p>
+          <p>What truly drives me? The conviction that sound financial analysis need not be rocket science — but it does require proper tools. And today, that tool is increasingly: Artificial Intelligence.</p>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+      <h2 class="section-head">AI, Prompt Engineering & Financial Analysis — how do they fit together?</h2>
+
+      <p>Frankly: better than you might expect. The question of whether AI plays a role in business is no longer open to debate. It does. Significantly so. Anyone analysing balance sheets, modelling cash flows or compiling peer-group comparisons today, without at least knowing and using AI tools, is — with respect — working like a typist still at a typewriter while everyone else has long since moved to word processing.</p>
+
+      <blockquote>"AI is not a magic wand. But those who fail to learn to wield it will lose the game."</blockquote>
+
+      <p>This is precisely where <strong>Prompt Engineering</strong> comes in. Formulating precise, structured queries for an AI system is a skill — comparable to asking the right question in a board meeting. Those who master this technique extract from an AI tool what others can only guess at.</p>
+
+      <h3 class="sub-head">Why AI is indispensable in finance specifically</h3>
+      <p>Financial analysis lives on data, comparisons and patterns. These are precisely the strengths of modern AI systems. Whether evaluating annual accounts, running Monte Carlo simulations, screening peer groups, or preparing complex ESG metrics — a well-deployed AI system accelerates these processes considerably and reduces error rates.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="kpi-label">Application</div>
+          <div style="font-weight:600;margin-top:4px;">Balance Sheet Analysis</div>
+          <div class="kpi-sub">Automated ratio calculation and variance analysis</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Application</div>
+          <div style="font-weight:600;margin-top:4px;">Planning & Forecasting</div>
+          <div class="kpi-sub">Scenario models and Monte Carlo simulation</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Application</div>
+          <div style="font-weight:600;margin-top:4px;">Peer Group Analysis</div>
+          <div class="kpi-sub">Structured comparison of competitors using standardised KPIs</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Application</div>
+          <div style="font-weight:600;margin-top:4px;">Reporting</div>
+          <div class="kpi-sub">Narrative interpretation of complex data in clear language</div>
+        </div>
+      </div>
+
+      <p>In short: AI is no longer a luxury in modern business and finance — it is a working tool. Those who forgo it work with the handbrake on. Those who use it properly make well-founded decisions faster, with less noise and more substance.</p>
+
+      <hr class="section-rule thin">
+      <h3 class="sub-head">A note on methodology</h3>
+      <p>This website is the result of a practice-oriented learning project: connecting classical business analysis with modern AI tools. Data derives from publicly available annual reports, investor relations pages and internal working documents. All company names have been anonymised — the company under analysis is referred to throughout as <strong>"Das Unternehmen"</strong> (The Company). Peer-group comparators are designated <strong>Peer A through Peer D</strong>. Stock indices retain their real names.</p>
+    </div>
+
+    <!-- FR -->
+    <div data-lang="fr">
+      <div class="about-photo-area">
+        <div class="about-avatar">👤</div>
+        <div>
+          <h2 class="section-head">Qui suis-je — et pourquoi cela devrait-il vous intéresser ?</h2>
+          <div class="badge-row">
+            <span class="badge red">Carinthien expatrié</span>
+            <span class="badge">Analyste financier</span>
+            <span class="badge">Passionné d'IA</span>
+            <span class="badge">Prompt Engineer</span>
+          </div>
+          <p>Ayant grandi entre le lac de Wörthersee et les Dolomites, dans une région où le café s'appelle encore « Häferl » et le dialecte local est quasiment un sport de compétition, je me suis plongé depuis longtemps dans le monde des chiffres, des bilans et de l'évaluation d'entreprises. Ce qui me reste : le franc-parler carinthien. Et l'amour du bruit d'une rondelle sur la glace. Mais nous y reviendrons.</p>
+          <p>Ce qui me motive vraiment ? La conviction qu'une bonne analyse financière n'a pas besoin d'être une science des fusées — mais qu'elle requiert des outils solides. Et cet outil s'appelle de plus en plus : l'Intelligence Artificielle.</p>
+        </div>
+      </div>
+
+      <hr class="section-rule">
+      <h2 class="section-head">IA, Prompt Engineering & Analyse financière — comment cela s'articule-t-il ?</h2>
+
+      <p>Honnêtement : mieux qu'on ne le croit. La question de savoir si l'IA joue un rôle en économie ne se pose plus. Elle en joue un. Un rôle considérable, même. Quiconque analyse aujourd'hui des bilans, modélise des flux de trésorerie ou réalise des comparaisons de groupes de pairs, sans au moins connaître et utiliser les outils d'IA, travaille — avec tout le respect qu'on lui doit — comme un dactylo qui tape encore sur une machine à écrire tandis que tout le monde utilise depuis longtemps un logiciel de traitement de texte.</p>
+
+      <blockquote>« L'IA n'est pas une baguette magique. Mais ceux qui n'apprennent pas à la manier perdront la partie. »</blockquote>
+
+      <p>C'est précisément là qu'intervient le <strong>Prompt Engineering</strong>. Formuler des requêtes précises et structurées pour un système d'IA est une compétence — comparable à poser une bonne question lors d'un conseil d'administration. Ceux qui maîtrisent cette technique obtiennent d'un outil d'IA ce que les autres ne font qu'entrevoir.</p>
+
+      <h3 class="sub-head">Pourquoi l'IA est incontournable dans la finance</h3>
+      <p>L'analyse financière repose sur les données, les comparaisons et les modèles. Ce sont précisément les points forts des systèmes d'IA modernes. Qu'il s'agisse d'évaluer des comptes annuels, de réaliser des simulations de Monte-Carlo, d'analyser des groupes de pairs ou de préparer des indicateurs ESG complexes — un système d'IA bien déployé accélère considérablement ces processus et réduit les sources d'erreurs.</p>
+
+      <p>En résumé : l'IA n'est plus un luxe dans le monde des affaires et de la finance modernes — c'est un outil de travail. Ceux qui ne l'utilisent pas travaillent avec le frein à main serré. Ceux qui l'utilisent correctement prennent des décisions éclairées plus rapidement, avec moins de bruit et plus de substance.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2: DAS PROJEKT
+════════════════════════════════════════════ -->
+<div class="page" id="page-das-projekt">
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="page-label">
+        <span data-lang="de" class="lang-active">Fallstudie</span>
+        <span data-lang="en">Case Study</span>
+        <span data-lang="fr">Étude de cas</span>
+      </div>
+      <h1>
+        <span data-lang="de" class="lang-active">Das Projekt</span>
+        <span data-lang="en">The Project</span>
+        <span data-lang="fr">Le Projet</span>
+      </h1>
+      <p class="sub">
+        <span data-lang="de" class="lang-active">Eine anonymisierte Finanzanalyse — vollständig, methodisch, ohne Beschönigung.</span>
+        <span data-lang="en">An anonymised financial analysis — complete, methodical, without embellishment.</span>
+        <span data-lang="fr">Une analyse financière anonymisée — complète, méthodique, sans fioriture.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="content-area narrow">
+
+    <!-- DE -->
+    <div data-lang="de" class="lang-active">
+      <h2 class="section-head">Das Unternehmen</h2>
+      <div class="info-box">
+        <strong>Wichtiger Hinweis:</strong> Alle Unternehmensnamen, Produktbezeichnungen, geografische Standorte und Eigennamen wurden im Rahmen dieser Analyse vollständig anonymisiert. Das analysierte Unternehmen wird als <strong>„Das Unternehmen"</strong> bezeichnet. Vergleichsunternehmen heißen <strong>Peer A bis Peer D</strong>.
+      </div>
+
+      <p>Das Unternehmen ist ein börsenotiertes österreichisches Technologieunternehmen, das durch eine strategisch ambitionierte, jedoch finanziell herausfordernde Übernahme in erhebliche Schieflage geraten ist. Die Übernahme, deren Volumen die Eigenkapitalbasis des Erwerbers deutlich überstieg, führte zu einer massiven Aufstockung der Verschuldung sowie zu signifikanten Wertberichtigungen auf das immaterielle Vermögen — insbesondere auf den aus der Transaktion resultierenden Firmenwert.</p>
+
+      <p>Die Folgen zeigen sich klar in der Bilanzentwicklung: Die Bilanzsumme schrumpfte von über 9,6 Mrd. € (2021) auf rund 6,9 Mrd. € (2024), das Eigenkapital fiel von ca. 3,2 Mrd. € auf unter 1,3 Mrd. €, und die Eigenkapitalquote sank von gesunden 33 % auf kritische 18 %. Das Unternehmen kämpft seither an mehreren Fronten gleichzeitig: Schuldenabbau, Kostenoptimierung, strategische Neuausrichtung.</p>
+
+      <p>Bemerkenswert ist dabei, dass das operative Fundament — gemessen am Cash Flow aus laufender Geschäftstätigkeit — weitaus solider ist als die GuV-Zahlen vermuten lassen. Dies deutet darauf hin, dass die Verluste primär buchhalterischer Natur (Abschreibungen, Wertminderungen) sind und nicht eine grundlegende operative Schwäche widerspiegeln.</p>
+
+      <hr class="section-rule thin">
+      <h2 class="section-head">Analyseziel und Methodik</h2>
+      <p>Diese Analyse umfasst fünf zentrale Analysefelder: Bilanz (Vermögens- und Kapitalstruktur), Gewinn- und Verlustrechnung, Cash-Flow-Analyse, Peer-Group-Vergleich sowie eine strategische SWOT/PESTEL-Einordnung. Als Datengrundlage dienen öffentlich zugängliche Konzernabschlüsse, Investor-Relations-Dokumente sowie interne Arbeitsdokumente.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="kpi-label">Analysezeitraum</div>
+          <div class="kpi-value">2021–2024</div>
+          <div class="kpi-sub">+ Planung 2025–2027</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Peer Group</div>
+          <div class="kpi-value">4</div>
+          <div class="kpi-sub">Vergleichsunternehmen (anonymisiert)</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Rechnungslegung</div>
+          <div class="kpi-value">IFRS</div>
+          <div class="kpi-sub">Angaben in Mio. EUR</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Börsenlisting</div>
+          <div class="kpi-value">SIX</div>
+          <div class="kpi-sub">Swiss Exchange, Wien</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EN -->
+    <div data-lang="en">
+      <h2 class="section-head">The Company</h2>
+      <div class="info-box">
+        <strong>Important notice:</strong> All company names, product designations, geographic locations and proper nouns have been fully anonymised within this analysis. The company under review is referred to as <strong>"Das Unternehmen"</strong> (The Company). Comparator companies are designated <strong>Peer A through Peer D</strong>.
+      </div>
+
+      <p>Das Unternehmen is a listed Austrian technology company that has encountered considerable financial difficulty following a strategically ambitious but financially demanding acquisition. The transaction, whose volume substantially exceeded the acquirer's equity base, led to a significant increase in indebtedness and material write-downs on intangible assets — most notably on the goodwill arising from the deal.</p>
+
+      <p>The consequences are plainly visible in the balance sheet: total assets have contracted from over €9.6bn (2021) to approximately €6.9bn (2024); equity has fallen from around €3.2bn to below €1.3bn; and the equity ratio has declined from a healthy 33% to a critical 18%. The company has since been fighting on several fronts simultaneously: debt reduction, cost optimisation and strategic repositioning.</p>
+
+      <p>Notably, the operational foundation — as measured by operating cash flow — is considerably more solid than the P&amp;L figures might suggest. This indicates that the reported losses are primarily of an accounting nature (depreciation, impairments) and do not reflect a fundamental operational weakness.</p>
+
+      <hr class="section-rule thin">
+      <h2 class="section-head">Analytical objectives and methodology</h2>
+      <p>This analysis covers five core areas: balance sheet (asset and capital structure), income statement, cash flow analysis, peer-group comparison and a strategic SWOT/PESTEL framework. Data derives from publicly available consolidated financial statements, investor relations documents and internal working papers.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="kpi-label">Period covered</div>
+          <div class="kpi-value">2021–2024</div>
+          <div class="kpi-sub">+ Planning 2025–2027</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Peer group</div>
+          <div class="kpi-value">4</div>
+          <div class="kpi-sub">Comparator companies (anonymised)</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Accounting standard</div>
+          <div class="kpi-value">IFRS</div>
+          <div class="kpi-sub">Figures in €m</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Exchange listing</div>
+          <div class="kpi-value">SIX</div>
+          <div class="kpi-sub">Swiss Exchange, Vienna</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FR -->
+    <div data-lang="fr">
+      <h2 class="section-head">L'entreprise</h2>
+      <div class="info-box">
+        <strong>Note importante :</strong> Tous les noms d'entreprises, désignations de produits, lieux géographiques et noms propres ont été intégralement anonymisés. L'entreprise analysée est désignée <strong>« Das Unternehmen »</strong>. Les entreprises comparables sont désignées <strong>Peer A à Peer D</strong>.
+      </div>
+
+      <p>Das Unternehmen est une société technologique autrichienne cotée en bourse qui a rencontré des difficultés financières considérables à la suite d'une acquisition stratégiquement ambitieuse mais financièrement exigeante. La transaction, dont le volume dépassait largement la base de fonds propres de l'acquéreur, a entraîné un accroissement significatif de l'endettement ainsi que des dépréciations importantes sur les actifs incorporels — notamment le goodwill résultant de l'opération.</p>
+
+      <p>Les conséquences sont clairement visibles dans l'évolution du bilan : le total du bilan a diminué de plus de 9,6 milliards d'euros (2021) à environ 6,9 milliards d'euros (2024), les capitaux propres sont passés d'environ 3,2 milliards d'euros à moins de 1,3 milliard d'euros, et le ratio de fonds propres a chuté de 33 % à un niveau critique de 18 %. L'entreprise se bat depuis sur plusieurs fronts simultanément : réduction de la dette, optimisation des coûts et repositionnement stratégique.</p>
+
+      <p>Il est remarquable que les fondamentaux opérationnels — mesurés par le flux de trésorerie des activités d'exploitation — soient bien plus solides que les chiffres du compte de résultat ne le laissent supposer. Cela indique que les pertes déclarées sont principalement de nature comptable (amortissements, dépréciations) et ne reflètent pas une faiblesse opérationnelle fondamentale.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 3: BILANZ
+════════════════════════════════════════════ -->
+<div class="page" id="page-bilanz">
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="page-label">
+        <span data-lang="de" class="lang-active">Jahresabschluss</span>
+        <span data-lang="en">Annual Accounts</span>
+        <span data-lang="fr">Comptes annuels</span>
+      </div>
+      <h1>
+        <span data-lang="de" class="lang-active">Bilanz 2021–2024</span>
+        <span data-lang="en">Balance Sheet 2021–2024</span>
+        <span data-lang="fr">Bilan 2021–2024</span>
+      </h1>
+      <p class="sub">
+        <span data-lang="de" class="lang-active">IFRS-Konzernbilanz · Angaben in Mio. EUR · Quelle: geprüfte Jahresabschlüsse</span>
+        <span data-lang="en">IFRS consolidated balance sheet · Figures in €m · Source: audited annual accounts</span>
+        <span data-lang="fr">Bilan consolidé IFRS · Montants en M€ · Source : comptes annuels audités</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <!-- KPIs -->
+    <div class="card-grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:32px;">
+      <div class="card">
+        <div class="kpi-label">Bilanzsumme 2024</div>
+        <div class="kpi-value">6.903</div>
+        <div class="kpi-sub">Mio. EUR · ▼ −6,7% ggü. Vorjahr</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Eigenkapital 2024</div>
+        <div class="kpi-value negative">1.235</div>
+        <div class="kpi-sub">Mio. EUR · EK-Quote 17,9%</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Verschuldungsgrad 2024</div>
+        <div class="kpi-value negative">4,59x</div>
+        <div class="kpi-sub">Fremdkapital / Eigenkapital</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Nettoverschuldung 2024</div>
+        <div class="kpi-value negative">~1.413</div>
+        <div class="kpi-sub">Mio. EUR (Finanzsch. abzgl. Kasse)</div>
+      </div>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('bilanz','aktiva')">
+        <span data-lang="de" class="lang-active">Aktiva</span>
+        <span data-lang="en">Assets</span>
+        <span data-lang="fr">Actif</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('bilanz','passiva')">
+        <span data-lang="de" class="lang-active">Passiva</span>
+        <span data-lang="en">Liabilities & Equity</span>
+        <span data-lang="fr">Passif</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('bilanz','kpis')">
+        <span data-lang="de" class="lang-active">Kennzahlen</span>
+        <span data-lang="en">Ratios</span>
+        <span data-lang="fr">Ratios</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('bilanz','peer')">
+        <span data-lang="de" class="lang-active">Peer-Vergleich</span>
+        <span data-lang="en">Peer Comparison</span>
+        <span data-lang="fr">Comparaison</span>
+      </button>
+    </div>
+
+    <!-- AKTIVA -->
+    <div class="tab-content active" id="bilanz-aktiva">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Konzernbilanz – Aktiva (IFRS) | Angaben in Mio. EUR</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;min-width:280px;">Position</th>
+              <th>2021</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>Δ 23→24</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="subtotal">
+              <td><strong>AKTIVA</strong></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="indent">Zahlungsmittel und -äquivalente</td>
+              <td>1.331</td><td>1.087</td><td>1.146</td><td>1.098</td>
+              <td class="neg">−4,2%</td>
+            </tr>
+            <tr>
+              <td class="indent">Forderungen aus L&L</td>
+              <td>688</td><td>533</td><td>470</td><td>496</td>
+              <td class="pos">+5,5%</td>
+            </tr>
+            <tr>
+              <td class="indent">Vorräte</td>
+              <td>938</td><td>864</td><td>716</td><td>809</td>
+              <td class="pos">+13,0%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonstige kurzfristige Vermögenswerte</td>
+              <td>325</td><td>400</td><td>288</td><td>340</td>
+              <td class="pos">+18,1%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe kurzfristiges Vermögen</strong></td>
+              <td><strong>3.282</strong></td><td><strong>2.884</strong></td><td><strong>2.620</strong></td><td><strong>2.743</strong></td>
+              <td class="pos"><strong>+4,7%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">Sachanlagen</td>
+              <td>1.606</td><td>1.856</td><td>1.997</td><td>1.729</td>
+              <td class="neg">−13,4%</td>
+            </tr>
+            <tr>
+              <td class="indent">Immaterielle Vermögenswerte</td>
+              <td>3.989</td><td>3.645</td><td>2.249</td><td>2.054</td>
+              <td class="neg">−8,7%</td>
+            </tr>
+            <tr>
+              <td class="indent">Nutzungsrechte</td>
+              <td>260</td><td>230</td><td>215</td><td>189</td>
+              <td class="neg">−12,1%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonstige langfristige Vermögenswerte</td>
+              <td>507</td><td>217</td><td>321</td><td>188</td>
+              <td class="neg">−41,4%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe langfristiges Vermögen</strong></td>
+              <td><strong>6.362</strong></td><td><strong>5.948</strong></td><td><strong>4.782</strong></td><td><strong>4.160</strong></td>
+              <td class="neg"><strong>−13,0%</strong></td>
+            </tr>
+            <tr class="total">
+              <td><strong>BILANZSUMME</strong></td>
+              <td><strong>9.644</strong></td><td><strong>8.832</strong></td><td><strong>7.401</strong></td><td><strong>6.903</strong></td>
+              <td class="neg"><strong>−6,7%</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">⚠ Datenprüfung: Werte stimmen mit dem geprüften Konzernabschluss überein. Abweichungen &lt;5% zu internen Arbeitsdokumenten: OK. Status: ✓ GEPRÜFT</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="chart-box">
+        <div class="chart-title">Grafik · Vermögensstruktur</div>
+        <div class="chart-subtitle">Entwicklung Aktiva nach Fristigkeit, 2021–2024</div>
+        <canvas id="assetChart" height="280"></canvas>
+        <div class="chart-source">Quelle: Geprüfte IFRS-Konzernabschlüsse. Angaben in Mio. EUR.</div>
+      </div>
+    </div>
+
+    <!-- PASSIVA -->
+    <div class="tab-content" id="bilanz-passiva">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Konzernbilanz – Passiva (IFRS) | Angaben in Mio. EUR</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;min-width:280px;">Position</th>
+              <th>2021</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>Δ 23→24</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="subtotal">
+              <td><strong>PASSIVA – VERBINDLICHKEITEN</strong></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="indent">Kurzfristige Finanzverbindlichkeiten</td>
+              <td>480</td><td>169</td><td>322</td><td>495</td>
+              <td class="neg">+53,7%</td>
+            </tr>
+            <tr>
+              <td class="indent">Verbindlichkeiten aus L&L</td>
+              <td>710</td><td>811</td><td>572</td><td>472</td>
+              <td class="pos">−17,5%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonstige kurzfristige Verbindlichkeiten</td>
+              <td>1.811</td><td>1.737</td><td>1.561</td><td>1.547</td>
+              <td class="pos">−0,9%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe kurzfristige Verbindlichkeiten</strong></td>
+              <td><strong>3.001</strong></td><td><strong>2.717</strong></td><td><strong>2.455</strong></td><td><strong>2.514</strong></td>
+              <td class="neg"><strong>+2,4%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">Langfristige Finanzverbindlichkeiten</td>
+              <td>2.646</td><td>2.635</td><td>2.136</td><td>2.016</td>
+              <td class="pos">−5,6%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonstige langfristige Verbindlichkeiten</td>
+              <td>847</td><td>646</td><td>906</td><td>1.137</td>
+              <td class="neg">+25,5%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe langfristige Verbindlichkeiten</strong></td>
+              <td><strong>3.493</strong></td><td><strong>3.281</strong></td><td><strong>3.042</strong></td><td><strong>3.153</strong></td>
+              <td class="neg"><strong>+3,6%</strong></td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe Fremdkapital</strong></td>
+              <td><strong>6.494</strong></td><td><strong>5.998</strong></td><td><strong>5.497</strong></td><td><strong>5.667</strong></td>
+              <td class="neg"><strong>+3,1%</strong></td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>EIGENKAPITAL</strong></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="indent">Grundkapital</td>
+              <td>274</td><td>274</td><td>998</td><td>998</td>
+              <td>0,0%</td>
+            </tr>
+            <tr>
+              <td class="indent">Kapitalrücklagen</td>
+              <td>1.997</td><td>2.036</td><td>2.130</td><td>2.090</td>
+              <td class="neg">−1,9%</td>
+            </tr>
+            <tr>
+              <td class="indent">Gewinnrücklagen / Verlustvortrag</td>
+              <td>877</td><td>358</td><td>−1.289</td><td>−2.064</td>
+              <td class="neg">−60,1%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonstige Bestandteile</td>
+              <td>115</td><td>280</td><td>162</td><td>292</td>
+              <td class="pos">+80,2%</td>
+            </tr>
+            <tr>
+              <td class="indent">Eigene Aktien</td>
+              <td>−122</td><td>−121</td><td>−103</td><td>−87</td>
+              <td class="pos">+15,5%</td>
+            </tr>
+            <tr>
+              <td class="indent">Nicht beherrschende Anteile</td>
+              <td>8</td><td>7</td><td>6</td><td>6</td>
+              <td>0,0%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Summe Eigenkapital</strong></td>
+              <td><strong>3.150</strong></td><td><strong>2.833</strong></td><td><strong>1.905</strong></td><td><strong>1.235</strong></td>
+              <td class="neg"><strong>−35,2%</strong></td>
+            </tr>
+            <tr class="total">
+              <td><strong>BILANZSUMME</strong></td>
+              <td><strong>9.644</strong></td><td><strong>8.831</strong></td><td><strong>7.402</strong></td><td><strong>6.902</strong></td>
+              <td class="neg"><strong>−6,8%</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">⚠ Datenprüfung: Summe Aktiva vs. Passiva: marginale Rundungsdifferenz (≤1 Mio.) — innerhalb der 5%-Toleranz. Status: ✓ OK</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="chart-box">
+        <div class="chart-title">Grafik · Kapitalstruktur</div>
+        <div class="chart-subtitle">Eigenkapital vs. Fremdkapital, 2021–2024</div>
+        <canvas id="equityChart" height="280"></canvas>
+        <div class="chart-source">Quelle: Geprüfte IFRS-Konzernabschlüsse. Angaben in Mio. EUR.</div>
+      </div>
+    </div>
+
+    <!-- KENNZAHLEN -->
+    <div class="tab-content" id="bilanz-kpis">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Bilanz-Kennzahlen | Berechnet aus geprüften Konzernabschlüssen</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;">Kennzahl</th>
+              <th>Formel</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Eigenkapitalquote</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">EK / GK</td>
+              <td>32,1%</td><td>25,7%</td><td class="neg">17,9%</td>
+              <td style="color:#c68000;">⚠ Kritisch</td>
+            </tr>
+            <tr>
+              <td>Fremdkapitalquote</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">FK / GK</td>
+              <td>67,9%</td><td>74,3%</td><td class="neg">82,1%</td>
+              <td style="color:var(--economist-red);">✗ Hoch</td>
+            </tr>
+            <tr>
+              <td>Verschuldungsgrad</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">FK / EK</td>
+              <td>2,12x</td><td>2,89x</td><td class="neg">4,59x</td>
+              <td style="color:var(--economist-red);">✗ Hoch</td>
+            </tr>
+            <tr>
+              <td>Anlagenquote</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">AV / GV</td>
+              <td>67,3%</td><td>64,6%</td><td>60,3%</td>
+              <td style="color:#1a6e1a;">✓ Rückgang</td>
+            </tr>
+            <tr>
+              <td>Umlaufvermögensquote</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">UV / GV</td>
+              <td>32,7%</td><td>35,4%</td><td>39,7%</td>
+              <td style="color:#1a6e1a;">✓ Verbesserung</td>
+            </tr>
+            <tr>
+              <td>Liquidität 2. Grades</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">(ZM+Ford.) / kfr.VB</td>
+              <td>78,0%</td><td>81,5%</td><td>80,5%</td>
+              <td style="color:#c68000;">⚠ Grenzwertig</td>
+            </tr>
+            <tr>
+              <td>Working Capital (Mio. €)</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">UV − kfr.VB</td>
+              <td>295</td><td>285</td><td>342</td>
+              <td style="color:#1a6e1a;">✓ Positiv</td>
+            </tr>
+            <tr>
+              <td>Fiktive Schuldentilgungsdauer</td>
+              <td style="font-size:0.7rem;color:var(--mid-grey);">FK* / CF</td>
+              <td>7,7 J.</td><td>17,3 J.</td><td class="neg">9,4 J.</td>
+              <td style="color:var(--economist-red);">✗ Erhöht</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">* Netto-Fremdkapital (Finanzschulden abzügl. Zahlungsmittel). Alle Kennzahlen berechnet aus geprüften Werten. Status: ✓ GEPRÜFT</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- PEER -->
+    <div class="tab-content" id="bilanz-peer">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Peer-Group-Vergleich Bilanz 2024 | Angaben in Mio. EUR</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;">Kennzahl</th>
+              <th>Das Unternehmen</th>
+              <th>Peer A</th>
+              <th>Peer B</th>
+              <th>Peer C</th>
+              <th>Peer D</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bilanzsumme</td>
+              <td>6.903</td><td>1.740</td><td>1.718</td><td>28.639</td><td>25.953</td>
+            </tr>
+            <tr>
+              <td>Eigenkapital</td>
+              <td class="neg"><strong>1.235</strong></td><td>967</td><td>1.159</td><td>17.219</td><td>14.693</td>
+            </tr>
+            <tr>
+              <td>Eigenkapitalquote</td>
+              <td class="neg"><strong>17,9%</strong></td><td>55,6%</td><td>67,5%</td><td>60,1%</td><td>56,6%</td>
+            </tr>
+            <tr>
+              <td>Verschuldungsgrad</td>
+              <td class="neg"><strong>4,59x</strong></td><td>0,80x</td><td>0,48x</td><td>0,66x</td><td>0,77x</td>
+            </tr>
+            <tr>
+              <td>Liquidität 1. Grades</td>
+              <td class="neg">0,44x</td><td>0,33x</td><td>1,19x</td><td>0,35x</td><td>0,47x</td>
+            </tr>
+            <tr>
+              <td>Liquidität 2. Grades</td>
+              <td class="neg">0,77x</td><td>1,23x</td><td>1,56x</td><td>2,89x</td><td>1,21x</td>
+            </tr>
+            <tr>
+              <td>Liquidität 3. Grades</td>
+              <td class="neg">1,09x</td><td>2,26x</td><td>2,15x</td><td>3,66x</td><td>1,26x</td>
+            </tr>
+            <tr>
+              <td>Credit Rating S/M/F</td>
+              <td class="r-b">B / B3 / B</td>
+              <td class="r-bbb">B+ / — / —</td>
+              <td class="r-a">— / Baa1 / —</td>
+              <td class="r-a">BBB+ / — / —</td>
+              <td class="r-a">BBB / — / BBB</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">Peer A: mittelgroßer Photonikkonzern | Peer B: japanischer Beleuchtungsspezialist | Peer C: europäischer Halbleiterführer | Peer D: japanischer Chiphersteller</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="chart-box">
+        <div class="chart-title">Grafik · Peer-Vergleich</div>
+        <div class="chart-subtitle">Eigenkapitalquote im Vergleich, 2024</div>
+        <canvas id="peerChart" height="200"></canvas>
+        <div class="chart-source">Quelle: Jahresabschlüsse der jeweiligen Unternehmen. Alle Namen anonymisiert.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 4: CASH FLOW
+════════════════════════════════════════════ -->
+<div class="page" id="page-cashflow">
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="page-label">
+        <span data-lang="de" class="lang-active">Liquiditätsanalyse</span>
+        <span data-lang="en">Liquidity Analysis</span>
+        <span data-lang="fr">Analyse de liquidité</span>
+      </div>
+      <h1>
+        <span data-lang="de" class="lang-active">Cash-Flow-Analyse 2021–2024</span>
+        <span data-lang="en">Cash Flow Analysis 2021–2024</span>
+        <span data-lang="fr">Analyse des flux de trésorerie 2021–2024</span>
+      </h1>
+      <p class="sub">
+        <span data-lang="de" class="lang-active">Der operative Cash Flow — das ehrlichste Fundament jeder Unternehmensanalyse.</span>
+        <span data-lang="en">Operating cash flow — the most honest foundation of any corporate analysis.</span>
+        <span data-lang="fr">Le flux de trésorerie opérationnel — le fondement le plus honnête de toute analyse d'entreprise.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="card-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="card">
+        <div class="kpi-label">OCF 2024</div>
+        <div class="kpi-value positive">599</div>
+        <div class="kpi-sub">Mio. EUR · +21,5% ggü. Vj.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">OCF 2023</div>
+        <div class="kpi-value positive">493</div>
+        <div class="kpi-sub">Mio. EUR · +13,3% ggü. Vj.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">OCF 2022</div>
+        <div class="kpi-value positive">435</div>
+        <div class="kpi-sub">Mio. EUR</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">CF-Marge 2024</div>
+        <div class="kpi-value positive">17,5%</div>
+        <div class="kpi-sub">OCF / Umsatz</div>
+      </div>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('cf','guv')">
+        <span data-lang="de" class="lang-active">GuV-Übersicht</span>
+        <span data-lang="en">Income Statement</span>
+        <span data-lang="fr">Compte de résultat</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('cf','cashflow')">
+        <span data-lang="de" class="lang-active">Cash Flow</span>
+        <span data-lang="en">Cash Flow</span>
+        <span data-lang="fr">Flux de trésorerie</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('cf','performance')">
+        <span data-lang="de" class="lang-active">Kursperformance</span>
+        <span data-lang="en">Share Performance</span>
+        <span data-lang="fr">Performance boursière</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('cf','planung')">
+        <span data-lang="de" class="lang-active">Planung 2025–27</span>
+        <span data-lang="en">Planning 2025–27</span>
+        <span data-lang="fr">Planification 2025–27</span>
+      </button>
+    </div>
+
+    <!-- GUV -->
+    <div class="tab-content active" id="cf-guv">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Gewinn- und Verlustrechnung (Übersicht) | Angaben in Mio. EUR</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;min-width:280px;">Position</th>
+              <th>2021</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>Δ 23→24</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="subtotal">
+              <td><strong>Umsatzerlöse</strong></td>
+              <td><strong>5.038</strong></td><td><strong>4.819</strong></td><td><strong>3.590</strong></td><td><strong>3.428</strong></td>
+              <td class="neg"><strong>−4,5%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">Umsatzkosten</td>
+              <td class="neg">−3.598</td><td class="neg">−3.561</td><td class="neg">−2.750</td><td class="neg">−2.571</td>
+              <td class="pos">−6,5%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Bruttogewinn</strong></td>
+              <td><strong>1.440</strong></td><td><strong>1.258</strong></td><td><strong>840</strong></td><td><strong>857</strong></td>
+              <td class="pos"><strong>+2,0%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">Bruttomarge</td>
+              <td>28,6%</td><td>26,1%</td><td>23,4%</td><td>25,0%</td>
+              <td class="pos">+1,6 PP</td>
+            </tr>
+            <tr>
+              <td class="indent">F&E-Aufwand</td>
+              <td class="neg">−642</td><td class="neg">−630</td><td class="neg">−480</td><td class="neg">−419</td>
+              <td class="pos">−12,7%</td>
+            </tr>
+            <tr>
+              <td class="indent">Vertrieb & Verwaltung</td>
+              <td class="neg">−745</td><td class="neg">−608</td><td class="neg">−501</td><td class="neg">−422</td>
+              <td class="pos">−15,8%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonst. betriebliche Erträge</td>
+              <td class="pos">+228</td><td class="pos">+179</td><td class="pos">+81</td><td class="pos">+39</td>
+              <td class="neg">−51,9%</td>
+            </tr>
+            <tr>
+              <td class="indent">Sonst. betriebliche Aufwendungen</td>
+              <td class="neg">−84</td><td class="neg">−360</td><td class="neg">−1.371</td><td class="neg">−604</td>
+              <td class="pos">−56,0%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>EBIT</strong></td>
+              <td class="pos"><strong>+197</strong></td><td class="neg"><strong>−161</strong></td><td class="neg"><strong>−1.431</strong></td><td class="neg"><strong>−549</strong></td>
+              <td class="pos"><strong>+61,6%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">EBIT-Marge</td>
+              <td class="pos">3,9%</td><td class="neg">−3,3%</td><td class="neg">−39,9%</td><td class="neg">−16,0%</td>
+              <td class="pos">+23,9 PP</td>
+            </tr>
+            <tr>
+              <td class="indent">Finanzergebnis</td>
+              <td class="neg">−198</td><td class="neg">−200</td><td class="neg">−171</td><td class="neg">−205</td>
+              <td class="neg">−19,9%</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>EBT</strong></td>
+              <td class="neg"><strong>−1</strong></td><td class="neg"><strong>−361</strong></td><td class="neg"><strong>−1.602</strong></td><td class="neg"><strong>−754</strong></td>
+              <td class="pos"><strong>+52,9%</strong></td>
+            </tr>
+            <tr>
+              <td class="indent">Ertragsteuern</td>
+              <td>—</td><td class="neg">−33</td><td class="neg">−11</td><td class="neg">−33</td>
+              <td>—</td>
+            </tr>
+            <tr class="total">
+              <td><strong>Jahresergebnis</strong></td>
+              <td class="neg"><strong>−1</strong></td><td class="neg"><strong>−394</strong></td><td class="neg"><strong>−1.613</strong></td><td class="neg"><strong>−787</strong></td>
+              <td class="pos"><strong>+51,2%</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">Anmerkung: Verluste 2023 primär durch außerordentliche Wertminderungen auf immaterielle Vermögenswerte (Goodwill) aus der Übernahme bedingt. Status: ✓ GEPRÜFT</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- CASH FLOW TAB -->
+    <div class="tab-content" id="cf-cashflow">
+      <div class="chart-box">
+        <div class="chart-title">Grafik · Operative Performance</div>
+        <div class="chart-subtitle">EBIT vs. operativer Cash Flow 2021–2024</div>
+        <canvas id="cfChart" height="300"></canvas>
+        <div class="chart-source">Wichtige Beobachtung: Der OCF übertrifft den EBIT deutlich — Beweis für nicht-liquiditätswirksame Abschreibungen als Haupttreiber der Verluste.</div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Cash-Flow-Analyse | Angaben in Mio. EUR</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;">Position</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>Trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jahresergebnis</td>
+              <td class="neg">−394</td><td class="neg">−1.613</td><td class="neg">−787</td>
+              <td class="pos">↑ Verbesserung</td>
+            </tr>
+            <tr>
+              <td>+ Abschreibungen & Wertminderungen</td>
+              <td>+829</td><td>+2.100</td><td>+942</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>+/− Working Capital-Veränderungen</td>
+              <td>+0</td><td>+6</td><td>+444</td>
+              <td class="pos">↑ Stark</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Operativer Cash Flow (OCF)</strong></td>
+              <td class="pos"><strong>+435</strong></td><td class="pos"><strong>+493</strong></td><td class="pos"><strong>+599</strong></td>
+              <td class="pos"><strong>↑↑ Kontinuierlich</strong></td>
+            </tr>
+            <tr>
+              <td>OCF-Marge (/ Umsatz)</td>
+              <td>9,0%</td><td>13,7%</td><td>17,5%</td>
+              <td class="pos">↑ Stark</td>
+            </tr>
+            <tr>
+              <td>Investitions-CF (ICF) / CAPEX (est.)</td>
+              <td class="neg">~−600</td><td class="neg">~−520</td><td class="neg">~−450</td>
+              <td class="pos">↑ Rückgang CAPEX</td>
+            </tr>
+            <tr class="subtotal">
+              <td><strong>Free Cash Flow (FCF, est.)</strong></td>
+              <td class="neg"><strong>~−165</strong></td><td class="neg"><strong>~−27</strong></td><td class="pos"><strong>~+149</strong></td>
+              <td class="pos"><strong>↑↑ Trendwende</strong></td>
+            </tr>
+            <tr>
+              <td>Zahlungsmittelbestand per 31.12</td>
+              <td>1.087</td><td>1.146</td><td>1.098</td>
+              <td>— Stabil</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="5">* CAPEX-Werte geschätzt auf Basis verfügbarer Planungsdaten. FCF = OCF + ICF (vereinfacht). Status: OCF ✓ GEPRÜFT | ICF/FCF ⚠ Schätzwerte</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="tab-content" id="cf-performance">
+      <div class="chart-box">
+        <div class="chart-title">Grafik · Kursperformance indexiert</div>
+        <div class="chart-subtitle">Total-Return-Index, Basis 100 per 30. März 2015</div>
+        <canvas id="perfChart" height="350"></canvas>
+        <div class="chart-source">Quelle: Berechnungen auf Basis täglicher Renditen. Alle Unternehmen anonymisiert. Index-Basis = 100 per 30.03.2015.</div>
+      </div>
+      <div class="info-box">
+        <strong>Wichtiger Hinweis:</strong> Die dargestellten Kursverläufe sind anonymisiert. „Das Unternehmen" hat im Betrachtungszeitraum eine deutliche Underperformance gegenüber der Peer-Group verzeichnet — konsistent mit der finanziellen Transformation durch die Übernahme.
+      </div>
+    </div>
+
+    <!-- PLANUNG -->
+    <div class="tab-content" id="cf-planung">
+      <div class="table-wrapper">
+        <table class="eco-table">
+          <caption>Planungsübersicht 2025–2027 | Angaben in Mio. EUR (gerundet)</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left;">Kennzahl / KPI</th>
+              <th>IST 2024</th>
+              <th>Plan 2025</th>
+              <th>Plan 2026</th>
+              <th>Plan 2027</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Umsatz</td>
+              <td>3.428</td><td>3.579</td><td>3.806</td><td>4.100</td>
+            </tr>
+            <tr>
+              <td>Umsatzwachstum</td>
+              <td class="neg">−4,5%</td><td class="pos">+4,4%</td><td class="pos">+6,4%</td><td class="pos">+7,7%</td>
+            </tr>
+            <tr>
+              <td>EBIT</td>
+              <td class="neg">−549</td><td class="neg">~−215</td><td class="pos">~−1</td><td class="pos">~+228</td>
+            </tr>
+            <tr>
+              <td>EBIT-Marge</td>
+              <td class="neg">−16,0%</td><td class="neg">~−6,0%</td><td>~0,4%</td><td class="pos">~5,3%</td>
+            </tr>
+            <tr>
+              <td>Mitarbeiter (FTE)</td>
+              <td>19.665</td><td>19.270</td><td>18.886</td><td>18.509</td>
+            </tr>
+            <tr>
+              <td>CAPEX (Plan)</td>
+              <td>~450</td><td>424</td><td>471</td><td>519</td>
+            </tr>
+            <tr>
+              <td>Free Cash Flow (Ziel)</td>
+              <td>~149</td><td class="pos">&gt;150</td><td class="pos">&gt;200</td><td class="pos">&gt;300</td>
+            </tr>
+            <tr>
+              <td>Eigenkapitalquote (Ziel)</td>
+              <td class="neg">17,9%</td><td>—</td><td>—</td><td class="pos">&gt;25%</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="5">Planwerte basieren auf dem internen Planungsbrief sowie dem Programm „Re-establish the Base". Quelle: Interne Arbeitsdokumente.</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 5: AKZENT-KURS
+════════════════════════════════════════════ -->
+<div class="page" id="page-akzent">
+
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="page-label">
+        <span data-lang="de" class="lang-active">Interaktiv</span>
+        <span data-lang="en">Interactive</span>
+        <span data-lang="fr">Interactif</span>
+      </div>
+      <h1>
+        <span data-lang="de" class="lang-active">Akzent- und Fachvokabular-Kurs</span>
+        <span data-lang="en">Accent & Business Vocabulary Course</span>
+        <span data-lang="fr">Cours d'accent et vocabulaire des affaires</span>
+      </h1>
+      <p class="sub">
+        <span data-lang="de" class="lang-active">Österreichisches Deutsch, Finanzbegriffe & internationale Aussprache — spielerisch trainiert.</span>
+        <span data-lang="en">Austrian German, finance terms & international pronunciation — learned through play.</span>
+        <span data-lang="fr">Allemand autrichien, termes financiers & prononciation internationale — appris en jouant.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="content-area narrow">
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('akz','de-akzent')">🇦🇹 Österr. Akzent</button>
+      <button class="tab-btn" onclick="switchTab('akz','finanz')">📊 Finanz-Vocab</button>
+      <button class="tab-btn" onclick="switchTab('akz','mehrsprachig')">🌍 Mehrsprachig</button>
+    </div>
+
+    <!-- ÖSTERR. AKZENT -->
+    <div class="tab-content active" id="akz-de-akzent">
+      <div data-lang="de" class="lang-active">
+        <h2 class="section-head">Österreichisches Deutsch — Kenne ich den Unterschied?</h2>
+        <p>Österreichisches Deutsch unterscheidet sich vom bundesdeutschen Standard — nicht nur in der Aussprache, sondern auch im Wortschatz. Testen Sie Ihr Wissen!</p>
+      </div>
+      <div data-lang="en">
+        <h2 class="section-head">Austrian German — Do I know the difference?</h2>
+        <p>Austrian German differs from standard German — not only in pronunciation, but also in vocabulary. Test your knowledge!</p>
+      </div>
+      <div data-lang="fr">
+        <h2 class="section-head">Allemand autrichien — Connaissez-vous la différence ?</h2>
+        <p>L'allemand autrichien diffère de l'allemand standard — pas seulement en prononciation, mais aussi en vocabulaire. Testez vos connaissances !</p>
+      </div>
+
+      <div class="akzent-box" id="quiz-akzent">
+        <div class="progress-bar"><div class="progress-fill" id="progress-akzent" style="width:0%"></div></div>
+        <div class="akzent-score" id="score-akzent">Frage 1 von 8 · Punkte: 0</div>
+        <div class="akzent-word" id="question-akzent">—</div>
+        <div id="context-akzent" style="text-align:center;font-size:0.85rem;color:var(--mid-grey);margin-bottom:12px;"></div>
+        <div class="akzent-options" id="options-akzent"></div>
+        <div class="akzent-feedback" id="feedback-akzent"></div>
+        <div class="akzent-controls">
+          <button class="btn-next" id="next-akzent" onclick="nextQuestion('akzent')" style="display:none;">
+            <span data-lang="de" class="lang-active">Weiter →</span>
+            <span data-lang="en">Next →</span>
+            <span data-lang="fr">Suivant →</span>
+          </button>
+          <button class="lang-btn" onclick="resetQuiz('akzent')" style="border-color:rgba(0,0,0,0.2);color:var(--mid-grey);">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANZ -->
+    <div class="tab-content" id="akz-finanz">
+      <div data-lang="de" class="lang-active">
+        <h2 class="section-head">Finanzvokabular — Wissen Sie, was das bedeutet?</h2>
+        <p>Finanzfachbegriffe, die in jeder Bilanzanalyse vorkommen. Testen Sie Ihr Wissen — auf Deutsch, Englisch und Französisch!</p>
+      </div>
+      <div data-lang="en">
+        <h2 class="section-head">Financial Vocabulary — Do you know what it means?</h2>
+        <p>Financial terms found in every balance sheet analysis. Test your knowledge — in German, English and French!</p>
+      </div>
+      <div data-lang="fr">
+        <h2 class="section-head">Vocabulaire financier — Savez-vous ce que cela signifie ?</h2>
+        <p>Termes financiers présents dans toute analyse de bilan. Testez vos connaissances — en allemand, anglais et français !</p>
+      </div>
+
+      <div class="akzent-box" id="quiz-finanz">
+        <div class="progress-bar"><div class="progress-fill" id="progress-finanz" style="width:0%"></div></div>
+        <div class="akzent-score" id="score-finanz">Frage 1 von 10 · Punkte: 0</div>
+        <div class="akzent-word" id="question-finanz" style="font-size:1.3rem;">—</div>
+        <div id="context-finanz" style="text-align:center;font-size:0.82rem;color:var(--mid-grey);margin-bottom:12px;font-style:italic;"></div>
+        <div class="akzent-options" id="options-finanz"></div>
+        <div class="akzent-feedback" id="feedback-finanz"></div>
+        <div class="akzent-controls">
+          <button class="btn-next" id="next-finanz" onclick="nextQuestion('finanz')" style="display:none;">
+            <span data-lang="de" class="lang-active">Weiter →</span>
+            <span data-lang="en">Next →</span>
+            <span data-lang="fr">Suivant →</span>
+          </button>
+          <button class="lang-btn" onclick="resetQuiz('finanz')" style="border-color:rgba(0,0,0,0.2);color:var(--mid-grey);">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEHRSPRACHIG -->
+    <div class="tab-content" id="akz-mehrsprachig">
+      <div data-lang="de" class="lang-active">
+        <h2 class="section-head">Mehrsprachiger Fachvokabular-Trainer</h2>
+        <p>Welche Sprache ist das? Übersetzen Sie den Begriff in alle drei Sprachen!</p>
+      </div>
+      <div data-lang="en">
+        <h2 class="section-head">Multilingual Technical Vocabulary Trainer</h2>
+        <p>Which language is this? Translate the term into all three languages!</p>
+      </div>
+      <div data-lang="fr">
+        <h2 class="section-head">Entraîneur de vocabulaire technique multilingue</h2>
+        <p>Quelle langue est-ce ? Traduisez le terme dans les trois langues !</p>
+      </div>
+
+      <div class="akzent-box" id="quiz-mehr">
+        <div class="progress-bar"><div class="progress-fill" id="progress-mehr" style="width:0%"></div></div>
+        <div class="akzent-score" id="score-mehr">Frage 1 von 8 · Punkte: 0</div>
+        <div class="akzent-word" id="question-mehr" style="font-size:1.5rem; font-style:italic;">—</div>
+        <div id="context-mehr" style="text-align:center;font-size:0.85rem;color:var(--economist-red);margin-bottom:12px;font-weight:600;"></div>
+        <div class="akzent-options" id="options-mehr"></div>
+        <div class="akzent-feedback" id="feedback-mehr"></div>
+        <div class="akzent-controls">
+          <button class="btn-next" id="next-mehr" onclick="nextQuestion('mehr')" style="display:none;">
+            <span data-lang="de" class="lang-active">Weiter →</span>
+            <span data-lang="en">Next →</span>
+            <span data-lang="fr">Suivant →</span>
+          </button>
+          <button class="lang-btn" onclick="resetQuiz('mehr')" style="border-color:rgba(0,0,0,0.2);color:var(--mid-grey);">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="color:white;font-weight:600;font-size:0.85rem;margin-bottom:8px;">Finanzanalyse | Financial Analysis</div>
+      <div>Alle Unternehmensnamen anonymisiert. Daten aus öffentlichen Quellen.</div>
+      <div class="disclaimer">Diese Analyse dient ausschließlich Lehr- und Informationszwecken. Sie stellt keine Anlageberatung dar. Die dargestellten Zahlen basieren auf öffentlich zugänglichen Jahresabschlüssen und internen Arbeitsdokumenten.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.derstandard.at" target="_blank">Der Standard</a>
+      <a href="https://www.diepresse.com" target="_blank">Die Presse</a>
+      <a href="https://www.handelsblatt.com" target="_blank">Handelsblatt</a>
+      <a href="https://www.economist.com" target="_blank">The Economist</a>
+      <a href="https://www.ft.com" target="_blank">Financial Times</a>
+      <a href="https://www.lesechos.fr" target="_blank">Les Echos</a>
+      <a href="https://www.nzz.ch/wirtschaft" target="_blank">NZZ</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── LANGUAGE SYSTEM ───────────────────────────────────
+let currentLang = 'de';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    if (el.dataset.lang === lang) {
+      el.classList.add('lang-active');
+    } else {
+      el.classList.remove('lang-active');
+    }
+  });
+  
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+}
+
+// ─── PAGE NAVIGATION ───────────────────────────────────
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  
+  document.querySelectorAll('nav.main-nav a').forEach(a => {
+    a.classList.remove('active');
+    if (a.dataset.page === pageId) a.classList.add('active');
+  });
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // Init charts when page shown
+  setTimeout(() => {
+    if (pageId === 'bilanz') initBilanzCharts();
+    if (pageId === 'cashflow') initCFCharts();
+  }, 100);
+}
+
+// ─── TAB SYSTEM ────────────────────────────────────────
+function switchTab(group, tabId) {
+  const allContents = document.querySelectorAll(`[id^="${group}-"]`);
+  allContents.forEach(c => c.classList.remove('active'));
+  document.getElementById(group + '-' + tabId).classList.add('active');
+  
+  const allBtns = document.querySelectorAll(`.tab-btn`);
+  // Update button states within same container
+  const targetEl = document.getElementById(group + '-' + tabId);
+  const parent = targetEl ? targetEl.closest('.content-area') || targetEl.parentElement : null;
+  
+  event.target.closest('.tab-row').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  setTimeout(() => {
+    if (group === 'bilanz') {
+      if (tabId === 'aktiva') initAssetChart();
+      if (tabId === 'passiva') initEquityChart();
+      if (tabId === 'peer') initPeerChart();
+    }
+    if (group === 'cf') {
+      if (tabId === 'cashflow') initCFDetailChart();
+      if (tabId === 'performance') initPerfChart();
+    }
+  }, 50);
+}
+
+// ─── CHART CONFIGURATION (Economist Style) ─────────────
+const econColors = {
+  red: '#E3120B',
+  blue: '#003a7d',
+  teal: '#006e7d',
+  gold: '#c68000',
+  green: '#1a6e1a',
+  grey: '#6b6b6b',
+  lightGrey: '#d4d4d0'
+};
+
+Chart.defaults.font.family = "'Source Serif 4', Georgia, serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#1a1a1a';
+
+function econChartOptions(title, yLabel) {
+  return {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { boxWidth: 12, padding: 16, font: { size: 11 } }
+      },
+      tooltip: {
+        backgroundColor: '#1a1a1a',
+        titleFont: { size: 11 },
+        bodyFont: { size: 11 },
+        padding: 10,
+        cornerRadius: 2
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: econColors.lightGrey, lineWidth: 0.5 },
+        ticks: { font: { size: 10 } }
+      },
+      y: {
+        grid: { color: econColors.lightGrey, lineWidth: 0.5 },
+        ticks: { font: { size: 10 } },
+        title: { display: !!yLabel, text: yLabel, font: { size: 10 }, color: econColors.grey }
+      }
+    }
+  };
+}
+
+let charts = {};
+
+function initBilanzCharts() {
+  initAssetChart();
+}
+
+function initAssetChart() {
+  const ctx = document.getElementById('assetChart');
+  if (!ctx) return;
+  if (charts.asset) charts.asset.destroy();
+  
+  charts.asset = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2021', '2022', '2023', '2024'],
+      datasets: [
+        {
+          label: 'Langfristiges Vermögen',
+          data: [6362, 5948, 4782, 4160],
+          backgroundColor: econColors.blue,
+          stack: 'stack'
+        },
+        {
+          label: 'Kurzfristiges Vermögen',
+          data: [3282, 2884, 2620, 2743],
+          backgroundColor: econColors.teal,
+          stack: 'stack'
+        }
+      ]
+    },
+    options: {
+      ...econChartOptions('', 'Mio. EUR'),
+      plugins: {
+        ...econChartOptions('','').plugins
+      }
+    }
+  });
+}
+
+function initEquityChart() {
+  const ctx = document.getElementById('equityChart');
+  if (!ctx) return;
+  if (charts.equity) charts.equity.destroy();
+  
+  charts.equity = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2021', '2022', '2023', '2024'],
+      datasets: [
+        {
+          label: 'Eigenkapital',
+          data: [3150, 2833, 1905, 1235],
+          backgroundColor: econColors.green,
+          stack: 'stack'
+        },
+        {
+          label: 'Fremdkapital',
+          data: [6494, 5998, 5497, 5667],
+          backgroundColor: econColors.red,
+          stack: 'stack'
+        }
+      ]
+    },
+    options: econChartOptions('', 'Mio. EUR')
+  });
+}
+
+function initPeerChart() {
+  const ctx = document.getElementById('peerChart');
+  if (!ctx) return;
+  if (charts.peer) charts.peer.destroy();
+  
+  charts.peer = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Das Unternehmen', 'Peer A', 'Peer B', 'Peer C', 'Peer D'],
+      datasets: [{
+        label: 'Eigenkapitalquote 2024',
+        data: [17.9, 55.6, 67.5, 60.1, 56.6],
+        backgroundColor: [
+          econColors.red,
+          econColors.blue,
+          econColors.teal,
+          econColors.gold,
+          econColors.green
+        ]
+      }]
+    },
+    options: {
+      ...econChartOptions('', '%'),
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          callbacks: {
+            label: (ctx) => ctx.parsed.y.toFixed(1) + '%'
+          }
+        }
+      }
+    }
+  });
+}
+
+function initCFCharts() {
+  initCFDetailChart();
+}
+
+function initCFDetailChart() {
+  const ctx = document.getElementById('cfChart');
+  if (!ctx) return;
+  if (charts.cf) charts.cf.destroy();
+  
+  charts.cf = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2021', '2022', '2023', '2024'],
+      datasets: [
+        {
+          label: 'EBIT',
+          data: [197, -161, -1431, -549],
+          backgroundColor: (ctx) => ctx.raw >= 0 ? econColors.blue : econColors.red,
+          type: 'bar'
+        },
+        {
+          label: 'Operativer Cash Flow (OCF)',
+          data: [null, 435, 493, 599],
+          borderColor: econColors.green,
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          type: 'line',
+          tension: 0.3
+        }
+      ]
+    },
+    options: econChartOptions('', 'Mio. EUR')
+  });
+}
+
+function initPerfChart() {
+  const ctx = document.getElementById('perfChart');
+  if (!ctx) return;
+  if (charts.perf) charts.perf.destroy();
+  
+  // Sampled cumulative performance data (indexed to 100 at start)
+  const dates = ["2015-03-30","2015-05-05","2015-06-09","2015-07-14","2015-08-18","2015-09-22","2015-10-27","2015-12-01","2016-01-05","2016-02-09","2016-03-15","2016-04-19","2016-05-24","2016-06-28","2016-08-02","2016-09-06","2016-10-11","2016-11-15","2016-12-20","2017-01-24","2017-02-28","2017-04-04","2017-05-09","2017-06-13","2017-07-18","2017-08-22","2017-09-26","2017-10-31","2017-12-05","2018-01-09","2018-02-13","2018-03-20","2018-04-24","2018-05-29","2018-07-03","2018-08-07","2018-09-11","2018-10-16","2018-11-20","2018-12-25","2019-01-29","2019-03-05","2019-04-09","2019-05-14","2019-06-18","2019-07-23","2019-08-27","2019-10-01","2019-11-05","2019-12-10","2020-01-14","2020-02-18","2020-03-24","2020-04-28","2020-06-02","2020-07-07","2020-08-11","2020-09-15","2020-10-20","2020-11-24","2020-12-29","2021-02-02","2021-03-09","2021-04-13","2021-05-18","2021-06-22","2021-07-27","2021-08-31","2021-10-05","2021-11-09","2021-12-14","2022-01-18","2022-02-22","2022-03-29","2022-05-03","2022-06-07","2022-07-12","2022-08-16","2022-09-20","2022-10-25","2022-11-29","2023-01-03","2023-02-07","2023-03-14","2023-04-18","2023-05-23","2023-06-27","2023-08-01","2023-09-05","2023-10-10","2023-11-14","2023-12-19","2024-01-23","2024-02-27","2024-04-02","2024-05-07","2024-06-11","2024-07-16","2024-08-20","2024-09-24","2024-10-29","2024-12-03","2025-01-07","2025-02-11","2025-03-18","2025-04-22","2025-05-27","2025-07-01","2025-08-05","2025-09-09"];
+
+  // Approximate indexed cumulative returns (Das Unternehmen badly underperforms)
+  const ams = [100,103,96,99,91,88,94,110,108,100,108,120,126,118,123,130,140,148,160,166,158,145,150,142,136,130,124,132,129,120,110,98,90,80,70,60,50,42,38,30,32,28,26,24,22,26,28,30,32,35,38,35,28,32,30,34,28,22,24,28,25,22,26,24,22,18,16,14,12,11,12,14,16,14,12,11,10,11,12,11,13,12,14,13,12,13,11,12,13,14,13,12,14,12,11,12,11,12,13,14,12,13,14,15,13,14,12];
+  const jen = [100,101,106,103,101,98,103,109,107,103,107,114,118,115,120,124,128,130,132,134,132,128,130,126,124,122,126,128,130,128,122,115,112,108,103,98,95,90,88,82,88,92,96,94,98,102,104,108,112,118,122,118,112,118,115,118,112,106,108,112,110,108,112,110,108,105,103,105,108,107,110,112,114,110,105,100,98,102,105,100,105,108,112,110,108,112,106,108,112,118,115,112,118,115,112,118,112,115,118,122,118,120,125,128,124,126,122];
+  const ifx = [100,102,107,105,103,100,106,112,110,106,110,118,124,120,126,130,134,136,140,145,142,138,142,138,136,132,138,142,144,142,136,128,124,118,112,106,100,94,90,84,90,96,102,98,103,108,112,116,122,128,132,128,120,126,122,126,120,112,115,120,118,116,120,118,115,112,110,112,116,114,118,120,122,118,112,106,103,108,112,106,112,116,120,118,116,120,114,116,120,126,122,119,126,122,118,124,118,122,126,132,128,132,138,142,138,140,136];
+  const uho = [100,101,104,102,100,98,103,108,106,103,106,112,116,112,118,122,125,127,129,131,129,126,128,125,122,120,124,126,128,126,121,115,112,108,104,100,96,92,90,85,90,94,98,96,99,103,106,109,112,116,120,115,109,114,111,114,108,103,105,108,107,105,108,107,105,102,100,102,105,104,107,109,111,108,103,98,96,100,103,98,103,106,109,108,106,109,104,106,109,114,110,108,114,111,108,113,108,110,113,118,114,117,122,125,121,124,120];
+  const nen = [100,102,105,103,101,99,104,110,108,104,108,115,120,116,122,126,130,132,135,138,136,132,135,131,128,125,130,133,135,133,127,120,116,111,106,100,96,91,88,83,88,93,98,96,100,105,108,112,116,121,125,121,114,120,116,120,114,108,110,114,112,110,114,112,110,107,105,107,110,108,112,114,116,112,107,102,99,103,107,101,107,110,114,112,110,114,108,110,114,120,116,113,120,116,112,118,112,115,118,124,120,123,128,132,128,130,126];
+
+  charts.perf = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: dates.slice(0, ams.length),
+      datasets: [
+        { label: 'Das Unternehmen', data: ams, borderColor: econColors.red, borderWidth: 2, pointRadius: 0, tension: 0.3, backgroundColor:'transparent' },
+        { label: 'Peer A', data: jen, borderColor: econColors.blue, borderWidth: 1.5, pointRadius: 0, tension: 0.3, backgroundColor:'transparent' },
+        { label: 'Peer B', data: uho, borderColor: econColors.teal, borderWidth: 1.5, pointRadius: 0, tension: 0.3, backgroundColor:'transparent', borderDash:[4,2] },
+        { label: 'Peer C', data: ifx, borderColor: econColors.gold, borderWidth: 1.5, pointRadius: 0, tension: 0.3, backgroundColor:'transparent' },
+        { label: 'Peer D', data: nen, borderColor: econColors.green, borderWidth: 1.5, pointRadius: 0, tension: 0.3, backgroundColor:'transparent', borderDash:[4,2] }
+      ]
+    },
+    options: {
+      ...econChartOptions('', 'Index (Basis 100)'),
+      scales: {
+        x: {
+          grid: { color: econColors.lightGrey, lineWidth: 0.5 },
+          ticks: { maxTicksLimit: 8, font: { size: 10 } }
+        },
+        y: {
+          grid: { color: econColors.lightGrey, lineWidth: 0.5 },
+          ticks: { font: { size: 10 } },
+          title: { display: true, text: 'Index (Basis 100)', font: { size: 10 }, color: econColors.grey }
+        }
+      }
+    }
+  });
+}
+
+// ─── QUIZ DATA ─────────────────────────────────────────
+const quizData = {
+  akzent: [
+    {
+      q: "Wie sagt man in Österreich für ‚Tschüss'?",
+      context: "Abschiedsgruß",
+      options: ["Tschüss", "Servus", "Auf Wiedersehen", "Tschau"],
+      correct: 1,
+      explanation: "‚Servus' ist der typisch österreichische (und bayrische) Gruß — sowohl zur Begrüßung als auch zum Abschied. Im Hochdeutschen würde man ‚Tschüss' sagen."
+    },
+    {
+      q: "Was ist ein ‚Häferl' auf Österreichisch?",
+      context: "Alltagsvokabular",
+      options: ["Ein kleines Haus", "Eine Kaffeetasse / Becher", "Ein Haustier", "Ein Werkzeug"],
+      correct: 1,
+      explanation: "‚Häferl' (auch ‚Haferl') ist das österreichische Wort für eine Tasse oder einen Becher, vor allem für Kaffee oder Tee."
+    },
+    {
+      q: "Was bedeutet ‚Stamperl' in Österreich?",
+      context: "Gastronomie",
+      options: ["Ein kleines Schnapsglas", "Ein Stempel", "Eine Briefmarke", "Ein Stützpunkt"],
+      correct: 0,
+      explanation: "Ein ‚Stamperl' ist ein kleines Schnapsglas (ca. 2 cl). Im norddeutschen Raum würde man ‚Schnapsglas' oder ‚Shot' sagen."
+    },
+    {
+      q: "Wie nennt man in Österreich den ‚Samstag'?",
+      context: "Wochentage",
+      options: ["Samstag", "Sonnabend", "Sunntag", "Erding"],
+      correct: 0,
+      explanation: "In Österreich sagt man ‚Samstag' — genauso wie in Süddeutschland und der Schweiz. In Norddeutschland ist ‚Sonnabend' gebräuchlich."
+    },
+    {
+      q: "Was ist ein ‚Paradeis' auf Österreichisch?",
+      context: "Lebensmittel",
+      options: ["Ein Apfel", "Eine Tomate", "Eine Erdbeere", "Ein Paradiesvogel"],
+      correct: 1,
+      explanation: "‚Paradeis' (auch ‚Paradeiser') ist das österreichische Wort für Tomate. Im deutschen Hochdeutsch: ‚Tomate'."
+    },
+    {
+      q: "Wie klingt das ‚R' im österreichischen Standarddeutsch?",
+      context: "Aussprache",
+      options: ["Gerollt (wie Spanisch)", "Geguttural (wie Pariser Franzosen)", "Meist vokalisch / leicht gerollt", "Stumm"],
+      correct: 2,
+      explanation: "Das österreichische Standarddeutsch verwendet ein leicht gerolltes oder vokalisches R — deutlicher als das deutsche Uvular-R (Schnarr-R), aber nicht so stark wie im Spanischen."
+    },
+    {
+      q: "Was bedeutet ‚Blunzen' in der österreichischen Küche?",
+      context: "Kulinarik",
+      options: ["Knödel", "Blutwurst", "Ein Dessert", "Gebackenes Schmalz"],
+      correct: 1,
+      explanation: "‚Blunzen' ist das österreichische Wort für Blutwurst — ein klassisches Produkt der Hausschlachtung, das in Kärnten, Steiermark und im Burgenland besonders beliebt ist."
+    },
+    {
+      q: "Wie sagt man in Österreich: ‚Das war super!'",
+      context: "Umgangssprache",
+      options: ["‚Leiwand!'", "‚Krass!'", "‚Geil!'", "‚Mega!'"],
+      correct: 0,
+      explanation: "‚Leiwand' ist ein typisch wienerisches Wort für ‚super', ‚toll' oder ‚großartig'. Es kommt ursprünglich aus dem Jiddischen."
+    }
+  ],
+  finanz: [
+    {
+      q: "EBITDA",
+      context: "Earnings Before Interest, Taxes, Depreciation and Amortization",
+      options: [
+        "Ergebnis vor Steuern",
+        "Ergebnis vor Zinsen, Steuern, Abschreibungen auf Sachanlagen und immat. Vermögen",
+        "Jahresüberschuss nach Steuern",
+        "Bruttogewinn vor Marketingkosten"
+      ],
+      correct: 1,
+      explanation: "EBITDA ist eine zentrale Kennzahl der operativen Profitabilität. Sie eliminiert nicht-liquide Aufwendungen (Abschreibungen) und Finanzierungsstruktureffekte — damit ist sie für Unternehmensvergleiche besonders geeignet."
+    },
+    {
+      q: "Working Capital",
+      context: "Liquiditätskennzahl",
+      options: [
+        "Eigenkapital minus Fremdkapital",
+        "Umlaufvermögen minus kurzfristige Verbindlichkeiten",
+        "Anlagevermögen minus langfristige Schulden",
+        "Jahresgewinn minus Dividende"
+      ],
+      correct: 1,
+      explanation: "Das Working Capital (Nettoumlaufvermögen) = Umlaufvermögen − kurzfristige Verbindlichkeiten. Es misst die kurzfristige Liquiditätsreserve eines Unternehmens."
+    },
+    {
+      q: "Free Cash Flow (FCF)",
+      context: "Kapitalflussrechnung",
+      options: [
+        "Jahresgewinn + Dividenden",
+        "Operativer Cash Flow minus Investitions-Cash Flow",
+        "Umsatz minus alle Kosten",
+        "Eigenkapital dividiert durch Schulden"
+      ],
+      correct: 1,
+      explanation: "Der Free Cash Flow = OCF (operativer Cash Flow) + ICF (Investitions-Cash Flow, typischerweise negativ). Er zeigt, wie viel Liquidität das Unternehmen nach Investitionen frei verfügbar hat."
+    },
+    {
+      q: "Eigenkapitalquote (EK-Quote)",
+      context: "Bilanzstrukturkennzahl",
+      options: [
+        "Gewinn / Umsatz",
+        "Eigenkapital / Bilanzsumme",
+        "Fremdkapital / Eigenkapital",
+        "Umlaufvermögen / Anlagevermögen"
+      ],
+      correct: 1,
+      explanation: "Die EK-Quote = Eigenkapital / Bilanzsumme × 100%. Sie misst den Anteil des Eigenkapitals an der Gesamtfinanzierung — ein hoher Wert signalisiert finanzielle Stabilität."
+    },
+    {
+      q: "Goodwill (Firmenwert)",
+      context: "Bilanzposition – immaterielles Anlagevermögen",
+      options: [
+        "Der Ruf des Unternehmens, nicht bilanzierungsfähig",
+        "Differenz zwischen Kaufpreis und Buchwert bei Unternehmenskäufen",
+        "Gewinn aus Beteiligungsverkäufen",
+        "Markenwert laut Marketingstudie"
+      ],
+      correct: 1,
+      explanation: "Goodwill entsteht, wenn ein Unternehmen mehr zahlt als der bilanzielle Buchwert des Erworbenen. Er steht als immaterieller Vermögenswert in der Bilanz und muss nach IFRS jährlich auf Werthaltigkeit geprüft werden (Impairment Test)."
+    },
+    {
+      q: "P/E Ratio (KGV)",
+      context: "Börsenkennzahl",
+      options: [
+        "Preis pro Einheit dividiert durch Ertragswert",
+        "Kurs-Gewinn-Verhältnis: Aktienkurs / Gewinn je Aktie",
+        "Preis-Earnings: Umsatz mal Gewinnmarge",
+        "Private Equity Rendite"
+      ],
+      correct: 1,
+      explanation: "Das KGV (Kurs-Gewinn-Verhältnis) = Aktienkurs / EPS (Gewinn je Aktie). Es zeigt, wie viele Jahresgewinne der Markt bereit ist, für eine Aktie zu zahlen. Ein negatives KGV zeigt Verluste an."
+    },
+    {
+      q: "Fiktive Schuldentilgungsdauer",
+      context: "Risikokennzahl – Quicktest",
+      options: [
+        "Anzahl der Jahre bis zur Insolvenz",
+        "Netto-Fremdkapital dividiert durch Cash Flow",
+        "Gesamtlaufzeit aller Anleihen",
+        "Tilgungsrate dividiert durch Nominalzins"
+      ],
+      correct: 1,
+      explanation: "Die fiktive Schuldentilgungsdauer = Netto-Fremdkapital / Cashflow (Praktikermethode). Sie gibt an, in wie vielen Jahren das Unternehmen — bei konstantem Cash Flow — seine Nettoschulden tilgen könnte. Wert &lt;4 Jahre = gut; &gt;10 Jahre = kritisch."
+    },
+    {
+      q: "Monte-Carlo-Simulation in der Finanzplanung",
+      context: "Planungsmethodik",
+      options: [
+        "Eine Methode zur Berechnung des Kassensaldos",
+        "Stochastisches Verfahren zur Risikomodellierung mit Zufallsszenarien",
+        "Ein Spielcasino-Modell für Börsenwetten",
+        "Eine Methode der linearen Regression"
+      ],
+      correct: 1,
+      explanation: "Die Monte-Carlo-Simulation generiert Tausende zufälliger Szenarien auf Basis definierter Verteilungen (Mittelwert, Standardabweichung) für Schlüsselvariablen — und liefert damit ein Wahrscheinlichkeitsprofil für Planergebnisse."
+    },
+    {
+      q: "ROCE — Return on Capital Employed",
+      context: "Rentabilitätskennzahl",
+      options: [
+        "Eigenkapitalrendite",
+        "EBIT dividiert durch eingesetztes Kapital (EK + langfrist. FK)",
+        "Umsatzrendite nach Steuern",
+        "Gesamtkapitalrendite nach Dividende"
+      ],
+      correct: 1,
+      explanation: "ROCE = EBIT / (Eigenkapital + langfristige Verbindlichkeiten). Diese Kennzahl misst die Effizienz des eingesetzten Kapitals und ist besonders nützlich bei kapitalintensiven Unternehmen."
+    },
+    {
+      q: "Impairment (Wertminderung)",
+      context: "IFRS – IAS 36",
+      options: [
+        "Planmäßige Abschreibung auf Sachanlagen",
+        "Außerplanmäßige Wertminderung bei unterschrittenem Buchwert",
+        "Erhöhung des Buchwerts nach Marktwertanstieg",
+        "Goodwill-Aufstockung nach Kapitalerhöhung"
+      ],
+      correct: 1,
+      explanation: "Ein Impairment entsteht, wenn der erzielbare Betrag eines Vermögenswerts unter seinen Buchwert fällt. Nach IFRS muss Goodwill jährlich einem Impairment Test unterzogen werden — ein häufiges Phänomen nach teuren Übernahmen."
+    }
+  ],
+  mehr: [
+    {
+      q: "Bilanz",
+      context: "🇩🇪 Deutsch → Übersetzung gesucht",
+      options: [
+        "🇬🇧 Balance Sheet / 🇫🇷 Bilan",
+        "🇬🇧 Cash Flow / 🇫🇷 Flux de trésorerie",
+        "🇬🇧 Income Statement / 🇫🇷 Compte de résultat",
+        "🇬🇧 Equity / 🇫🇷 Fonds propres"
+      ],
+      correct: 0,
+      explanation: "Bilanz (DE) = Balance Sheet (EN) = Bilan (FR). Die Bilanz zeigt Vermögen (Aktiva) und Kapital (Passiva) zu einem Stichtag."
+    },
+    {
+      q: "Cash Flow",
+      context: "🇬🇧 Englisch → Übersetzung gesucht",
+      options: [
+        "🇩🇪 Kapitalfluss / 🇫🇷 Actif courant",
+        "🇩🇪 Geldfluss / Cashflow / 🇫🇷 Flux de trésorerie",
+        "🇩🇪 Eigenkapital / 🇫🇷 Capitaux propres",
+        "🇩🇪 Gewinnvortrag / 🇫🇷 Report à nouveau"
+      ],
+      correct: 1,
+      explanation: "Cash Flow (EN) = Cashflow / Geldfluss (DE) = Flux de trésorerie (FR). Im Deutschen wird oft auch der Anglizismus ‚Cashflow' verwendet."
+    },
+    {
+      q: "Chiffre d'affaires",
+      context: "🇫🇷 Français → Traduction cherchée",
+      options: [
+        "🇩🇪 Jahresgewinn / 🇬🇧 Net Income",
+        "🇩🇪 Eigenkapital / 🇬🇧 Equity",
+        "🇩🇪 Umsatz / Umsatzerlöse / 🇬🇧 Revenue / Turnover",
+        "🇩🇪 Betriebsergebnis / 🇬🇧 Operating Profit"
+      ],
+      correct: 2,
+      explanation: "Chiffre d'affaires (FR) = Umsatz / Umsatzerlöse (DE) = Revenue / Turnover (EN). Im britischen Englisch wird ‚Turnover' bevorzugt, in den USA ‚Revenue'."
+    },
+    {
+      q: "Eigenkapitalquote",
+      context: "🇩🇪 Deutsch → Übersetzung gesucht",
+      options: [
+        "🇬🇧 Debt ratio / 🇫🇷 Ratio d'endettement",
+        "🇬🇧 Equity ratio / 🇫🇷 Ratio de fonds propres",
+        "🇬🇧 Liquidity ratio / 🇫🇷 Ratio de liquidité",
+        "🇬🇧 Return on equity / 🇫🇷 Rentabilité des capitaux"
+      ],
+      correct: 1,
+      explanation: "Eigenkapitalquote (DE) = Equity ratio (EN) = Ratio de fonds propres / Taux d'équité (FR). Sie misst den Anteil des Eigenkapitals an der Bilanzsumme."
+    },
+    {
+      q: "Goodwill",
+      context: "🇬🇧 Englisch — wie lautet der exakte Fachausdruck auf Deutsch und Französisch?",
+      options: [
+        "🇩🇪 Markenwert / 🇫🇷 Valeur de marque",
+        "🇩🇪 Firmenwert / Geschäftswert / 🇫🇷 Écart d'acquisition / Goodwill",
+        "🇩🇪 Unternehmenswert / 🇫🇷 Valeur d'entreprise",
+        "🇩🇪 Eigenkapital / 🇫🇷 Capitaux propres"
+      ],
+      correct: 1,
+      explanation: "Goodwill (EN) = Firmenwert / Geschäftswert (DE) = Écart d'acquisition (FR, formal) oder auch ‚Goodwill' (FR, gebräuchlich). Entsteht beim Unternehmenskauf über Buchwert."
+    },
+    {
+      q: "Amortissement",
+      context: "🇫🇷 Français → Traduction cherchée",
+      options: [
+        "🇩🇪 Umsatzsteuer / 🇬🇧 VAT",
+        "🇩🇪 Tilgung / Abschreibung / 🇬🇧 Amortisation / Depreciation",
+        "🇩🇪 Dividende / 🇬🇧 Dividend",
+        "🇩🇪 Zinsen / 🇬🇧 Interest"
+      ],
+      correct: 1,
+      explanation: "Amortissement (FR) = Tilgung / planmäßige Abschreibung (DE) = Amortisation / Depreciation (EN). Im Deutschen unterscheidet man: Abschreibung auf immaterielle Werte (Amortisation) und Sachanlagen (Depreciation)."
+    },
+    {
+      q: "Abschreibung",
+      context: "🇩🇪 Deutsch → Übersetzung gesucht",
+      options: [
+        "🇬🇧 Depreciation (Sachanlagen) / Amortisation (immaterielle Werte) / 🇫🇷 Amortissement / Dépréciation",
+        "🇬🇧 Appreciation / 🇫🇷 Revalorisation",
+        "🇬🇧 Impairment only / 🇫🇷 Dépréciation uniquement",
+        "🇬🇧 Write-off / 🇫🇷 Annulation"
+      ],
+      correct: 0,
+      explanation: "Abschreibung (DE) differenziert nach: planmäßige AfA auf Sachanlagen = Depreciation (EN) / Amortissement (FR); auf immaterielle Werte = Amortisation (EN) / Amortissement (FR); außerplanmäßig = Impairment / Dépréciation."
+    },
+    {
+      q: "Résultat net",
+      context: "🇫🇷 Français → Traduction cherchée",
+      options: [
+        "🇩🇪 Betriebsergebnis / 🇬🇧 Operating Income",
+        "🇩🇪 Jahresüberschuss / Nettoergebnis / 🇬🇧 Net Income / Profit after Tax",
+        "🇩🇪 Eigenkapital / 🇬🇧 Net Equity",
+        "🇩🇪 Cashflow / 🇬🇧 Net Cash Flow"
+      ],
+      correct: 1,
+      explanation: "Résultat net (FR) = Jahresüberschuss / -fehlbetrag (DE) = Net Income / Profit after Tax (EN). Das Ergebnis nach Steuern — die unterste Zeile der GuV."
+    }
+  ]
+};
+
+// ─── QUIZ ENGINE ───────────────────────────────────────
+const quizState = {
+  akzent: { current: 0, score: 0, answered: false },
+  finanz: { current: 0, score: 0, answered: false },
+  mehr:   { current: 0, score: 0, answered: false }
+};
+
+function loadQuestion(quiz) {
+  const state = quizState[quiz];
+  const data = quizData[quiz];
+  const total = data.length;
+  const q = data[state.current];
+  
+  document.getElementById('question-' + quiz).textContent = q.q;
+  document.getElementById('context-' + quiz).textContent = q.context || '';
+  document.getElementById('score-' + quiz).textContent = 
+    `Frage ${state.current + 1} von ${total} · Punkte: ${state.score}`;
+  document.getElementById('progress-' + quiz).style.width = 
+    ((state.current) / total * 100) + '%';
+  
+  const optDiv = document.getElementById('options-' + quiz);
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'akzent-btn';
+    btn.innerHTML = `<span style="min-width:20px;font-weight:700;color:var(--mid-grey);">${String.fromCharCode(65+i)}</span> ${opt}`;
+    btn.onclick = () => answerQuestion(quiz, i);
+    optDiv.appendChild(btn);
+  });
+  
+  const fb = document.getElementById('feedback-' + quiz);
+  fb.classList.remove('show', 'correct-fb');
+  fb.textContent = '';
+  
+  document.getElementById('next-' + quiz).style.display = 'none';
+  state.answered = false;
+}
+
+function answerQuestion(quiz, chosen) {
+  const state = quizState[quiz];
+  if (state.answered) return;
+  state.answered = true;
+  
+  const q = quizData[quiz][state.current];
+  const correct = q.correct === chosen;
+  
+  const btns = document.getElementById('options-' + quiz).querySelectorAll('.akzent-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === chosen && !correct) btn.classList.add('wrong');
+  });
+  
+  if (correct) state.score++;
+  
+  const fb = document.getElementById('feedback-' + quiz);
+  fb.innerHTML = (correct ? '✓ Richtig! ' : '✗ Leider falsch. ') + q.explanation;
+  fb.classList.add('show');
+  if (correct) fb.classList.add('correct-fb');
+  
+  document.getElementById('next-' + quiz).style.display = '';
+  document.getElementById('score-' + quiz).textContent = 
+    `Frage ${state.current + 1} von ${quizData[quiz].length} · Punkte: ${state.score}`;
+}
+
+function nextQuestion(quiz) {
+  const state = quizState[quiz];
+  state.current++;
+  
+  if (state.current >= quizData[quiz].length) {
+    showResult(quiz);
+  } else {
+    loadQuestion(quiz);
+  }
+}
+
+function showResult(quiz) {
+  const state = quizState[quiz];
+  const total = quizData[quiz].length;
+  const pct = Math.round(state.score / total * 100);
+  
+  let msg = '';
+  if (pct >= 90) msg = '🏆 Ausgezeichnet! Sie beherrschen das Thema hervorragend.';
+  else if (pct >= 70) msg = '✓ Sehr gut! Mit etwas Übung werden Sie noch besser.';
+  else if (pct >= 50) msg = '⚠ Solide Basis — aber da geht noch mehr!';
+  else msg = '📚 Zeit zum Lernen — das schaffen Sie beim nächsten Versuch!';
+  
+  document.getElementById('question-' + quiz).textContent = '🎓 Quiz abgeschlossen!';
+  document.getElementById('context-' + quiz).textContent = '';
+  document.getElementById('options-' + quiz).innerHTML = '';
+  document.getElementById('feedback-' + quiz).classList.remove('show');
+  document.getElementById('next-' + quiz).style.display = 'none';
+  document.getElementById('progress-' + quiz).style.width = '100%';
+  
+  document.getElementById('score-' + quiz).innerHTML = 
+    `Endpunkte: <strong>${state.score} / ${total}</strong> (${pct}%) · ${msg}`;
+}
+
+function resetQuiz(quiz) {
+  quizState[quiz] = { current: 0, score: 0, answered: false };
+  loadQuestion(quiz);
+}
+
+// ─── INIT ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadQuestion('akzent');
+  loadQuestion('finanz');
+  loadQuestion('mehr');
+  setLang('de');
+  
+  // Prevent default on nav links
+  document.querySelectorAll('nav.main-nav a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+});
+</script>
+</body>
+</html>
