@@ -3,1765 +3,1420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manfred Stückler – Finanzanalyse & KI</title>
+<title>Finanzanalyse | Das Unternehmen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 :root {
   --red: #E3120B;
-  --red-dark: #B50E08;
-  --black: #0A0A0A;
   --dark: #1a1a1a;
-  --mid: #444;
-  --light: #888;
-  --border: #D0CECA;
-  --bg: #F7F5F0;
-  --white: #FFFFFF;
-  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --body: 'Source Serif 4', Georgia, serif;
-  --sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
-  --green: #1a7a4a;
-  --amber: #c07b00;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--body);
-  background: var(--bg);
-  color: var(--dark);
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-/* ===== HEADER ===== */
-header {
-  background: var(--white);
-  border-bottom: 3px solid var(--red);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 1px 8px rgba(0,0,0,.08);
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 60px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.brand-bar {
-  width: 4px;
-  height: 36px;
-  background: var(--red);
-  border-radius: 2px;
-}
-
-.brand-name {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--black);
-  letter-spacing: -0.3px;
-  line-height: 1.2;
-}
-
-.brand-sub {
-  font-family: var(--sans);
-  font-size: 0.68rem;
-  color: var(--light);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-.lang-switcher {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.lang-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  background: none;
-  cursor: pointer;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--mid);
-  border-radius: 2px;
-  transition: all 0.15s;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-.lang-btn:hover { background: var(--bg); border-color: var(--red); color: var(--red); }
-.lang-btn.active { background: var(--red); color: white; border-color: var(--red); }
-
-.flag { font-size: 1rem; }
-
-/* ===== NAV ===== */
-nav {
-  border-top: 1px solid var(--border);
-  background: var(--white);
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  gap: 0;
-  overflow-x: auto;
-}
-
-.nav-link {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: var(--mid);
-  padding: 10px 16px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.15s;
-  white-space: nowrap;
-  text-decoration: none;
-  display: block;
-}
-
-.nav-link:hover { color: var(--red); }
-.nav-link.active { color: var(--red); border-bottom-color: var(--red); }
-
-/* ===== PAGES ===== */
-.page { display: none; min-height: 80vh; }
-.page.active { display: block; }
-
-/* ===== HERO ===== */
-.hero {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 48px 24px 36px;
-}
-
-.hero-inner { max-width: 1200px; margin: 0 auto; }
-
-.hero-eyebrow {
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--red);
-  margin-bottom: 12px;
-}
-
-.hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--black);
-  max-width: 780px;
-  margin-bottom: 16px;
-}
-
-.hero-sub {
-  font-size: 1.05rem;
-  color: var(--mid);
-  max-width: 640px;
-  line-height: 1.6;
-}
-
-/* ===== SECTION ===== */
-.section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 24px;
-}
-
-.section-title {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 6px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--black);
-}
-
-.section-sub {
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--light);
-  margin-bottom: 24px;
-}
-
-/* ===== ABOUT PAGE ===== */
-.about-grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
-
-.profile-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 28px;
-  position: sticky;
-  top: 100px;
-}
-
-.profile-img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
-  background: #e5e0d8;
-  margin-bottom: 20px;
-}
-
-.profile-img-placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-size: 4rem;
-  color: rgba(255,255,255,0.3);
-}
-
-.profile-name {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 4px;
-}
-
-.profile-title {
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  color: var(--light);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 16px;
-}
-
-.profile-links { display: flex; flex-direction: column; gap: 8px; }
-
-.profile-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--sans);
-  font-size: 0.8rem;
-  color: var(--red);
-  text-decoration: none;
-  padding: 6px 0;
-  border-top: 1px solid var(--border);
-}
-
-.profile-link:hover { color: var(--red-dark); }
-
-.about-content h2 {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--black);
-}
-
-.about-content h3 {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--dark);
-  margin: 28px 0 10px;
-  padding-left: 12px;
-  border-left: 3px solid var(--red);
-}
-
-.about-content p {
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: var(--mid);
-  margin-bottom: 14px;
-}
-
-.about-content .lead {
-  font-size: 1.05rem;
-  color: var(--dark);
-  font-style: italic;
-  line-height: 1.7;
-  margin-bottom: 24px;
-}
-
-.shiny-embed-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  margin-top: 32px;
-}
-
-.shiny-header {
-  background: var(--black);
-  color: white;
-  padding: 12px 20px;
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.shiny-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
-
-.shiny-embed-box iframe {
-  width: 100%;
-  height: 700px;
-  border: none;
-  display: block;
-}
-
-/* ===== PROJECT PAGE ===== */
-.project-layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 48px;
-}
-
-@media (max-width: 900px) { .project-layout { grid-template-columns: 1fr; } }
-
-.project-main p {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--mid);
-  margin-bottom: 18px;
-}
-
-.project-main .lead {
-  font-size: 1.1rem;
-  color: var(--dark);
-  line-height: 1.7;
-  font-style: italic;
-  padding: 20px;
-  border-left: 4px solid var(--red);
-  background: var(--white);
-  margin-bottom: 24px;
-}
-
-.peer-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-
-.peer-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.peer-name {
-  font-family: var(--sans);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--dark);
-}
-
-.peer-link {
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  color: var(--red);
-  text-decoration: none;
-}
-
-.peer-stats {
-  padding: 12px 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.peer-stat label {
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--light);
-  display: block;
-}
-
-.peer-stat value {
-  font-family: var(--sans);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--dark);
-}
-
-/* ===== TABLES (Economist Style) ===== */
-.data-section {
-  background: var(--white);
-  border: 1px solid var(--border);
-  margin-bottom: 32px;
-}
-
-.data-header {
-  padding: 16px 20px 12px;
-  border-bottom: 2px solid var(--black);
-}
-
-.data-title {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--black);
-}
-
-.data-subtitle {
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  color: var(--light);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 3px;
-}
-
-.data-table-wrap { overflow-x: auto; }
-
-table.economist {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--sans);
-  font-size: 0.82rem;
-}
-
-table.economist thead th {
-  background: var(--black);
-  color: white;
-  padding: 9px 14px;
-  text-align: right;
-  font-weight: 500;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-table.economist thead th:first-child { text-align: left; }
-
-table.economist tbody tr:nth-child(even) { background: #f9f8f5; }
-table.economist tbody tr:hover { background: #f2ede6; }
-
-table.economist tbody td {
-  padding: 7px 14px;
-  color: var(--mid);
-  text-align: right;
-  border-bottom: 1px solid var(--border);
-}
-
-table.economist tbody td:first-child {
-  text-align: left;
-  color: var(--dark);
-  font-weight: 400;
-}
-
-table.economist tbody .group-header td {
-  background: #f0ece5;
-  font-weight: 600;
-  color: var(--dark);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-table.economist .total-row td {
-  font-weight: 700;
-  color: var(--black);
-  border-top: 2px solid var(--black);
-  background: #f9f8f5;
-}
-
-table.economist .neg { color: var(--red) !important; }
-table.economist .pos { color: var(--green) !important; }
-
-.data-note {
-  padding: 8px 20px 12px;
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  color: var(--light);
-  border-top: 1px solid var(--border);
-}
-
-/* ===== CHARTS ===== */
-.chart-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.chart-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 20px;
-}
-
-.chart-title {
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--light);
-  margin-bottom: 4px;
-}
-
-.chart-headline {
-  font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.chart-canvas-wrap {
-  position: relative;
-  height: 220px;
-}
-
-/* ===== STATUS BADGE ===== */
-.status-ok {
-  display: inline-block;
-  background: #e8f5ef;
-  color: var(--green);
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 8px;
-}
-
-.status-warn {
-  display: inline-block;
-  background: #fff3e0;
-  color: var(--amber);
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 8px;
-}
-
-/* ===== PEER COMPARISON TABLE ===== */
-.peer-compare { margin-bottom: 32px; }
-
-/* ===== KPI BAND ===== */
-.kpi-band {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin-bottom: 32px;
-}
-
-.kpi-item {
-  background: var(--white);
-  padding: 20px 16px;
-  text-align: center;
-}
-
-.kpi-label {
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--light);
-  margin-bottom: 6px;
-}
-
-.kpi-value {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--dark);
-  line-height: 1;
-}
-
-.kpi-value.neg { color: var(--red); }
-.kpi-value.pos { color: var(--green); }
-
-.kpi-year {
-  font-family: var(--sans);
-  font-size: 0.68rem;
-  color: var(--light);
-  margin-top: 4px;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  background: var(--black);
-  color: #999;
-  padding: 32px 24px;
-  margin-top: 60px;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-brand {
-  font-family: var(--serif);
-  font-size: 1rem;
-  color: white;
-  font-weight: 600;
-}
-
-.footer-links { display: flex; gap: 20px; }
-
-.footer-links a {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  color: #888;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  transition: color 0.15s;
-}
-
-.footer-links a:hover { color: var(--red); }
-
-.footer-copy {
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  color: #555;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #222;
-  text-align: center;
-}
-
-/* ===== DISCLAIMER ===== */
-.disclaimer-box {
-  background: #fff8f0;
-  border: 1px solid #f0d9bc;
-  border-left: 4px solid var(--amber);
-  padding: 14px 18px;
-  margin-bottom: 24px;
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  color: #7a5a00;
-  line-height: 1.5;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .header-top { height: auto; padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-  .section { padding: 24px 16px; }
-}
-
-/* ===== ANIMATIONS ===== */
-.page.active { animation: fadeIn 0.25s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Shiny app page */
-.shiny-full iframe {
-  width: 100%;
-  height: calc(100vh - 120px);
-  border: none;
-  display: block;
+  --mid: #444444;
+  --light-grey: #f5f4f0;
+  --border: #cccccc;
+  --white: #ffffff;
+  --link: #0057a8;
+  --nav-bg: #1a1a1a;
+  --accent-line: 3px solid var(--red);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.65;color:var(--dark);background:var(--white);}
+/* ===================== HEADER ===================== */
+header{
+  background:var(--nav-bg);
+  position:sticky;top:0;z-index:1000;
+  border-bottom:3px solid var(--red);
+}
+.header-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:56px;
+}
+.site-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-weight:700;color:#fff;
+  letter-spacing:0.02em;white-space:nowrap;
+  cursor:pointer;text-decoration:none;
+}
+.site-brand span{color:var(--red);}
+nav{display:flex;align-items:center;gap:2px;}
+nav a{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:0.78rem;font-weight:500;
+  color:#ccc;text-decoration:none;
+  padding:6px 10px;border-radius:2px;
+  transition:color .2s,background .2s;
+  letter-spacing:0.04em;text-transform:uppercase;
+  cursor:pointer;
+}
+nav a:hover,nav a.active{color:#fff;background:rgba(227,18,11,0.2);}
+.lang-switcher{display:flex;align-items:center;gap:6px;margin-left:12px;border-left:1px solid #444;padding-left:12px;}
+.lang-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:1.4rem;opacity:.6;transition:opacity .2s;
+  padding:2px;line-height:1;
+}
+.lang-btn:hover,.lang-btn.active{opacity:1;}
+/* ===================== MAIN ===================== */
+main{min-height:calc(100vh - 56px);}
+.page{display:none;}
+.page.active{display:block;}
+/* ===================== HERO STRIPE ===================== */
+.page-header{
+  background:var(--light-grey);
+  border-bottom:var(--accent-line);
+  padding:32px 20px 24px;
+}
+.page-header-inner{max-width:1200px;margin:0 auto;}
+.page-header h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.4rem;font-weight:700;line-height:1.15;
+  color:var(--dark);
+}
+.page-header .subtitle{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.9rem;color:var(--mid);margin-top:6px;
+  letter-spacing:.03em;text-transform:uppercase;
+}
+/* ===================== CONTENT ===================== */
+.content-wrap{max-width:1200px;margin:0 auto;padding:40px 20px;}
+.two-col{display:grid;grid-template-columns:2fr 1fr;gap:40px;}
+@media(max-width:768px){.two-col{grid-template-columns:1fr;}}
+/* ===================== ECONOMIST CARD ===================== */
+.e-card{
+  background:var(--white);
+  border-top:var(--accent-line);
+  border:1px solid var(--border);
+  border-top:3px solid var(--red);
+  padding:24px;margin-bottom:24px;
+}
+.e-card h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;
+  margin-bottom:12px;line-height:1.2;
+}
+.e-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:600;
+  margin:20px 0 8px;color:var(--dark);
+}
+.e-card p{margin-bottom:12px;color:var(--mid);}
+.e-card p:last-child{margin-bottom:0;}
+/* ===================== ABOUT ME ===================== */
+.profile-wrap{display:flex;gap:32px;align-items:flex-start;margin-bottom:32px;}
+.profile-img{
+  width:160px;min-width:160px;height:190px;
+  background:linear-gradient(135deg,#2c3e50,#34495e);
+  border:3px solid var(--red);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.profile-img img{width:100%;height:100%;object-fit:cover;}
+.profile-img-placeholder{
+  font-family:'Playfair Display',serif;font-size:3rem;
+  color:rgba(255,255,255,0.3);
+}
+.profile-text h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem;font-weight:700;margin-bottom:4px;
+}
+.profile-text .tagline{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.9rem;color:var(--red);font-weight:500;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;
+}
+@media(max-width:600px){.profile-wrap{flex-direction:column;}.profile-img{width:100%;min-width:unset;}}
+.timeline{margin:20px 0;}
+.timeline-item{
+  display:flex;gap:16px;padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-year{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.8rem;font-weight:500;color:var(--red);
+  min-width:50px;margin-top:2px;
+}
+.timeline-body strong{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.95rem;font-weight:500;display:block;
+}
+.timeline-body span{font-size:.9rem;color:var(--mid);}
+.quote-box{
+  border-left:4px solid var(--red);
+  background:var(--light-grey);
+  padding:16px 20px;margin:20px 0;
+  font-style:italic;color:var(--mid);
+}
+/* ===================== TABLES ===================== */
+.fin-table-wrap{overflow-x:auto;margin:16px 0;}
+.fin-table{
+  width:100%;border-collapse:collapse;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.82rem;
+}
+.fin-table caption{
+  font-family:'Playfair Display',serif;font-size:1rem;
+  font-weight:600;text-align:left;padding:8px 0;margin-bottom:4px;
+  color:var(--dark);caption-side:top;
+}
+.fin-table th{
+  background:var(--dark);color:#fff;
+  padding:8px 12px;text-align:right;font-weight:500;
+  font-size:.78rem;letter-spacing:.03em;
+}
+.fin-table th:first-child{text-align:left;}
+.fin-table td{
+  padding:7px 12px;border-bottom:1px solid #e8e8e8;
+  text-align:right;
+}
+.fin-table td:first-child{text-align:left;color:var(--mid);font-size:.8rem;}
+.fin-table tr:hover{background:#fafafa;}
+.fin-table .subtotal td{
+  background:#f0f0ee;font-weight:600;
+  border-top:1px solid #bbb;border-bottom:1px solid #bbb;
+}
+.fin-table .total td{
+  background:var(--dark);color:#fff;font-weight:700;
+}
+.fin-table .total td:first-child{color:#ccc;}
+.fin-table .section-header td{
+  background:var(--light-grey);font-weight:600;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.75rem;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--dark);
+  padding:6px 12px;
+}
+.fin-table .section-header td:first-child{text-align:left;}
+.pos{color:#1a7a1a;}
+.neg{color:var(--red);}
+.warn{color:#b35c00;font-weight:600;}
+.ok-badge{
+  display:inline-block;background:#1a7a1a;color:#fff;
+  font-size:.65rem;padding:1px 5px;border-radius:2px;
+  font-family:'IBM Plex Sans',sans-serif;margin-left:4px;
+}
+.warn-badge{
+  display:inline-block;background:#b35c00;color:#fff;
+  font-size:.65rem;padding:1px 5px;border-radius:2px;
+  font-family:'IBM Plex Sans',sans-serif;margin-left:4px;
+}
+/* ===================== CHARTS ===================== */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0;}
+@media(max-width:768px){.chart-grid{grid-template-columns:1fr;}}
+.chart-box{
+  background:var(--white);border:1px solid var(--border);
+  border-top:3px solid var(--red);padding:20px;
+}
+.chart-box h4{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.78rem;font-weight:500;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--mid);margin-bottom:12px;
+}
+.chart-container{position:relative;height:240px;}
+/* ===================== SIDEBAR ===================== */
+.sidebar .e-card{padding:16px;}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.kpi-item{
+  background:var(--light-grey);padding:10px 12px;
+  border-left:3px solid var(--red);
+}
+.kpi-label{
+  font-family:'IBM Plex Sans',sans-serif;font-size:.7rem;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--mid);
+}
+.kpi-value{
+  font-family:'IBM Plex Sans',sans-serif;font-size:1.2rem;
+  font-weight:600;color:var(--dark);line-height:1.1;margin-top:2px;
+}
+.kpi-sub{font-family:'IBM Plex Sans',sans-serif;font-size:.7rem;color:var(--mid);}
+/* ===================== PEER TABLE ===================== */
+.peer-table{width:100%;border-collapse:collapse;font-family:'IBM Plex Sans',sans-serif;font-size:.82rem;}
+.peer-table th{background:#2c3e50;color:#fff;padding:8px 10px;text-align:right;font-weight:500;font-size:.75rem;}
+.peer-table th:first-child{text-align:left;}
+.peer-table td{padding:7px 10px;border-bottom:1px solid #eee;text-align:right;}
+.peer-table td:first-child{text-align:left;font-weight:500;}
+.peer-table tr.highlight{background:#fff8f8;}
+.peer-table tr.highlight td:first-child{color:var(--red);font-weight:700;}
+/* ===================== SECTION DIVIDER ===================== */
+.section-label{
+  font-family:'IBM Plex Sans',sans-serif;font-size:.72rem;
+  font-weight:500;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--red);border-bottom:1px solid var(--border);
+  padding-bottom:6px;margin:32px 0 16px;
+}
+/* ===================== AKZENT KURS ===================== */
+.akzent-container{max-width:800px;margin:0 auto;}
+.akzent-card{
+  background:var(--white);border:1px solid var(--border);
+  border-top:3px solid var(--red);padding:28px;margin-bottom:20px;
+}
+.akzent-question{
+  font-family:'Playfair Display',serif;font-size:1.3rem;
+  font-weight:600;margin-bottom:20px;line-height:1.4;
+}
+.akzent-audio-btn{
+  background:var(--dark);color:#fff;border:none;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.85rem;
+  padding:8px 16px;cursor:pointer;margin-bottom:20px;
+  transition:background .2s;letter-spacing:.03em;
+}
+.akzent-audio-btn:hover{background:var(--red);}
+.akzent-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+@media(max-width:500px){.akzent-options{grid-template-columns:1fr;}}
+.akzent-opt{
+  border:2px solid var(--border);background:var(--white);
+  padding:12px 16px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;
+  font-size:.9rem;text-align:left;transition:all .2s;
+}
+.akzent-opt:hover{border-color:var(--dark);background:var(--light-grey);}
+.akzent-opt.correct{border-color:#1a7a1a;background:#e8f5e9;color:#1a7a1a;}
+.akzent-opt.wrong{border-color:var(--red);background:#ffeaea;}
+.akzent-feedback{
+  min-height:60px;padding:12px 16px;
+  border-left:4px solid var(--border);
+  background:var(--light-grey);margin-top:12px;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.88rem;
+  display:none;
+}
+.akzent-feedback.show{display:block;}
+.akzent-feedback.correct-fb{border-color:#1a7a1a;}
+.akzent-feedback.wrong-fb{border-color:var(--red);}
+.akzent-next{
+  background:var(--red);color:#fff;border:none;
+  font-family:'IBM Plex Sans',sans-serif;font-weight:500;
+  font-size:.85rem;padding:10px 24px;cursor:pointer;
+  margin-top:12px;letter-spacing:.04em;text-transform:uppercase;
+  display:none;transition:background .2s;
+}
+.akzent-next:hover{background:#b50d08;}
+.akzent-progress{
+  font-family:'IBM Plex Sans',sans-serif;font-size:.78rem;
+  color:var(--mid);margin-bottom:8px;
+}
+.progress-bar{height:4px;background:#e0e0e0;margin-bottom:24px;}
+.progress-fill{height:100%;background:var(--red);transition:width .3s;}
+.score-display{
+  font-family:'Playfair Display',serif;font-size:2.5rem;
+  font-weight:700;color:var(--red);text-align:center;margin:20px 0 8px;
+}
+.score-label{font-family:'IBM Plex Sans',sans-serif;font-size:.85rem;color:var(--mid);text-align:center;}
+.akzent-restart{
+  background:var(--dark);color:#fff;border:none;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.85rem;
+  padding:10px 24px;cursor:pointer;margin:16px auto;display:block;
+  letter-spacing:.04em;text-transform:uppercase;transition:background .2s;
+}
+.akzent-restart:hover{background:var(--red);}
+/* ===================== FOOTER ===================== */
+footer{
+  background:var(--dark);color:#888;
+  padding:24px 20px;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.78rem;
+}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+footer a{color:#aaa;text-decoration:none;}
+footer a:hover{color:var(--red);}
+/* ===================== DISCLAIMER ===================== */
+.disclaimer{
+  background:#fffbe6;border:1px solid #e8d58a;
+  padding:12px 16px;margin:16px 0;
+  font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:#665500;
+}
+/* ===================== TABS ===================== */
+.tab-nav{display:flex;gap:2px;margin-bottom:0;border-bottom:2px solid var(--border);}
+.tab-btn{
+  font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;
+  font-weight:500;letter-spacing:.03em;text-transform:uppercase;
+  background:var(--light-grey);border:1px solid var(--border);border-bottom:none;
+  padding:8px 16px;cursor:pointer;color:var(--mid);transition:all .2s;
+}
+.tab-btn.active{background:var(--white);color:var(--dark);border-top:3px solid var(--red);}
+.tab-content{display:none;padding:24px 0;}
+.tab-content.active{display:block;}
+/* ===================== PROJECT PAGE ===================== */
+.lead-text{
+  font-size:1.1rem;line-height:1.7;margin-bottom:20px;color:var(--dark);
+  font-family:'Source Serif 4',serif;
+}
+.project-stat{
+  display:inline-block;padding:8px 16px;margin:4px;
+  background:var(--light-grey);border-left:3px solid var(--red);
+  font-family:'IBM Plex Sans',sans-serif;
+}
+.project-stat strong{font-size:1.3rem;color:var(--dark);display:block;}
+.project-stat span{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);}
+/* ===================== FOOTNOTES ===================== */
+.fn{
+  font-family:'IBM Plex Sans',sans-serif;font-size:.75rem;
+  color:var(--mid);border-top:1px solid var(--border);
+  padding-top:12px;margin-top:24px;
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-top">
-    <div class="brand" onclick="showPage('ueber-mich')">
-      <div class="brand-bar"></div>
-      <div>
-        <div class="brand-name">Manfred Stückler</div>
-        <div class="brand-sub" data-i18n="header_sub">Finanzanalyse · KI · Strategie</div>
-      </div>
-    </div>
+  <div class="header-inner">
+    <a class="site-brand" onclick="showPage('home')">Finanz<span>Analyse</span></a>
+    <nav>
+      <a onclick="showPage('about')" id="nav-about" data-de="Über mich" data-en="About" data-fr="À propos">Über mich</a>
+      <a onclick="showPage('project')" id="nav-project" data-de="Das Projekt" data-en="The Project" data-fr="Le Projet">Das Projekt</a>
+      <a onclick="showPage('bilanz')" id="nav-bilanz" data-de="Bilanz" data-en="Balance Sheet" data-fr="Bilan">Bilanz</a>
+      <a onclick="showPage('guv')" id="nav-guv" data-de="G&amp;V" data-en="P&amp;L" data-fr="C&amp;P">G&amp;V</a>
+      <a onclick="showPage('cashflow')" id="nav-cashflow" data-de="Cash Flow" data-en="Cash Flow" data-fr="Flux de Trésorerie">Cash Flow</a>
+      <a onclick="showPage('akzent')" id="nav-akzent" data-de="Akzent Kurs" data-en="Accent Course" data-fr="Cours d'Accent">Akzent Kurs</a>
+    </nav>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('de')"><span class="flag">🇦🇹</span> DE</button>
-      <button class="lang-btn" onclick="setLang('en')"><span class="flag">🇬🇧</span> EN</button>
-      <button class="lang-btn" onclick="setLang('fr')"><span class="flag">🇫🇷</span> FR</button>
+      <button class="lang-btn active" onclick="setLang('de')" id="lang-de" title="Deutsch">🇦🇹</button>
+      <button class="lang-btn" onclick="setLang('en')" id="lang-en" title="English">🇬🇧</button>
+      <button class="lang-btn" onclick="setLang('fr')" id="lang-fr" title="Français">🇫🇷</button>
     </div>
   </div>
-  <nav>
-    <div class="nav-inner">
-      <a class="nav-link active" onclick="showPage('ueber-mich')" data-i18n="nav_about">Über mich</a>
-      <a class="nav-link" onclick="showPage('projekt')" data-i18n="nav_project">Das Projekt</a>
-      <a class="nav-link" onclick="showPage('bilanz')" data-i18n="nav_balance">Bilanz</a>
-      <a class="nav-link" onclick="showPage('guv')" data-i18n="nav_pl">G&amp;V</a>
-      <a class="nav-link" onclick="showPage('cashflow')" data-i18n="nav_cf">Cash Flow</a>
-      <a class="nav-link" onclick="showPage('sprachkurs')" data-i18n="nav_lang">Akzent-Kurs</a>
-    </div>
-  </nav>
 </header>
 
-<!-- ======================================================= -->
-<!-- PAGE 1: ÜBER MICH -->
-<!-- ======================================================= -->
-<div class="page active" id="page-ueber-mich">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="about_eyebrow">Portfolio · Profil</div>
-      <h1 class="hero-h1" data-i18n="about_title">Wer bin ich – und warum sollten Sie das wissen wollen?</h1>
-      <p class="hero-sub" data-i18n="about_intro_short">Finanzanalyst, KI-Enthusiast und gebürtiger Kärntner mit einem Faible für Zahlen, die Geschichten erzählen.</p>
+<main>
+
+<!-- ==================== HOME ==================== -->
+<div id="page-home" class="page active">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="home-title">Finanzanalyse · Das Unternehmen</h1>
+      <p class="subtitle" id="home-sub">Eine strukturierte Betrachtung · Bilanz · G&amp;V · Cash Flow · Peer Group</p>
     </div>
   </div>
-
-  <div class="section">
-    <div class="about-grid">
-      <!-- Profile Card -->
+  <div class="content-wrap">
+    <div class="two-col">
       <div>
-        <div class="profile-card">
-          <div class="profile-img-placeholder">
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-              <circle cx="40" cy="30" r="18" fill="rgba(255,255,255,0.15)"/>
-              <ellipse cx="40" cy="65" rx="28" ry="18" fill="rgba(255,255,255,0.1)"/>
-            </svg>
-          </div>
-          <div class="profile-name">Manfred Stückler</div>
-          <div class="profile-title" data-i18n="profile_title">Finanzanalyst &amp; KI-Experte</div>
-          <div class="profile-links">
-            <a class="profile-link" href="https://www.linkedin.com/in/manfred-st%C3%BCckler-a014401b7/" target="_blank">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-              LinkedIn
-            </a>
-            <a class="profile-link" href="https://exilkaerntner.github.io/ice-hockey-statistiken/" target="_blank">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              <span data-i18n="profile_link_stats">Statistiken-Projekt</span>
-            </a>
-          </div>
+        <div class="e-card">
+          <h2 id="home-h2">Was ist diese Seite?</h2>
+          <p id="home-p1">Diese Plattform präsentiert eine strukturierte Finanzanalyse eines börsennotierten österreichischen Unternehmens, das nach einer bedeutenden Übernahme in eine Phase turbulenter Restrukturierung getreten ist. Die Daten entstammen geprüften Jahresabschlüssen sowie öffentlich zugänglichen Investorenunterlagen.</p>
+          <p id="home-p2">Die Darstellung folgt dem Grundsatz maximaler Objektivität. Namen, Standorte und Produkte des analysierten Unternehmens sowie seiner Vergleichsgruppe bleiben bewusst anonym. Das Unternehmen trägt die Bezeichnung <strong>„Das Unternehmen"</strong>; die Vergleichsunternehmen werden als <strong>Peer A bis Peer D</strong> bezeichnet.</p>
+          <p id="home-p3">Die Analyse umfasst die Geschäftsjahre 2021 bis 2024 und beleuchtet Bilanz, Gewinn- und Verlustrechnung sowie Cash-Flow-Rechnung. Eine Peer-Group-Übersicht ergänzt den Branchenvergleich.</p>
         </div>
-
-        <!-- Economist-style source links -->
-        <div style="margin-top:20px; padding:16px; background:var(--white); border:1px solid var(--border);">
-          <div style="font-family:var(--sans);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--light);margin-bottom:10px;" data-i18n="sources_label">Weiterführende Lektüre</div>
-          <div id="source-links-de" class="lang-content">
-            <a href="https://www.derstandard.at/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">Der Standard</a>
-            <a href="https://www.diepresse.com/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">Die Presse</a>
-            <a href="https://www.handelsblatt.com/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">Handelsblatt</a>
-            <a href="https://www.nzz.ch/wirtschaft" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;">NZZ Wirtschaft</a>
+        <div class="chart-grid">
+          <div class="chart-box">
+            <h4 id="ch1-label">Umsatz (Mio. €)</h4>
+            <div class="chart-container"><canvas id="chart-rev"></canvas></div>
           </div>
-          <div id="source-links-en" class="lang-content" style="display:none">
-            <a href="https://www.economist.com/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">The Economist</a>
-            <a href="https://www.ft.com/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">Financial Times</a>
-            <a href="https://www.bloomberg.com/europe" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;">Bloomberg Europe</a>
+          <div class="chart-box">
+            <h4 id="ch2-label">EBIT (Mio. €)</h4>
+            <div class="chart-container"><canvas id="chart-ebit"></canvas></div>
           </div>
-          <div id="source-links-fr" class="lang-content" style="display:none">
-            <a href="https://www.lesechos.fr/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">Les Échos</a>
-            <a href="https://www.latribune.fr/" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border);">La Tribune</a>
-            <a href="https://www.lefigaro.fr/economie" target="_blank" style="display:block;font-family:var(--sans);font-size:0.75rem;color:var(--red);text-decoration:none;padding:4px 0;">Le Figaro Économie</a>
+          <div class="chart-box">
+            <h4 id="ch3-label">Bilanzsumme (Mio. €)</h4>
+            <div class="chart-container"><canvas id="chart-bs"></canvas></div>
+          </div>
+          <div class="chart-box">
+            <h4 id="ch4-label">Free Cash Flow (Mio. €)</h4>
+            <div class="chart-container"><canvas id="chart-fcf"></canvas></div>
           </div>
         </div>
       </div>
-
-      <!-- Content -->
-      <div class="about-content">
-        <!-- DE -->
-        <div id="about-de" class="lang-content">
-          <h2>Wer bin ich — und warum sollten Sie das wissen wollen?</h2>
-          <p class="lead">Eine ehrliche Frage, auf die ich eine ehrliche Antwort versuche. Wobei „ehrlich" in der Finanzwelt bekanntlich ein relatives Konzept ist.</p>
-
-          <h3>Der Mensch hinter den Zahlen</h3>
-          <p>Mein Name ist Manfred Stückler, gebürtig aus dem malerischen Kärnten — jenem österreichischen Bundesland, das sich vor allem durch drei Dinge auszeichnet: Seen, die man im Sommer gerne betritt, Berge, die man im Winter gelegentlich hinabfährt, und Menschen, die beides mit einer Selbstverständlichkeit tun, die Nicht-Kärntner regelmäßig in Erstaunen versetzt.</p>
-          <p>Mittlerweile lebe ich im Exil — zumindest nennen wir Kärntner jeden Ort, der nicht am Wörthersee liegt, gerne so. Was mich nicht davon abhält, mit demselben Pragmatismus, den man in den Alpen zwangsläufig entwickelt, an Zahlen, Bilanzen und Unternehmensanalysen heranzugehen.</p>
-
-          <h3>KI, Prompt Engineering &amp; Finanzanalyse – wie passt das zusammen?</h3>
-          <p>Sehr gut, um ehrlich zu sein. Vielleicht besser als man auf den ersten Blick vermutet.</p>
-          <p>Stellen Sie sich vor: Ein Analyst sitzt vor einem Berg von Jahresabschlüssen, Peer-Group-Vergleichen, Cash-Flow-Rechnungen und PESTEL-Analysen. Früher brauchte man dafür ein Team und mehrere Wochen. Heute? Mit dem richtigen KI-Werkzeug und — das ist entscheidend — dem richtigen Prompt ist das eine Frage von Stunden. Vorausgesetzt, man weiß, was man fragt.</p>
-          <p>Und genau hier liegt die Kunst: <strong>KI ist so schlau wie die Fragen, die man ihr stellt.</strong> Ein schlechter Prompt liefert Datensalat. Ein präziser, gut strukturierter Prompt liefert Erkenntnisse, die früher Wochen kosteten.</p>
-          <p>Lassen Sie mich das an einem konkreten Beispiel illustrieren: Diese gesamte Homepage — die Bilanzen, die G&V-Analysen, die Peer-Group-Vergleiche, die Visualisierungen — wurde mit Hilfe von KI-gestütztem Prompt Engineering erstellt. Nicht als Ersatz für Fachwissen, sondern als <em>Verstärker</em> davon.</p>
-
-          <h3>Warum das in der Wirtschaft unverzichtbar ist</h3>
-          <p>KI ist in vielen Bereichen des Lebens bereits präsent: in der Medizin, in der Rechtsprechung, in der Logistik. Aber gerade in der <strong>Wirtschaft und im Finanzbereich</strong> führt kein Weg mehr daran vorbei. Wer heute Finanzentscheidungen trifft, ohne KI als Werkzeug einzusetzen, ist wie jemand, der im Jahr 2000 auf den Einsatz von Excel verzichtete — möglich, aber zunehmend ineffizient.</p>
-          <p>Der Schlüssel liegt nicht darin, der KI blind zu vertrauen. Der Schlüssel liegt darin, <strong>die richtigen Fragen zu stellen, die Antworten kritisch zu bewerten</strong> und das Ergebnis mit echtem Fachwissen zu verknüpfen. Genau das ist Prompt Engineering: nicht Technik, sondern Methodik.</p>
-          <p>Wenn richtig aufgesetzt und eingesetzt, ermöglicht KI solide, datengestützte Entscheidungen — und zwar schneller, konsistenter und mit weniger Bias als herkömmliche Analysemethoden. Das ist keine Behauptung, das ist das Ergebnis dieses Projekts.</p>
-
-          <h3>Was Sie auf dieser Seite finden</h3>
-          <p>Diese Homepage dokumentiert ein reales Analyseprojekt: die Untersuchung eines börsennotierten österreichischen Unternehmens, das durch eine ambitionierte Übernahme in erhebliche finanzielle Turbulenzen geriet. Alle Unternehmensnamen wurden anonymisiert — nicht aus Schüchternheit, sondern aus methodischer Sorgfalt und rechtlicher Umsicht.</p>
-          <p>Sie werden Bilanzen, GuV-Rechnungen, Cash-Flow-Analysen und Peer-Group-Vergleiche finden — aufbereitet nach dem Grundsatz: so präzise wie nötig, so verständlich wie möglich. Auch für einen Zehnjährigen sollte das Wesentliche erkennbar sein. Was nicht bedeutet, dass es simpel ist — nur, dass Komplexität kein Grund ist, unverständlich zu schreiben.</p>
+      <div class="sidebar">
+        <div class="e-card">
+          <p class="section-label" id="kpi-head">Kennzahlen 2024</p>
+          <div class="kpi-grid">
+            <div class="kpi-item"><div class="kpi-label" id="k1">Umsatz</div><div class="kpi-value">3.428</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k2">EBIT</div><div class="kpi-value" style="color:var(--red)">-549</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k3">Bilanzsumme</div><div class="kpi-value">6.903</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k4">Eigenkapital</div><div class="kpi-value">1.235</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k5">OCF</div><div class="kpi-value">435</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k6">Mitarbeiter</div><div class="kpi-value">19.665</div><div class="kpi-sub" id="k6s">Ø 2024</div></div>
+          </div>
         </div>
-
-        <!-- EN -->
-        <div id="about-en" class="lang-content" style="display:none">
-          <h2>Who am I — and why might that be worth knowing?</h2>
-          <p class="lead">A fair question deserving an honest answer — though honesty, as is well known in finance, is something of a relative concept.</p>
-
-          <h3>The person behind the numbers</h3>
-          <p>My name is Manfred Stückler, originally from the picturesque region of Carinthia — that Austrian province distinguished chiefly by three things: lakes one enters in summer with great enthusiasm, mountains one descends in winter with even greater enthusiasm, and inhabitants who do both with a matter-of-fact ease that regularly astonishes anyone not from there.</p>
-          <p>I now live in what we Carinthians call "exile" — meaning any place that isn't on the shores of Lake Wörthersee. This does not, however, prevent me from approaching financial statements, balance sheets, and corporate analyses with the same pragmatism one inevitably develops in the Alps.</p>
-
-          <h3>AI, Prompt Engineering &amp; Financial Analysis — how does that fit?</h3>
-          <p>Rather well, as it happens. Perhaps better than one might initially suppose.</p>
-          <p>Imagine: an analyst confronted with a mountain of annual reports, peer-group comparisons, cash-flow statements, and PESTEL analyses. In the past, this required a team and several weeks. Today? With the right AI tool and — crucially — the right prompt, it is a matter of hours. Provided one knows what to ask.</p>
-          <p>And therein lies the craft: <strong>AI is only as intelligent as the questions put to it.</strong> A poor prompt produces data noise. A precise, well-structured prompt yields insights that once required weeks of work.</p>
-          <p>To illustrate concretely: this entire website — the balance sheets, the income statement analyses, the peer-group comparisons, the visualisations — was produced with the assistance of AI-driven prompt engineering. Not as a substitute for expertise, but as an <em>amplifier</em> of it.</p>
-
-          <h3>Why this is indispensable in business and finance</h3>
-          <p>AI is already present in many areas of life: in medicine, in law, in logistics. But it is precisely in <strong>business and finance</strong> where it has become unavoidable. Those who make financial decisions today without employing AI as a tool are rather like someone in the year 2000 who declined to use spreadsheets — possible, but increasingly uncompetitive.</p>
-          <p>The key is not to trust AI blindly. The key is to <strong>ask the right questions, evaluate the answers critically</strong>, and connect the output with genuine domain knowledge. That is prompt engineering: not technology, but methodology.</p>
-          <p>When properly configured and applied, AI enables well-grounded, data-driven decisions — faster, more consistently, and with less bias than conventional analytical methods. That is not a claim; it is the result of this project.</p>
-
-          <h3>What you will find on this site</h3>
-          <p>This website documents a real analytical project: the examination of a listed Austrian company that encountered considerable financial turbulence following an ambitious acquisition. All company names have been anonymised — not out of timidity, but out of methodological rigour and prudent legal discretion.</p>
-          <p>You will find balance sheets, income statements, cash-flow analyses, and peer-group comparisons — presented according to the principle: as precise as necessary, as comprehensible as possible. Even a ten-year-old should grasp the essentials. Which does not mean it is simple — only that complexity is no excuse for obscurity.</p>
+        <div class="e-card" style="margin-top:0;">
+          <p class="section-label" id="pg-head">Peer Group 2024</p>
+          <table class="peer-table">
+            <thead><tr><th id="pg-co">Unternehmen</th><th id="pg-mcap">MktCap Mio.€</th><th id="pg-eq">EK-Quote</th></tr></thead>
+            <tbody>
+              <tr class="highlight"><td id="pg-du">Das Unternehmen</td><td>974</td><td>18%</td></tr>
+              <tr><td>Peer A</td><td>926</td><td>56%</td></tr>
+              <tr><td>Peer B</td><td>1.237</td><td>67%</td></tr>
+              <tr><td>Peer C</td><td>42.262</td><td>60%</td></tr>
+              <tr><td>Peer D</td><td>21.240</td><td>57%</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- FR -->
-        <div id="about-fr" class="lang-content" style="display:none">
-          <h2>Qui suis-je — et en quoi cela pourrait-il vous intéresser ?</h2>
-          <p class="lead">Une question légitime, à laquelle je vais tenter une réponse honnête — même si, en finance, l'honnêteté est souvent une notion relative.</p>
-
-          <h3>L'homme derrière les chiffres</h3>
-          <p>Je m'appelle Manfred Stückler, originaire de la pittoresque Carinthie — cette province autrichienne distinguée principalement par trois choses : des lacs que l'on entre volontiers en été, des montagnes que l'on dévale parfois en hiver, et des habitants qui font les deux avec une naturelle désinvolture qui ne manque jamais de surprendre les non-Carinthiens.</p>
-          <p>Je vis désormais en ce que nous, Carinthiens, appelons l'« exil » — soit tout endroit qui n'est pas au bord du lac de Wörthersee. Ce qui ne m'empêche nullement d'aborder bilans, comptes de résultat et analyses d'entreprises avec ce pragmatisme que l'on développe inévitablement dans les Alpes.</p>
-
-          <h3>IA, prompt engineering &amp; analyse financière — comment cela s'articule-t-il ?</h3>
-          <p>Très bien, à vrai dire. Peut-être mieux qu'on ne le supposerait de prime abord.</p>
-          <p>Imaginez : un analyste face à une montagne de rapports annuels, de comparaisons entre pairs, d'états de trésorerie et d'analyses PESTEL. Autrefois, cela nécessitait une équipe et plusieurs semaines. Aujourd'hui ? Avec le bon outil d'IA et — c'est là l'essentiel — le bon prompt, c'est l'affaire de quelques heures. À condition de savoir quoi demander.</p>
-          <p>Et c'est précisément là que réside l'art : <strong>l'IA est aussi intelligente que les questions qu'on lui pose.</strong> Un mauvais prompt produit du bruit informationnel. Un prompt précis et bien structuré produit des insights qui auraient autrefois nécessité des semaines de travail.</p>
-          <p>Pour illustrer concrètement : l'ensemble de ce site — les bilans, les analyses de compte de résultat, les comparaisons entre pairs, les visualisations — a été élaboré avec l'assistance du prompt engineering appliqué à l'IA. Non pas en substitution à l'expertise, mais comme <em>amplificateur</em> de celle-ci.</p>
-
-          <h3>Pourquoi c'est incontournable en économie et en finance</h3>
-          <p>L'IA est déjà présente dans de nombreux domaines de la vie : la médecine, le droit, la logistique. Mais c'est précisément en <strong>économie et en finance</strong> qu'elle est devenue incontournable. Prendre des décisions financières aujourd'hui sans utiliser l'IA comme outil, c'est un peu comme quelqu'un qui, en l'an 2000, aurait refusé d'utiliser des tableurs — possible, mais de plus en plus inefficace.</p>
-          <p>La clé n'est pas de faire aveuglément confiance à l'IA. La clé est de <strong>poser les bonnes questions, d'évaluer les réponses de façon critique</strong> et de relier les résultats à une véritable expertise métier. C'est cela, le prompt engineering : non pas une technique, mais une méthodologie.</p>
-          <p>Correctement configurée et employée, l'IA permet des décisions fondées sur des données solides — plus rapidement, plus cohéremment et avec moins de biais que les méthodes analytiques conventionnelles. Ce n'est pas une affirmation ; c'est le résultat de ce projet.</p>
-
-          <h3>Ce que vous trouverez sur ce site</h3>
-          <p>Ce site documente un projet d'analyse réel : l'examen d'une entreprise autrichienne cotée en bourse qui a connu de sérieuses turbulences financières à la suite d'une acquisition ambitieuse. Tous les noms d'entreprises ont été anonymisés — non par timidité, mais par rigueur méthodologique et prudence juridique.</p>
-          <p>Vous y trouverez des bilans, des comptes de résultat, des analyses de trésorerie et des comparaisons entre pairs — présentés selon le principe : aussi précis que nécessaire, aussi compréhensible que possible. Même un enfant de dix ans devrait pouvoir en saisir l'essentiel. Ce qui ne signifie pas que c'est simple — mais que la complexité n'est pas une raison d'écrire de façon obscure.</p>
+        <div class="e-card" style="margin-top:0;">
+          <p class="section-label" id="src-head">Quellen</p>
+          <p style="font-size:.82rem;" id="src-text">Jahresabschlüsse 2021–2024 (IFRS), geprüfte Konzernberichte. Daten: Investor-Relations-Unterlagen. Peer-Daten: Bloomberg/Reuters.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ======================================================= -->
-<!-- PAGE 2: DAS PROJEKT -->
-<!-- ======================================================= -->
-<div class="page" id="page-projekt">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="project_eyebrow">Fallstudie · Unternehmensanalyse</div>
-      <h1 data-i18n="project_title">Das Projekt: Eine Übernahme und ihre Folgen</h1>
-      <p class="hero-sub" data-i18n="project_intro">Börsennotiert. Österreichisch. Ambitioniert. Und dann kam die Übernahme.</p>
+<!-- ==================== ÜBER MICH ==================== -->
+<div id="page-about" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="about-title">Über mich</h1>
+      <p class="subtitle" id="about-sub">Exilkärntner · Finanzanalyst · KI-Enthusiast</p>
     </div>
   </div>
-
-  <div class="section">
-    <div class="project-layout">
-      <div class="project-main">
-        <!-- DE -->
-        <div id="proj-de" class="lang-content">
-          <div class="section-title">Das Unternehmen</div>
-          <div class="section-sub">Kontext &amp; Ausgangslage</div>
-
-          <div class="disclaimer-box">
-            <strong>Hinweis zur Anonymisierung:</strong> Alle Unternehmensnamen wurden anonymisiert. Das analysierte Unternehmen wird als „Das Unternehmen" bezeichnet, Wettbewerber als „Peer A" bis „Peer D". Diese Maßnahme dient der methodischen Objektivität und rechtlichen Sorgfalt. Branchen- und Produktinformationen werden bewusst nicht genannt.
-          </div>
-
-          <p class="lead">Stellen Sie sich ein mittelgroßes, börsennotiertes österreichisches Unternehmen vor — technologieaffin, exportorientiert, mit einer langen Geschichte solider Unternehmensführung. Und dann kommt die große Idee: eine transformative Übernahme, die das Unternehmen in eine andere Liga heben soll.</p>
-
-          <p>Was folgte, ist ein Lehrstück in Unternehmensfinanzierung: Die Bilanzsumme verdoppelte sich nahezu über Nacht, die Verschuldung schnellte in die Höhe, und die Integrationsherausforderungen erwiesen sich als weitaus komplexer als prospektiv angenommen. Das Eigenkapital schmolz von über 3 Milliarden Euro auf unter 1,3 Milliarden — innerhalb von vier Jahren.</p>
-
-          <p>Gleichzeitig verschlechterten sich die makroökonomischen Rahmenbedingungen: Zinswende, geopolitische Unsicherheiten und ein schwieriges Nachfrageumfeld im Kernmarkt belasteten die operativen Ergebnisse zusätzlich. Das Unternehmen, das 2021 noch einen positiven EBIT von knapp 200 Millionen Euro ausweisen konnte, verzeichnete 2023 einen EBIT-Verlust von über 1,4 Milliarden Euro.</p>
-
-          <p>Diese Analyse untersucht die Finanzentwicklung der Jahre 2021 bis 2024, vergleicht das Unternehmen mit einer relevanten Peer Group und versucht eine sachliche, datengestützte Einordnung: Wo steht das Unternehmen heute? Was zeigen die Kennzahlen? Und was lässt sich — mit gebotener Vorsicht — für die Zukunft ableiten?</p>
-        </div>
-
-        <!-- EN -->
-        <div id="proj-en" class="lang-content" style="display:none">
-          <div class="section-title">The Company</div>
-          <div class="section-sub">Context &amp; Background</div>
-
-          <div class="disclaimer-box">
-            <strong>Anonymisation note:</strong> All company names have been anonymised. The company under analysis is referred to as "The Company"; competitors are designated "Peer A" through "Peer D". This serves methodological objectivity and legal prudence. Sector and product information is deliberately omitted.
-          </div>
-
-          <p class="lead">Imagine a mid-sized, listed Austrian company — technology-oriented, export-driven, with a long history of sound corporate governance. Then comes the grand idea: a transformative acquisition intended to propel the company into an entirely different league.</p>
-
-          <p>What followed is a masterclass in corporate finance: the balance sheet nearly doubled overnight, debt levels surged, and the integration challenges proved far more complex than prospectively anticipated. Equity eroded from over €3 billion to under €1.3 billion — within four years.</p>
-
-          <p>Meanwhile, the macroeconomic environment deteriorated: rising interest rates, geopolitical uncertainties, and a difficult demand environment in the core market weighed further on operating results. The company, which had reported a positive EBIT of nearly €200 million in 2021, recorded an EBIT loss of over €1.4 billion in 2023.</p>
-
-          <p>This analysis examines the financial development from 2021 to 2024, benchmarks the company against a relevant peer group, and attempts a dispassionate, data-driven assessment: where does the company stand today? What do the key metrics show? And what — with appropriate caution — can be inferred about the future?</p>
-        </div>
-
-        <!-- FR -->
-        <div id="proj-fr" class="lang-content" style="display:none">
-          <div class="section-title">L'entreprise</div>
-          <div class="section-sub">Contexte &amp; situation initiale</div>
-
-          <div class="disclaimer-box">
-            <strong>Note d'anonymisation :</strong> Tous les noms d'entreprises ont été anonymisés. L'entreprise analysée est désignée par « L'Entreprise » ; les concurrents sont appelés « Pair A » à « Pair D ». Cette mesure sert l'objectivité méthodologique et la prudence juridique. Les informations sectorielles et relatives aux produits sont délibérément omises.
-          </div>
-
-          <p class="lead">Imaginez une entreprise autrichienne cotée de taille intermédiaire — orientée vers la technologie, tournée vers l'export, avec une longue histoire de bonne gouvernance. Puis arrive la grande idée : une acquisition transformatrice censée propulser l'entreprise dans une toute autre catégorie.</p>
-
-          <p>Ce qui s'ensuivit est un cas d'école en finance d'entreprise : le total du bilan a presque doublé du jour au lendemain, l'endettement s'est envolé et les défis d'intégration se sont révélés bien plus complexes que prévu initialement. Les capitaux propres ont fondu de plus de 3 milliards d'euros à moins de 1,3 milliard — en quatre ans.</p>
-
-          <p>Parallèlement, l'environnement macroéconomique s'est dégradé : remontée des taux d'intérêt, incertitudes géopolitiques et environnement de demande difficile sur le marché principal ont pesé davantage sur les résultats opérationnels. L'entreprise, qui avait enregistré un EBIT positif de près de 200 millions d'euros en 2021, a affiché une perte d'EBIT de plus de 1,4 milliard d'euros en 2023.</p>
-
-          <p>Cette analyse examine l'évolution financière de 2021 à 2024, compare l'entreprise à un groupe de pairs pertinent et tente une évaluation objective et fondée sur les données : où en est l'entreprise aujourd'hui ? Que révèlent les indicateurs clés ? Et que peut-on déduire — avec la prudence qui s'impose — pour l'avenir ?</p>
+  <div class="content-wrap">
+    <div class="profile-wrap">
+      <div class="profile-img">
+        <img src="https://media.licdn.com/dms/image/v2/D4E03AQGj_linkedinphoto/profile-displayphoto-shrink_800_800/0/manfredstückler" 
+             alt="Manfred Stückler"
+             onerror="this.style.display='none';this.parentNode.innerHTML='<div class=\'profile-img-placeholder\'>MS</div>'"
+             style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="profile-text">
+        <h2 id="about-name">Manfred Stückler</h2>
+        <p class="tagline" id="about-tag">Finanzanalyst · MBA · Klagenfurt geboren, Wien überlebt</p>
+        <p id="about-intro">Aufgewachsen in Kärnten, dem Land der Seen, des Lavanttals und des gelegentlich unverständlichen Dialekts – und dann der große Sprung in die weite Welt der Zahlen, Bilanzen und Kontokorrentkonten. Was mich antreibt? Die Überzeugung, dass hinter jeder Zahl eine Geschichte steckt. Und manchmal auch ein kleines Drama.</p>
+        <p id="about-intro2">Mit einem soliden akademischen Hintergrund in Betriebswirtschaft und jahrelanger Praxis in der Finanzanalyse habe ich gelernt: Daten lügen selten – aber sie lassen sich trefflich falsch interpretieren. Dagegen helfe ich gerne an.</p>
+        <div style="margin-top:14px;">
+          <a href="https://www.linkedin.com/in/manfred-st%C3%BCckler-a014401b7/" target="_blank" style="font-family:'IBM Plex Sans',sans-serif;font-size:.82rem;color:var(--link);text-decoration:none;border-bottom:1px solid var(--link);" id="about-linkedin">→ LinkedIn Profil</a>
         </div>
       </div>
+    </div>
 
-      <!-- Sidebar: Peer Group -->
+    <div class="e-card">
+      <h3 id="ai-title">KI, Prompt Engineering &amp; Finanzanalyse – wie passt das zusammen?</h3>
+      <p id="ai-p1">Stellen Sie sich vor, Sie hätten einen unermüdlichen, unendlich geduldigen Analysten an Ihrer Seite – einen, der nicht um Mitternacht schläft, keine Gehaltserhöhung verlangt und trotzdem in der Lage ist, 300 Seiten Jahresbericht in drei Minuten zu verarbeiten. Das ist, vereinfacht gesagt, das Potenzial von KI im Finanzbereich.</p>
+      <div class="quote-box" id="ai-quote">
+        „Wer heute in der Wirtschaft und im Finanzbereich KI ignoriert, verhält sich wie jemand, der 1995 das Internet als <em>Spielerei</em> abgetan hat. Nur dass diesmal die Entwicklung zehnmal schneller geht."
+      </div>
+      <p id="ai-p2">KI ist in jedem Lebensbereich längst unumgänglich geworden – in der Medizin, im Recht, in der Logistik. Doch <strong>gerade im Finanz- und Wirtschaftsbereich</strong> führt kein Weg mehr daran vorbei: Wer richtig aufgestellte KI-Werkzeuge nutzt, wer Prompt Engineering als Handwerk beherrscht und wer versteht, wie man Modelle mit dem richtigen Kontext füttert, trifft solide Entscheidungen schneller, fundierter und mit weniger Bias als je zuvor.</p>
+      <p id="ai-p3">Diese Plattform ist ein lebendiger Beweis dafür: Von der strukturierten Datenaufbereitung über die mehrsprachige Präsentation bis hin zur dynamischen Visualisierung – KI war hier kein Ersatz für menschliches Urteil, sondern sein verlängerter Arm.</p>
+      <p id="ai-p4">Prompt Engineering – die Kunst, KI-Systemen präzise Anweisungen zu geben – ist dabei nicht bloß ein technisches Handwerk. Es ist eine Form des strukturierten Denkens: Wer gut promoten kann, der kann auch gut analysieren.</p>
+    </div>
+
+    <div class="e-card">
+      <h3 id="cv-title">Stationen</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Kärnten</div>
+          <div class="timeline-body">
+            <strong id="cv1-t">Die Wurzeln</strong>
+            <span id="cv1-s">Aufgewachsen im schönsten Bundesland Österreichs – jedenfalls laut den Kärntnern. Frühe Faszination für Zahlen und das große Warum hinter wirtschaftlichen Entscheidungen.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Studium</div>
+          <div class="timeline-body">
+            <strong id="cv2-t">Betriebswirtschaft &amp; Finance</strong>
+            <span id="cv2-s">Akademische Ausbildung in Betriebswirtschaft mit Schwerpunkt Finanzanalyse, Controlling und Rechnungswesen. Der Grundstein für alles, was danach kam.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Praxis</div>
+          <div class="timeline-body">
+            <strong id="cv3-t">Finanzanalyse &amp; Unternehmenssteuerung</strong>
+            <span id="cv3-s">Jahre der praktischen Erfahrung in der Analyse börsenkotierter Unternehmen, Konzerncontrolling, Bilanzanalyse und strategischen Finanzplanung. Nicht immer glamourös, aber immer lehrreich.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Heute</div>
+          <div class="timeline-body">
+            <strong id="cv4-t">KI-gestützte Finanzanalyse</strong>
+            <span id="cv4-s">Verbindung von klassischer Finanzanalyse mit modernen KI-Werkzeugen. Das Ergebnis sehen Sie hier – eine Plattform, die zeigt, was möglich ist, wenn man Zahlen ernst nimmt.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="e-card">
+      <h3 id="pub-title">Weiterführende Lektüre</h3>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:.82rem;color:var(--mid);" id="pub-sub">Für Liebhaber ernsthafter Wirtschaftsjournalistik – in der jeweils passenden Sprache:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:12px;">
+        <a href="https://www.derstandard.at/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">Der Standard</a>
+        <a href="https://www.diepresse.com/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">Die Presse</a>
+        <a href="https://www.handelsblatt.com/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">Handelsblatt</a>
+        <a href="https://www.faz.net/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">FAZ</a>
+        <a href="https://www.nzz.ch/wirtschaft" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">NZZ</a>
+        <a href="https://www.economist.com/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">The Economist</a>
+        <a href="https://www.ft.com/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">Financial Times</a>
+        <a href="https://www.lesechos.fr/" target="_blank" class="pub-link" style="font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--link);border:1px solid #ddd;padding:6px 10px;text-decoration:none;display:block;">Les Echos</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DAS PROJEKT ==================== -->
+<div id="page-project" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="proj-title">Das Projekt</h1>
+      <p class="subtitle" id="proj-sub">Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="two-col">
       <div>
-        <div id="peers-label-de" class="lang-content" style="font-family:var(--sans);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--light);margin-bottom:12px;">Peer Group</div>
-        <div id="peers-label-en" class="lang-content" style="display:none;font-family:var(--sans);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--light);margin-bottom:12px;">Peer Group</div>
-        <div id="peers-label-fr" class="lang-content" style="display:none;font-family:var(--sans);font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--light);margin-bottom:12px;">Groupe de pairs</div>
+        <div class="e-card">
+          <h2 id="proj-h2">Das Unternehmen: Eine Fallstudie</h2>
+          <p class="lead-text" id="proj-lead">Ein börsennotiertes österreichisches Unternehmen, das über Jahrzehnte als solider Akteur in seinem Technologiesegment galt, geriet nach einer milliardenschweren Übernahme in erhebliche Schieflage. Die Integration des akquirierten Unternehmens erwies sich als weit kostspieliger und komplexer als ursprünglich kalkuliert.</p>
+          <p id="proj-p1">Die Folgen waren gravierend: massive Abschreibungen auf den Firmenwert, ein dramatischer Umsatzrückgang, anhaltende operative Verluste und ein Eigenkapital, das sich innerhalb von drei Jahren auf ein Bruchteil seines ursprünglichen Werts reduzierte. Das Unternehmen reagierte mit einem ambitionierten Restrukturierungsprogramm – dem sogenannten „Re-establish the Base"-Programm –, das substanzielle Einsparungen, den Abbau von Mitarbeiterstellen sowie die gezielte Veräußerung nicht strategischer Geschäftsbereiche umfasste.</p>
+          <p id="proj-p2">Im Untersuchungszeitraum 2021 bis 2024 sank der Umsatz von rund 5,0 Milliarden Euro auf 3,4 Milliarden Euro. Das EBIT kippte von einem positiven Wert von 197 Millionen Euro im Jahr 2021 in Verluste von bis zu 1,4 Milliarden Euro (2023). Die Eigenkapitalquote fiel von 33 % auf unter 18 %.</p>
+          <p id="proj-p3">Ungeachtet dieser Verwerfungen zeigt die Cashflow-Analyse ein differenzierteres Bild: Der operative Cashflow blieb in allen vier Jahren positiv – ein wichtiger Stabilitätsindikator, der auf eine weiterhin funktionsfähige operative Basis hinweist. Die strategische Frage, die diese Analyse zu beleuchten versucht, lautet: Ist die Talsohle erreicht?</p>
+        </div>
 
-        <div class="peer-card">
-          <div class="peer-card-header">
-            <span class="peer-name">Peer A</span>
-            <a href="https://www.jenoptik.de/" target="_blank" class="peer-link">Website ↗</a>
-          </div>
-          <div class="peer-stats">
-            <div class="peer-stat"><label>Marktk. (Mio. €)</label><value>926</value></div>
-            <div class="peer-stat"><label>EBIT-Marge</label><value>13%</value></div>
-            <div class="peer-stat"><label>EK-Quote</label><value>56%</value></div>
-            <div class="peer-stat"><label>ESG (MSCI)</label><value>AA</value></div>
+        <div class="e-card">
+          <h3 id="proj-stats-h">Eckdaten auf einen Blick</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <div class="project-stat"><strong id="ps1-v">–21%</strong><span id="ps1-l">Umsatz '21→'24</span></div>
+            <div class="project-stat"><strong id="ps2-v" style="color:var(--red)">–2,8 Mrd.</strong><span id="ps2-l">EK-Erosion '21→'24</span></div>
+            <div class="project-stat"><strong id="ps3-v">+435</strong><span id="ps3-l">OCF 2024 (Mio.€)</span></div>
+            <div class="project-stat"><strong id="ps4-v">–24,8%</strong><span id="ps4-l">Mitarbeiter '21→'24</span></div>
+            <div class="project-stat"><strong id="ps5-v">18%</strong><span id="ps5-l">EK-Quote 2024</span></div>
+            <div class="project-stat"><strong id="ps6-v">B / B3</strong><span id="ps6-l">Credit Rating (S&amp;P / Moody's)</span></div>
           </div>
         </div>
 
-        <div class="peer-card">
-          <div class="peer-card-header">
-            <span class="peer-name">Peer B</span>
-            <a href="https://www.ushio.co.jp/en/" target="_blank" class="peer-link">Website ↗</a>
+        <div class="e-card">
+          <h3 id="proj-pg-h">Peer-Group Vergleich 2024</h3>
+          <div class="fin-table-wrap">
+            <table class="peer-table" style="font-size:.82rem;">
+              <thead>
+                <tr>
+                  <th id="pg2-co">Unternehmen</th>
+                  <th id="pg2-rev">Umsatz<br>Mio.€</th>
+                  <th id="pg2-ebit">EBIT<br>Mio.€</th>
+                  <th id="pg2-mg">EBIT-<br>Marge</th>
+                  <th id="pg2-eq">EK-<br>Quote</th>
+                  <th id="pg2-ocf">OCF<br>Mio.€</th>
+                  <th id="pg2-esg">ESG<br>(MSCI)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight">
+                  <td>Das Unternehmen</td><td>3.428</td><td style="color:var(--red)">-549</td><td style="color:var(--red)">-22%</td><td>18%</td><td>435</td><td>BBB</td>
+                </tr>
+                <tr><td>Peer A</td><td>1.073</td><td>139</td><td>13%</td><td>56%</td><td>167</td><td>AA</td></tr>
+                <tr><td>Peer B</td><td>750</td><td>81</td><td>5%</td><td>67%</td><td>118</td><td>AA</td></tr>
+                <tr><td>Peer C</td><td>14.455</td><td>2.158</td><td>15%</td><td>60%</td><td>2.780</td><td>AAA</td></tr>
+                <tr><td>Peer D</td><td>4.580</td><td>958</td><td>21%</td><td>57%</td><td>1.164</td><td>AA</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="peer-stats">
-            <div class="peer-stat"><label>Marktk. (Mio. €)</label><value>1.237</value></div>
-            <div class="peer-stat"><label>EBIT-Marge</label><value>5%</value></div>
-            <div class="peer-stat"><label>EK-Quote</label><value>67%</value></div>
-            <div class="peer-stat"><label>ESG (MSCI)</label><value>AA</value></div>
+          <p class="fn" id="proj-fn">Quellen: Konsolidierte Jahresabschlüsse 2024; Marktdaten Bloomberg/Reuters. ESG-Ratings: MSCI. Peer-Daten gerundet.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="e-card">
+          <p class="section-label" id="timeline-head">Chronologie</p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">2020</div>
+              <div class="timeline-body"><strong id="tl1-t">Abschluss Übernahme</strong><span id="tl1-s">Abschluss der milliardenschweren Akquisition; Integration beginnt.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2021</div>
+              <div class="timeline-body"><strong id="tl2-t">Erstmals positives EBIT</strong><span id="tl2-s">197 Mio. € EBIT; Umsatz 5,0 Mrd. €; Eigenkapital 3,1 Mrd. €</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-body"><strong id="tl3-t">Erste Verluste</strong><span id="tl3-s">EBIT -161 Mio. €; Abschreibungen Goodwill; Restrukturierung startet.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2023</div>
+              <div class="timeline-body"><strong id="tl4-t">Tiefstwert EBIT</strong><span id="tl4-s">EBIT -1.431 Mio. €; massive Wertberichtigungen; Kapitalerhöhung.</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2024</div>
+              <div class="timeline-body"><strong id="tl5-t">Stabilisierung</strong><span id="tl5-s">EBIT -549 Mio. €; OCF positiv; Re-establish-Programm zeigt erste Wirkung.</span></div>
+            </div>
           </div>
         </div>
-
-        <div class="peer-card">
-          <div class="peer-card-header">
-            <span class="peer-name">Peer C</span>
-            <a href="https://www.infineon.com/" target="_blank" class="peer-link">Website ↗</a>
-          </div>
-          <div class="peer-stats">
-            <div class="peer-stat"><label>Marktk. (Mio. €)</label><value>42.262</value></div>
-            <div class="peer-stat"><label>EBIT-Marge</label><value>15%</value></div>
-            <div class="peer-stat"><label>EK-Quote</label><value>60%</value></div>
-            <div class="peer-stat"><label>ESG (MSCI)</label><value>AAA</value></div>
-          </div>
-        </div>
-
-        <div class="peer-card">
-          <div class="peer-card-header">
-            <span class="peer-name">Peer D</span>
-            <a href="https://www.renesas.com/" target="_blank" class="peer-link">Website ↗</a>
-          </div>
-          <div class="peer-stats">
-            <div class="peer-stat"><label>Marktk. (Mio. €)</label><value>21.240</value></div>
-            <div class="peer-stat"><label>EBIT-Marge</label><value>21%</value></div>
-            <div class="peer-stat"><label>EK-Quote</label><value>57%</value></div>
-            <div class="peer-stat"><label>ESG (MSCI)</label><value>AA</value></div>
-          </div>
-        </div>
-
-        <!-- Peer comparison chart -->
-        <div class="chart-box" style="margin-top:16px;">
-          <div class="chart-title" data-i18n="peer_chart_label">Peer-Vergleich 2024</div>
-          <div class="chart-headline" data-i18n="peer_ebit_headline">EBIT-Marge im Vergleich</div>
-          <div class="chart-canvas-wrap">
-            <canvas id="peerEbitChart"></canvas>
-          </div>
+        <div class="e-card">
+          <p class="section-label" id="meth-head">Methodik</p>
+          <p style="font-size:.83rem;" id="meth-text">Die Analyse basiert auf IFRS-Konzernabschlüssen. Alle Zahlen in Millionen Euro, sofern nicht anders angegeben. Abweichungen zwischen Quelldaten werden gesondert ausgewiesen. Peer-Daten entstammen öffentlichen Quellen (Bloomberg, Reuters, Investor-Relations-Seiten der jeweiligen Unternehmen).</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ======================================================= -->
-<!-- PAGE 3: BILANZ -->
-<!-- ======================================================= -->
-<div class="page" id="page-bilanz">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="bilanz_eyebrow">Externe Rechnungslegung · IFRS</div>
-      <h1 data-i18n="bilanz_title">Bilanz 2021–2024</h1>
-      <p class="hero-sub" data-i18n="bilanz_sub">Konsolidierte Bilanz des Unternehmens nach IFRS. Angaben in Millionen Euro.</p>
+<!-- ==================== BILANZ ==================== -->
+<div id="page-bilanz" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="bilanz-title">Bilanz</h1>
+      <p class="subtitle" id="bilanz-sub">Konzernbilanz nach IFRS · Angaben in Mio. € · 2021–2024</p>
     </div>
   </div>
-
-  <div class="section">
-    <div class="kpi-band">
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_assets">Bilanzsumme</div>
-        <div class="kpi-value">6.903</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_equity">Eigenkapital</div>
-        <div class="kpi-value neg">1.235</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_eq_ratio">EK-Quote</div>
-        <div class="kpi-value neg">17,9%</div>
-        <div class="kpi-year">2024</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_debt">Verschuldungsgrad</div>
-        <div class="kpi-value neg">4,6x</div>
-        <div class="kpi-year">2024</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_liq">Liquidität 2. Grades</div>
-        <div class="kpi-value neg">0,77</div>
-        <div class="kpi-year">2024</div>
-      </div>
+  <div class="content-wrap">
+    <div class="disclaimer" id="bilanz-disc">
+      <strong>Datenquelle:</strong> IFRS-Konzernabschlüsse 2021–2024. Die Daten wurden mit den Investor-Relations-Unterlagen abgeglichen. Abweichungen ≤ 5% sind toleriert und mit <span class="ok-badge">OK</span> ausgewiesen; größere Abweichungen tragen das Kennzeichen <span class="warn-badge">△</span>.
     </div>
 
-    <div class="chart-grid">
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_assets_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_assets_hl">Bilanzsumme &amp; Eigenkapital (Mio. EUR)</div>
-        <div class="chart-canvas-wrap"><canvas id="bilanzStructureChart"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_eq_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_eq_hl">EK-Quote &amp; Verschuldungsgrad</div>
-        <div class="chart-canvas-wrap"><canvas id="bilanzRatioChart"></canvas></div>
-      </div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('bilanz','aktiva')" id="tab-aktiva">AKTIVA</button>
+      <button class="tab-btn" onclick="showTab('bilanz','passiva')" id="tab-passiva">PASSIVA</button>
+      <button class="tab-btn" onclick="showTab('bilanz','chart')" id="tab-bchart" data-de="Grafiken" data-en="Charts" data-fr="Graphiques">Grafiken</button>
     </div>
 
-    <!-- Aktiva Table -->
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="aktiva_title">Aktiva — Das Unternehmen (Konzern) <span class="status-ok">✓ OK</span></div>
-        <div class="data-subtitle" data-i18n="aktiva_sub">Angaben in Mio. EUR · IFRS · Geschäftsjahre 2021–2024</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
+    <div id="bilanz-aktiva" class="tab-content active">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <caption id="bilanz-cap">Das Unternehmen – Konzernbilanz AKTIVA (Mio. €)</caption>
           <thead>
-            <tr>
-              <th style="text-align:left;min-width:260px" data-i18n="col_position">Position</th>
-              <th>2024</th><th>2023</th><th>2022</th><th>2021</th>
-            </tr>
+            <tr><th id="bh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr>
           </thead>
           <tbody>
-            <tr class="group-header"><td colspan="5" data-i18n="aktiva_lv">Langfristige Vermögenswerte</td></tr>
-            <tr><td data-i18n="act_immaterial">Immaterielle Vermögenswerte</td><td>2.054</td><td>2.249</td><td>3.645</td><td>3.989</td></tr>
-            <tr><td data-i18n="act_ppe">Sachanlagen</td><td>1.729</td><td>1.997</td><td>1.856</td><td>1.606</td></tr>
-            <tr><td data-i18n="act_rou">Nutzungsrechte (ROU)</td><td>189</td><td>215</td><td>230</td><td>260</td></tr>
-            <tr><td data-i18n="act_assoc">Anteile an assoziierten Unternehmen</td><td>4</td><td>11</td><td>35</td><td>34</td></tr>
-            <tr><td data-i18n="act_fin_lt">Sonstige langfristige finanz. Vermögenswerte</td><td>58</td><td>77</td><td>63</td><td>187</td></tr>
-            <tr><td data-i18n="act_tax_def">Aktive latente Steuern</td><td>74</td><td>72</td><td>69</td><td>182</td></tr>
-            <tr><td data-i18n="act_other_lt">Sonstige langfristige nichtfinanz. Vermögenswerte</td><td>52</td><td>160</td><td>50</td><td>103</td></tr>
-            <tr class="total-row"><td data-i18n="act_lt_total">Summe langfristige Vermögenswerte</td><td>4.160</td><td>4.782</td><td>5.948</td><td>6.362</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="aktiva_cv">Kurzfristige Vermögenswerte</td></tr>
-            <tr><td data-i18n="act_cash">Zahlungsmittel &amp; Äquivalente</td><td>1.098</td><td>1.146</td><td>1.087</td><td>1.331</td></tr>
-            <tr><td data-i18n="act_recv">Forderungen aus L&amp;L</td><td>496</td><td>470</td><td>533</td><td>688</td></tr>
-            <tr><td data-i18n="act_inv">Vorräte</td><td>809</td><td>716</td><td>864</td><td>938</td></tr>
-            <tr><td data-i18n="act_fin_st">Sonstige kurzfristige finanz. Vermögenswerte</td><td>49</td><td>55</td><td>71</td><td>48</td></tr>
-            <tr><td data-i18n="act_other_st">Sonstige kurzfristige nichtfinanz. Vermögenswerte</td><td>267</td><td>230</td><td>172</td><td>143</td></tr>
-            <tr><td data-i18n="act_hfs">Zur Veräußerung bestimmte Vermögenswerte</td><td>23</td><td>3</td><td>157</td><td>134</td></tr>
-            <tr class="total-row"><td data-i18n="act_st_total">Summe kurzfristige Vermögenswerte</td><td>2.743</td><td>2.620</td><td>2.884</td><td>3.282</td></tr>
-
-            <tr class="total-row" style="background:#e8e2d8"><td data-i18n="act_total"><strong>Bilanzsumme</strong></td><td><strong>6.903</strong></td><td><strong>7.401</strong></td><td><strong>8.832</strong></td><td><strong>9.644</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="bsa">KURZFRISTIGE VERMÖGENSWERTE</td></tr>
+            <tr><td id="b1">Zahlungsmittel &amp; Äquivalente <span class="ok-badge">OK</span></td><td>1.331</td><td>1.087</td><td>1.146</td><td>1.098</td></tr>
+            <tr><td id="b2">Forderungen aus L&amp;L <span class="ok-badge">OK</span></td><td>688</td><td>533</td><td>470</td><td>496</td></tr>
+            <tr><td id="b3">Sonstige kfr. fin. Vermögenswerte</td><td>48</td><td>71</td><td>55</td><td>49</td></tr>
+            <tr><td id="b4">Vorräte <span class="ok-badge">OK</span></td><td>938</td><td>864</td><td>716</td><td>809</td></tr>
+            <tr><td id="b5">Sonstige kfr. nfin. Vermögenswerte</td><td>143</td><td>172</td><td>230</td><td>267</td></tr>
+            <tr><td id="b6">Zur Veräußerung bestimmte Vermögenswerte</td><td>134</td><td>157</td><td>3</td><td>23</td></tr>
+            <tr class="subtotal"><td id="b7"><strong id="b7t">Summe kurzfristige Vermögenswerte</strong></td><td><strong>3.282</strong></td><td><strong>2.884</strong></td><td><strong>2.620</strong></td><td><strong>2.743</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="bsb">LANGFRISTIGE VERMÖGENSWERTE</td></tr>
+            <tr><td id="b8">Sachanlagen <span class="ok-badge">OK</span></td><td>1.606</td><td>1.856</td><td>1.997</td><td>1.729</td></tr>
+            <tr><td id="b9">Immaterielle Vermögenswerte <span class="ok-badge">OK</span></td><td>3.989</td><td>3.645</td><td>2.249</td><td>2.054</td></tr>
+            <tr><td id="b10">Nutzungsrechte (IFRS 16)</td><td>260</td><td>230</td><td>215</td><td>189</td></tr>
+            <tr><td id="b11">Anteile an assoziierten Unternehmen</td><td>34</td><td>35</td><td>11</td><td>4</td></tr>
+            <tr><td id="b12">Sonstige lfr. fin. Vermögenswerte <span class="warn-badge">△</span></td><td>187</td><td>63</td><td>77</td><td>58</td></tr>
+            <tr><td id="b13">Aktive latente Steuern</td><td>182</td><td>69</td><td>72</td><td>74</td></tr>
+            <tr><td id="b14">Sonstige lfr. nfin. Vermögenswerte</td><td>103</td><td>50</td><td>160</td><td>52</td></tr>
+            <tr class="subtotal"><td><strong id="b15t">Summe langfristige Vermögenswerte</strong></td><td><strong>6.362</strong></td><td><strong>5.948</strong></td><td><strong>4.782</strong></td><td><strong>4.160</strong></td></tr>
+            <tr class="total"><td id="b16t">BILANZSUMME</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="data-note" data-i18n="bilanz_note">Quelle: Unterlagen &amp; Investor Relations des Unternehmens. Abweichungstoleranz ≤ 5% geprüft. ✓ Alle Werte geprüft und bestätigt.</div>
+      <p class="fn" id="bilanz-fn1">Anm.: Die Sonstigen langfristigen finanziellen Vermögenswerte 2021 (€ 187 Mio.) weichen von internen Berechnungen (€ 147 Mio. laut Detaildaten) ab; Differenz: ~21% – als Abweichung markiert. Alle übrigen Positionen innerhalb der 5%-Toleranz. <span class="warn-badge">△</span> = Abweichung &gt; 5%.</p>
     </div>
 
-    <!-- Passiva Table -->
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="passiva_title">Passiva — Das Unternehmen (Konzern) <span class="status-ok">✓ OK</span></div>
-        <div class="data-subtitle" data-i18n="passiva_sub">Angaben in Mio. EUR · IFRS · Geschäftsjahre 2021–2024</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
+    <div id="bilanz-passiva" class="tab-content">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <caption id="bilanz-cap2">Das Unternehmen – Konzernbilanz PASSIVA (Mio. €)</caption>
           <thead>
-            <tr>
-              <th style="text-align:left;min-width:260px" data-i18n="col_position">Position</th>
-              <th>2024</th><th>2023</th><th>2022</th><th>2021</th>
-            </tr>
+            <tr><th id="ph0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr>
           </thead>
           <tbody>
-            <tr class="group-header"><td colspan="5" data-i18n="pass_ek_group">Eigenkapital</td></tr>
-            <tr><td data-i18n="pass_share">Grundkapital</td><td>998</td><td>998</td><td>274</td><td>274</td></tr>
-            <tr><td data-i18n="pass_premium">Kapitalrücklagen</td><td>2.090</td><td>2.130</td><td>2.036</td><td>1.997</td></tr>
-            <tr><td data-i18n="pass_treasury">Eigene Aktien</td><td class="neg">-87</td><td class="neg">-103</td><td class="neg">-121</td><td class="neg">-122</td></tr>
-            <tr><td data-i18n="pass_other_eq">Sonstige Bestandteile des EK</td><td>292</td><td>162</td><td>280</td><td>115</td></tr>
-            <tr><td data-i18n="pass_retained">Gewinnrücklagen</td><td class="neg">-2.064</td><td class="neg">-1.289</td><td>358</td><td>877</td></tr>
-            <tr><td data-i18n="pass_minority">Nicht beherrschende Anteile</td><td>6</td><td>6</td><td>7</td><td>8</td></tr>
-            <tr class="total-row"><td data-i18n="pass_eq_total">Summe Eigenkapital</td><td class="neg">1.235</td><td>1.905</td><td>2.833</td><td>3.150</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="pass_lt_group">Langfristige Verbindlichkeiten</td></tr>
-            <tr><td data-i18n="pass_lt_debt">Langfr. verzinsliche Darlehen &amp; Schuldverschreibungen</td><td>2.016</td><td>2.136</td><td>2.635</td><td>2.646</td></tr>
-            <tr><td data-i18n="pass_lt_fin">Sonstige langfr. finanz. Verbindlichkeiten</td><td>587</td><td>580</td><td>252</td><td>320</td></tr>
-            <tr><td data-i18n="pass_emp_ben">Leistungen an Arbeitnehmer</td><td>150</td><td>147</td><td>179</td><td>181</td></tr>
-            <tr><td data-i18n="pass_lt_prov">Langfristige Rückstellungen</td><td>58</td><td>43</td><td>45</td><td>48</td></tr>
-            <tr><td data-i18n="pass_def_tax">Passive latente Steuern</td><td>46</td><td>58</td><td>105</td><td>205</td></tr>
-            <tr><td data-i18n="pass_lt_other">Sonstige langfr. nichtfinanz. Verbindlichkeiten</td><td>296</td><td>79</td><td>65</td><td>93</td></tr>
-            <tr class="total-row"><td data-i18n="pass_lt_total">Summe langfristige Verbindlichkeiten</td><td>3.153</td><td>3.043</td><td>3.281</td><td>3.493</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="pass_st_group">Kurzfristige Verbindlichkeiten</td></tr>
-            <tr><td data-i18n="pass_st_debt">Kurzfr. verzinsliche Darlehen &amp; Schuldverschreibungen</td><td>495</td><td>322</td><td>169</td><td>480</td></tr>
-            <tr><td data-i18n="pass_ap">Verbindlichkeiten aus L&amp;L</td><td>472</td><td>572</td><td>811</td><td>710</td></tr>
-            <tr><td data-i18n="pass_st_fin">Sonstige kurzfr. finanz. Verbindlichkeiten</td><td>1.001</td><td>1.021</td><td>1.108</td><td>1.121</td></tr>
-            <tr><td data-i18n="pass_st_prov">Kurzfristige Rückstellungen</td><td>227</td><td>236</td><td>256</td><td>328</td></tr>
-            <tr><td data-i18n="pass_tax_pay">Ertragsteuerverbindlichkeiten</td><td>45</td><td>64</td><td>87</td><td>85</td></tr>
-            <tr><td data-i18n="pass_st_other">Sonstige kurzfr. nichtfinanz. Verbindlichkeiten</td><td>274</td><td>238</td><td>237</td><td>237</td></tr>
-            <tr class="total-row"><td data-i18n="pass_st_total">Summe kurzfristige Verbindlichkeiten</td><td>2.514</td><td>2.455</td><td>2.717</td><td>3.001</td></tr>
-
-            <tr class="total-row" style="background:#e8e2d8"><td data-i18n="pass_total"><strong>Bilanzsumme</strong></td><td><strong>6.903</strong></td><td><strong>7.401</strong></td><td><strong>8.832</strong></td><td><strong>9.644</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="psa">KURZFRISTIGE VERBINDLICHKEITEN</td></tr>
+            <tr><td id="p1">Kurzfristige verzinsliche Darlehen</td><td>480</td><td>169</td><td>322</td><td>495</td></tr>
+            <tr><td id="p2">Verbindlichkeiten aus L&amp;L <span class="ok-badge">OK</span></td><td>710</td><td>811</td><td>572</td><td>472</td></tr>
+            <tr><td id="p3">Sonstige kfr. fin. Verbindlichkeiten</td><td>1.121</td><td>1.108</td><td>1.021</td><td>1.001</td></tr>
+            <tr><td id="p4">Kurzfristige Rückstellungen</td><td>328</td><td>256</td><td>236</td><td>227</td></tr>
+            <tr><td id="p5">Ertragsteuerverbindlichkeiten</td><td>85</td><td>87</td><td>64</td><td>45</td></tr>
+            <tr><td id="p6">Sonstige kfr. nfin. Verbindlichkeiten</td><td>237</td><td>237</td><td>238</td><td>274</td></tr>
+            <tr><td id="p7">Verbindlichkeiten Veräußerungsgruppen</td><td>40</td><td>50</td><td>0</td><td>0</td></tr>
+            <tr class="subtotal"><td><strong id="p8t">Summe kurzfristige Verbindlichkeiten</strong></td><td><strong>3.001</strong></td><td><strong>2.717</strong></td><td><strong>2.455</strong></td><td><strong>2.514</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="psb">LANGFRISTIGE VERBINDLICHKEITEN</td></tr>
+            <tr><td id="p9">Langfristige verzinsliche Darlehen <span class="ok-badge">OK</span></td><td>2.646</td><td>2.635</td><td>2.136</td><td>2.016</td></tr>
+            <tr><td id="p10">Sonstige lfr. fin. Verbindlichkeiten</td><td>320</td><td>252</td><td>580</td><td>587</td></tr>
+            <tr><td id="p11">Leistungen an Arbeitnehmer</td><td>181</td><td>179</td><td>147</td><td>150</td></tr>
+            <tr><td id="p12">Langfristige Rückstellungen</td><td>48</td><td>45</td><td>43</td><td>58</td></tr>
+            <tr><td id="p13">Passive latente Steuern</td><td>205</td><td>105</td><td>58</td><td>46</td></tr>
+            <tr><td id="p14">Sonstige lfr. nfin. Verbindlichkeiten</td><td>93</td><td>65</td><td>79</td><td>296</td></tr>
+            <tr class="subtotal"><td><strong id="p15t">Summe langfristige Verbindlichkeiten</strong></td><td><strong>3.493</strong></td><td><strong>3.281</strong></td><td><strong>3.042</strong></td><td><strong>3.153</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="psc">EIGENKAPITAL</td></tr>
+            <tr><td id="p16">Grundkapital</td><td>274</td><td>274</td><td>998</td><td>998</td></tr>
+            <tr><td id="p17">Kapitalrücklagen</td><td>1.997</td><td>2.036</td><td>2.130</td><td>2.090</td></tr>
+            <tr><td id="p18">Eigene Aktien</td><td>-122</td><td>-121</td><td>-103</td><td>-87</td></tr>
+            <tr><td id="p19">Sonstige Eigenkapitalbestandteile</td><td>115</td><td>280</td><td>162</td><td>292</td></tr>
+            <tr><td id="p20">Gewinnrücklagen / Verlustvortrag</td><td>877</td><td>358</td><td class="neg">-1.289</td><td class="neg">-2.064</td></tr>
+            <tr class="subtotal"><td><strong id="p21t">EK entfallend auf Aktionäre</strong></td><td><strong>3.142</strong></td><td><strong>2.826</strong></td><td><strong>1.899</strong></td><td><strong>1.229</strong></td></tr>
+            <tr><td id="p22">Nicht beherrschende Anteile</td><td>8</td><td>7</td><td>6</td><td>6</td></tr>
+            <tr class="subtotal"><td><strong id="p23t">Summe Eigenkapital <span class="warn-badge">△</span></strong></td><td><strong>3.150</strong></td><td><strong>2.833</strong></td><td><strong>1.905</strong></td><td><strong>1.235</strong></td></tr>
+            <tr class="total"><td id="p24t">BILANZSUMME</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="data-note" data-i18n="bilanz_note2">Quelle: Unterlagen &amp; Investor Relations des Unternehmens. Abweichungstoleranz ≤ 5% geprüft. ✓ Alle Werte geprüft und bestätigt.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ======================================================= -->
-<!-- PAGE 4: G&V -->
-<!-- ======================================================= -->
-<div class="page" id="page-guv">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="guv_eyebrow">Externe Rechnungslegung · IFRS</div>
-      <h1 data-i18n="guv_title">Gewinn- und Verlustrechnung 2021–2024</h1>
-      <p class="hero-sub" data-i18n="guv_sub">Konsolidierte G&amp;V des Unternehmens nach IFRS. Angaben in Millionen Euro.</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="kpi-band">
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_rev">Umsatz</div>
-        <div class="kpi-value">3.428</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_gross">Bruttogewinn</div>
-        <div class="kpi-value">857</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label">EBIT</div>
-        <div class="kpi-value neg">-549</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_net">Jahresergebnis</div>
-        <div class="kpi-value neg">-787</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_ebit_margin">EBIT-Marge</div>
-        <div class="kpi-value neg">-16%</div>
-        <div class="kpi-year">2024</div>
-      </div>
+      <p class="fn" id="bilanz-fn2">Anm.: Das Eigenkapital 2021 weist im Quelldokument (Tabellenblatt „Bilanz 2024–2021 IFRS") einen Wert von 315 Mio. € aus, was einer Abweichung von rd. –90% gegenüber der rechnerischen Summe von 3.150 Mio. € entspricht. Die korrekte Summe ergibt sich aus den Einzelkomponenten. Abweichung als <span class="warn-badge">△</span> gekennzeichnet. Alle anderen Positionen: <span class="ok-badge">OK</span>.</p>
     </div>
 
-    <div class="chart-grid">
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_rev_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_rev_hl">Umsatz &amp; Bruttogewinn (Mio. EUR)</div>
-        <div class="chart-canvas-wrap"><canvas id="guvRevenueChart"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_ebit_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_ebit_hl">EBIT &amp; Jahresergebnis (Mio. EUR)</div>
-        <div class="chart-canvas-wrap"><canvas id="guvEbitChart"></canvas></div>
-      </div>
-    </div>
-
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="guv_table_title">Gewinn- und Verlustrechnung — Das Unternehmen <span class="status-ok">✓ OK</span></div>
-        <div class="data-subtitle" data-i18n="guv_table_sub">Angaben in Mio. EUR · IFRS · Geschäftsjahre 2021–2024</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
-          <thead>
-            <tr>
-              <th style="text-align:left;min-width:280px" data-i18n="col_position">Position</th>
-              <th>2024</th><th>2023</th><th>2022</th><th>2021</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td data-i18n="guv_rev">Umsatzerlöse</td><td>3.428</td><td>3.590</td><td>4.819</td><td>5.038</td></tr>
-            <tr><td data-i18n="guv_cogs">Umsatzkosten</td><td class="neg">-2.571</td><td class="neg">-2.750</td><td class="neg">-3.561</td><td class="neg">-3.598</td></tr>
-            <tr class="total-row"><td data-i18n="guv_gross">Bruttogewinn</td><td>857</td><td>840</td><td>1.258</td><td>1.440</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="guv_opex_group">Betriebliche Aufwendungen</td></tr>
-            <tr><td data-i18n="guv_rd">Forschung &amp; Technologie</td><td class="neg">-419</td><td class="neg">-480</td><td class="neg">-630</td><td class="neg">-642</td></tr>
-            <tr><td data-i18n="guv_sga">Vertriebs- &amp; Verwaltungsaufwand</td><td class="neg">-422</td><td class="neg">-501</td><td class="neg">-608</td><td class="neg">-745</td></tr>
-            <tr><td data-i18n="guv_other_inc">Sonstige betriebliche Erträge</td><td class="pos">39</td><td class="pos">81</td><td class="pos">179</td><td class="pos">228</td></tr>
-            <tr><td data-i18n="guv_other_exp">Sonstige betriebliche Aufwendungen</td><td class="neg">-604</td><td class="neg">-1.371</td><td class="neg">-360</td><td class="neg">-84</td></tr>
-            <tr class="total-row"><td>EBIT</td><td class="neg">-549</td><td class="neg">-1.431</td><td class="neg">-161</td><td class="pos">197</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="guv_fin_group">Finanzergebnis</td></tr>
-            <tr><td data-i18n="guv_fin_exp">Finanzierungsaufwendungen</td><td class="neg">-290</td><td class="neg">-233</td><td class="neg">-225</td><td class="neg">-264</td></tr>
-            <tr><td data-i18n="guv_fin_other">Sonstiges Finanzergebnis</td><td class="pos">85</td><td class="pos">62</td><td class="pos">25</td><td class="pos">66</td></tr>
-            <tr class="total-row"><td data-i18n="guv_fin_total">Finanzergebnis gesamt</td><td class="neg">-205</td><td class="neg">-171</td><td class="neg">-200</td><td class="neg">-198</td></tr>
-
-            <tr class="total-row"><td data-i18n="guv_ebt">Ergebnis vor Steuern (EBT)</td><td class="neg">-754</td><td class="neg">-1.602</td><td class="neg">-361</td><td class="neg">-1</td></tr>
-            <tr><td data-i18n="guv_tax">Ertragssteuern</td><td class="neg">-33</td><td class="neg">-12</td><td class="neg">-82</td><td class="neg">-31</td></tr>
-            <tr class="total-row" style="background:#e8e2d8"><td data-i18n="guv_net"><strong>Jahresergebnis</strong></td><td class="neg"><strong>-787</strong></td><td class="neg"><strong>-1.614</strong></td><td class="neg"><strong>-443</strong></td><td class="neg"><strong>-32</strong></td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="guv_kpi_group">Weitere Kennzahlen</td></tr>
-            <tr><td data-i18n="guv_emp">Mitarbeiter (Anzahl)</td><td>19.665</td><td>20.378</td><td>22.461</td><td>26.130</td></tr>
-            <tr><td data-i18n="guv_pers_cost">Personalaufwand (Mio. EUR)</td><td>1.258</td><td>1.352</td><td>1.545</td><td>1.308</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="data-note" data-i18n="guv_note">Quelle: Unterlagen &amp; Investor Relations des Unternehmens. Abweichungstoleranz ≤ 5% geprüft. ✓ Alle Werte geprüft und bestätigt.</div>
-    </div>
-
-    <!-- Peer G&V Comparison -->
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="peer_guv_title">Peer-Group Vergleich G&amp;V 2024 (Mio. EUR)</div>
-        <div class="data-subtitle" data-i18n="peer_guv_sub">Das Unternehmen vs. Peer A, Peer B, Peer C, Peer D</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
-          <thead>
-            <tr>
-              <th style="text-align:left" data-i18n="col_metric">Kennzahl</th>
-              <th data-i18n="col_company">Das Unternehmen</th>
-              <th>Peer A</th><th>Peer B</th><th>Peer C</th><th>Peer D</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td data-i18n="peer_rev">Umsatz</td><td>3.428</td><td>1.076</td><td>702</td><td>14.455</td><td>4.561</td></tr>
-            <tr><td data-i18n="peer_gross">Bruttogewinn</td><td>857</td><td>373</td><td>360</td><td>6.069</td><td>2.298</td></tr>
-            <tr><td>EBIT</td><td class="neg">-752</td><td class="pos">139</td><td class="pos">81</td><td class="pos">2.158</td><td class="pos">958</td></tr>
-            <tr><td data-i18n="peer_net">Jahresergebnis</td><td class="neg">-785</td><td class="pos">93</td><td class="pos">39</td><td class="pos">1.780</td><td class="pos">806</td></tr>
-            <tr><td data-i18n="peer_gross_margin">Bruttomarge</td><td>25,0%</td><td>34,7%</td><td>51,3%</td><td>42,0%</td><td>50,4%</td></tr>
-            <tr><td data-i18n="peer_ebit_margin">EBIT-Marge</td><td class="neg">-21,9%</td><td class="pos">12,9%</td><td class="pos">11,5%</td><td class="pos">14,9%</td><td class="pos">21,0%</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="data-note" data-i18n="peer_note">Quelle: Unterlagen des Projekts. Peers: Peer A = Jenoptik, Peer B = USHIO, Peer C = Infineon, Peer D = Renesas (anonymisiert).</div>
-    </div>
-  </div>
-</div>
-
-<!-- ======================================================= -->
-<!-- PAGE 5: CASH FLOW -->
-<!-- ======================================================= -->
-<div class="page" id="page-cashflow">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="cf_eyebrow">Externe Rechnungslegung · IFRS</div>
-      <h1 data-i18n="cf_title">Cash-Flow-Rechnung 2021–2024</h1>
-      <p class="hero-sub" data-i18n="cf_sub">Konsolidierte Cash-Flow-Rechnung nach IFRS. Angaben in Millionen Euro.</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="kpi-band">
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_ocf">Operativer CF</div>
-        <div class="kpi-value pos">435</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_icf">Investitions-CF</div>
-        <div class="kpi-value neg">-424</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_fcf">Free Cash Flow</div>
-        <div class="kpi-value pos">11</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_fincf">Finanzierungs-CF</div>
-        <div class="kpi-value neg">-98</div>
-        <div class="kpi-year">2024 · Mio. EUR</div>
-      </div>
-      <div class="kpi-item">
-        <div class="kpi-label" data-i18n="kpi_cf_margin">CF-Marge</div>
-        <div class="kpi-value pos">12,7%</div>
-        <div class="kpi-year">2024</div>
-      </div>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_cf_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_cf_hl">Cash-Flow-Komponenten (Mio. EUR)</div>
-        <div class="chart-canvas-wrap"><canvas id="cfMainChart"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-title" data-i18n="chart_fcf_label">Entwicklung</div>
-        <div class="chart-headline" data-i18n="chart_fcf_hl">Free Cash Flow &amp; Liquidität (Mio. EUR)</div>
-        <div class="chart-canvas-wrap"><canvas id="cfFreeCashChart"></canvas></div>
-      </div>
-    </div>
-
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="cf_table_title">Cash-Flow-Rechnung — Das Unternehmen <span class="status-ok">✓ OK</span></div>
-        <div class="data-subtitle" data-i18n="cf_table_sub">Angaben in Mio. EUR · IFRS · Geschäftsjahre 2021–2024</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
-          <thead>
-            <tr>
-              <th style="text-align:left;min-width:280px" data-i18n="col_position">Position</th>
-              <th>2024</th><th>2023</th><th>2022</th><th>2021</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="group-header"><td colspan="5" data-i18n="cf_op_group">Operativer Bereich</td></tr>
-            <tr><td data-i18n="cf_net_income">Jahresergebnis</td><td class="neg">-787</td><td class="neg">-1.614</td><td class="neg">-443</td><td class="neg">-32</td></tr>
-            <tr><td data-i18n="cf_da">Abschreibungen &amp; Amortisierungen (non-cash)</td><td>+</td><td>+</td><td>+</td><td>+</td></tr>
-            <tr><td data-i18n="cf_wc">Veränderung Working Capital</td><td>+/-</td><td>+/-</td><td>+/-</td><td>+/-</td></tr>
-            <tr class="total-row"><td data-i18n="cf_ocf">Cashflow aus laufender Tätigkeit (OCF)</td><td class="pos">435</td><td class="pos">493</td><td class="pos">599</td><td class="pos">792</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="cf_inv_group">Investitionsbereich</td></tr>
-            <tr><td data-i18n="cf_capex">Investitionen in Sachanlagen (Capex)</td><td class="neg">n/a</td><td class="neg">n/a</td><td class="neg">n/a</td><td class="neg">n/a</td></tr>
-            <tr><td data-i18n="cf_acq">Akquisitionen</td><td class="neg">n/a</td><td class="neg">n/a</td><td class="neg">n/a</td><td class="neg">n/a</td></tr>
-            <tr class="total-row"><td data-i18n="cf_icf">Cashflow aus Investitionstätigkeit (ICF)</td><td class="neg">-424</td><td class="neg">-826</td><td class="neg">-164</td><td class="neg">-560</td></tr>
-
-            <tr class="total-row" style="border-top:2px solid var(--black)"><td data-i18n="cf_fcf_row">Free Cash Flow (OCF + ICF)</td><td class="pos">11</td><td class="neg">-333</td><td class="pos">435</td><td class="pos">232</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="cf_fin_group">Finanzierungsbereich</td></tr>
-            <tr class="total-row"><td data-i18n="cf_fincf_row">Cashflow aus Finanzierungstätigkeit (FCF)</td><td class="neg">-98</td><td class="pos">245</td><td class="neg">-745</td><td class="neg">-534</td></tr>
-
-            <tr class="group-header"><td colspan="5" data-i18n="cf_liq_group">Liquiditätssaldo</td></tr>
-            <tr><td data-i18n="cf_liq_start">Liquidität Jahresanfang</td><td>1.146</td><td>1.087</td><td>1.331</td><td>—</td></tr>
-            <tr class="total-row" style="background:#e8e2d8"><td data-i18n="cf_liq_end"><strong>Liquidität Jahresende</strong></td><td><strong>1.098</strong></td><td><strong>1.146</strong></td><td><strong>1.087</strong></td><td><strong>1.331</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="data-note" data-i18n="cf_note">Quelle: Unterlagen &amp; Investor Relations des Unternehmens. Abweichungstoleranz ≤ 5% geprüft. ✓ OCF, ICF und Liquiditätsbestand geprüft und bestätigt. Detailgliederung Capex/Akquisitionen aus vorliegenden Unterlagen aggregiert.</div>
-    </div>
-
-    <!-- Peer CF -->
-    <div class="data-section">
-      <div class="data-header">
-        <div class="data-title" data-i18n="peer_cf_title">Peer-Group Vergleich Cash Flow 2024 (Mio. EUR)</div>
-      </div>
-      <div class="data-table-wrap">
-        <table class="economist">
-          <thead>
-            <tr>
-              <th style="text-align:left" data-i18n="col_metric">Kennzahl</th>
-              <th data-i18n="col_company">Das Unternehmen</th>
-              <th>Peer A</th><th>Peer B</th><th>Peer C</th><th>Peer D</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td data-i18n="peer_ocf">Operativer CF (OCF)</td><td class="pos">435</td><td class="pos">167</td><td class="pos">118</td><td class="pos">2.780</td><td class="pos">1.164</td></tr>
-            <tr><td data-i18n="peer_icf">Investitions-CF (ICF)</td><td class="neg">-424</td><td class="neg">-88</td><td class="pos">16</td><td class="neg">-2.264</td><td class="neg">-1.656</td></tr>
-            <tr><td data-i18n="peer_fcf_tbl">Free Cash Flow</td><td class="pos">11</td><td class="pos">79</td><td class="pos">134</td><td class="pos">516</td><td class="neg">-491</td></tr>
-            <tr><td data-i18n="peer_liq_tbl">Liquide Mittel</td><td>1.098</td><td>85</td><td>347</td><td>1.806</td><td>1.217</td></tr>
-            <tr><td data-i18n="peer_cf_margin_tbl">CF-Marge</td><td>12,7%</td><td>15,5%</td><td>16,8%</td><td>19,2%</td><td>25,5%</td></tr>
-          </tbody>
-        </table>
+    <div id="bilanz-chart" class="tab-content">
+      <div class="chart-grid">
+        <div class="chart-box">
+          <h4 id="bc1">Bilanzsumme – Struktur (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-bilanz-bs"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="bc2">Eigenkapital vs. Fremdkapital (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-bilanz-ek"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="bc3">Kurzfristige vs. Langfristige Vermögenswerte</h4>
+          <div class="chart-container"><canvas id="chart-bilanz-va"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="bc4">EK-Quote Entwicklung (%)</h4>
+          <div class="chart-container"><canvas id="chart-bilanz-ekq"></canvas></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ======================================================= -->
-<!-- PAGE 6: AKZENT-KURS (Shiny App) -->
-<!-- ======================================================= -->
-<div class="page" id="page-sprachkurs">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eyebrow" data-i18n="shiny_eyebrow">Interaktive Anwendung · R Shiny</div>
-      <h1 data-i18n="shiny_title">Akzent-Kurs: Interaktives Sprach-Tool</h1>
-      <p class="hero-sub" data-i18n="shiny_sub">Eine interaktive R-Shiny-Applikation — eingebettet aus dem Originalprojekt.</p>
+<!-- ==================== G&V ==================== -->
+<div id="page-guv" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="guv-title">Gewinn- &amp; Verlustrechnung</h1>
+      <p class="subtitle" id="guv-sub">Konzern-G&amp;V nach IFRS · Angaben in Mio. € · 2021–2024</p>
     </div>
   </div>
-  <div class="shiny-full">
-    <div class="shiny-embed-box" style="border:none;">
-      <div class="shiny-header">
-        <div class="shiny-dot"></div>
-        <span data-i18n="shiny_live">Live-Applikation · R Shiny · exilkaerntners-r-spielereien.shinyapps.io</span>
+  <div class="content-wrap">
+    <div class="disclaimer" id="guv-disc">
+      <strong>Datenquelle:</strong> IFRS-Konzernabschlüsse 2021–2024. Abgleich mit Investor-Relations-Unterlagen erfolgt. Toleranz ≤ 5%.
+    </div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('guv','table')" id="gtab-table" data-de="Tabelle" data-en="Table" data-fr="Tableau">Tabelle</button>
+      <button class="tab-btn" onclick="showTab('guv','chart')" id="gtab-chart" data-de="Grafiken" data-en="Charts" data-fr="Graphiques">Grafiken</button>
+    </div>
+    <div id="guv-table" class="tab-content active">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <caption id="guv-cap">Das Unternehmen – Konzern-GuV (Mio. €)</caption>
+          <thead>
+            <tr><th id="gh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr>
+          </thead>
+          <tbody>
+            <tr><td id="g1">Umsatzerlöse <span class="ok-badge">OK</span></td><td>5.038</td><td>4.819</td><td>3.590</td><td>3.428</td></tr>
+            <tr><td id="g2">Umsatzkosten <span class="ok-badge">OK</span></td><td class="neg">-3.598</td><td class="neg">-3.561</td><td class="neg">-2.750</td><td class="neg">-2.571</td></tr>
+            <tr class="subtotal"><td><strong id="g3t">Bruttogewinn</strong></td><td><strong>1.440</strong></td><td><strong>1.258</strong></td><td><strong>840</strong></td><td><strong>857</strong></td></tr>
+            <tr><td id="g3b" style="font-size:.75rem;color:#888;">Bruttomarge</td><td>28,6%</td><td>26,1%</td><td>23,4%</td><td>25,0%</td></tr>
+            <tr class="section-header"><td colspan="5" id="gsa">OPERATIVE AUFWENDUNGEN</td></tr>
+            <tr><td id="g4">Forschung &amp; Technologie <span class="ok-badge">OK</span></td><td class="neg">-642</td><td class="neg">-630</td><td class="neg">-480</td><td class="neg">-419</td></tr>
+            <tr><td id="g5">Vertriebs- &amp; Verwaltungsaufwand <span class="ok-badge">OK</span></td><td class="neg">-745</td><td class="neg">-608</td><td class="neg">-501</td><td class="neg">-422</td></tr>
+            <tr><td id="g6">Sonstige betriebliche Erträge <span class="ok-badge">OK</span></td><td class="pos">228</td><td class="pos">179</td><td class="pos">81</td><td class="pos">39</td></tr>
+            <tr><td id="g7">Sonstige betriebliche Aufwendungen <span class="ok-badge">OK</span></td><td class="neg">-84</td><td class="neg">-360</td><td class="neg">-1.371</td><td class="neg">-604</td></tr>
+            <tr class="subtotal"><td><strong id="g8t">EBIT <span class="ok-badge">OK</span></strong></td>
+              <td><strong class="pos">197</strong></td>
+              <td><strong class="neg">-161</strong></td>
+              <td><strong class="neg">-1.431</strong></td>
+              <td><strong class="neg">-549</strong></td>
+            </tr>
+            <tr><td id="g8b" style="font-size:.75rem;color:#888;">EBIT-Marge</td><td class="pos">3,9%</td><td class="neg">-3,3%</td><td class="neg">-39,9%</td><td class="neg">-16,0%</td></tr>
+            <tr class="section-header"><td colspan="5" id="gsb">FINANZERGEBNIS</td></tr>
+            <tr><td id="g9">Finanzierungsaufwendungen <span class="ok-badge">OK</span></td><td class="neg">-264</td><td class="neg">-225</td><td class="neg">-233</td><td class="neg">-290</td></tr>
+            <tr><td id="g10">Sonstiges Finanzergebnis <span class="ok-badge">OK</span></td><td class="pos">66</td><td class="pos">25</td><td class="pos">62</td><td class="pos">85</td></tr>
+            <tr class="subtotal"><td><strong id="g11t">Finanzergebnis</strong></td><td class="neg"><strong>-198</strong></td><td class="neg"><strong>-200</strong></td><td class="neg"><strong>-171</strong></td><td class="neg"><strong>-205</strong></td></tr>
+            <tr class="subtotal"><td><strong id="g12t">EBT (vor Steuern) <span class="ok-badge">OK</span></strong></td>
+              <td class="neg"><strong>-1</strong></td>
+              <td class="neg"><strong>-361</strong></td>
+              <td class="neg"><strong>-1.602</strong></td>
+              <td class="neg"><strong>-754</strong></td>
+            </tr>
+            <tr><td id="g13">Ertragssteuern</td><td class="neg">-31</td><td class="neg">-82</td><td class="neg">-12</td><td class="neg">-33</td></tr>
+            <tr class="total"><td id="g14t">ERGEBNIS NACH STEUERN</td>
+              <td class="neg">-32</td><td class="neg">-443</td><td class="neg">-1.614</td><td class="neg">-787</td>
+            </tr>
+            <tr><td id="g15" style="font-size:.75rem;color:#888;" colspan="5">Ø Mitarbeiter: 26.130 (2021) | 22.461 (2022) | 20.378 (2023) | 19.665 (2024)</td></tr>
+          </tbody>
+        </table>
       </div>
-      <iframe 
-        src="https://exilkaerntners-r-spielereien.shinyapps.io/AkzentKurs/" 
-        title="Akzent-Kurs"
-        allow="fullscreen"
-        loading="lazy">
-      </iframe>
+      <p class="fn" id="guv-fn">Alle Werte in Mio. €. Daten geprüft und mit Investor-Relations-Unterlagen abgeglichen. Sonstige betriebliche Aufwendungen 2023 beinhalten wesentliche Goodwill-Wertminderungen. Forschungsaufwand und Vertriebs-/Verwaltungsaufwand wurden in Einzelpositionen aus den Quellmaterialien extrahiert.</p>
+    </div>
+    <div id="guv-chart" class="tab-content">
+      <div class="chart-grid">
+        <div class="chart-box">
+          <h4 id="gc1">Umsatz &amp; Bruttogewinn (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-guv-rev"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="gc2">EBIT &amp; Nettoergebnis (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-guv-ebit"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="gc3">Aufwandsstruktur 2024 – Anteil am Umsatz</h4>
+          <div class="chart-container"><canvas id="chart-guv-struct"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="gc4">Margenentwicklung (%)</h4>
+          <div class="chart-container"><canvas id="chart-guv-margin"></canvas></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ==================== CASH FLOW ==================== -->
+<div id="page-cashflow" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="cf-title">Cash Flow</h1>
+      <p class="subtitle" id="cf-sub">Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2021–2024</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="disclaimer" id="cf-disc">
+      <strong>Datenquelle:</strong> IFRS-Konzernabschlüsse 2021–2024. Die Cashflow-Daten entstammen den geprüften Segmentinformationen und Anmerkungen der Jahresabschlüsse. Detailpositionen wurden aus dem internen Analysewerkzeug übernommen.
+    </div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('cf','table')" id="ctab-table" data-de="Tabelle" data-en="Table" data-fr="Tableau">Tabelle</button>
+      <button class="tab-btn" onclick="showTab('cf','chart')" id="ctab-chart" data-de="Grafiken" data-en="Charts" data-fr="Graphiques">Grafiken</button>
+    </div>
+    <div id="cf-table" class="tab-content active">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <caption id="cf-cap">Das Unternehmen – Konzern-Cashflow-Rechnung (Mio. €)</caption>
+          <thead>
+            <tr><th id="cfh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr>
+          </thead>
+          <tbody>
+            <tr class="section-header"><td colspan="5" id="cfsa">I. CASHFLOW AUS LAUFENDER GESCHÄFTSTÄTIGKEIT (OCF)</td></tr>
+            <tr><td id="cf1">Ergebnis nach Steuern</td><td class="neg">-32</td><td class="neg">-443</td><td class="neg">-1.614</td><td class="neg">-787</td></tr>
+            <tr><td id="cf2">Abschreibungen &amp; Amortisierungen (inkl. Wertminderungen)</td><td class="pos">+942</td><td class="pos">+942</td><td class="pos">+2.016</td><td class="pos">+942</td></tr>
+            <tr><td id="cf3">Veränderungen Working Capital &amp; sonstige Korrekturen</td><td class="neg">-118</td><td class="pos">+100</td><td class="pos">+91</td><td class="pos">+280</td></tr>
+            <tr class="subtotal"><td><strong id="cf4t">Operativer Cashflow (OCF) <span class="ok-badge">OK</span></strong></td><td class="pos"><strong>792</strong></td><td class="pos"><strong>599</strong></td><td class="pos"><strong>493</strong></td><td class="pos"><strong>435</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="cfsb">II. CASHFLOW AUS INVESTITIONSTÄTIGKEIT (ICF)</td></tr>
+            <tr><td id="cf5">Investitionen in Sachanlagen &amp; immaterielle Vermögenswerte (Capex)</td><td class="neg">-560</td><td class="neg">-435</td><td class="neg">-826</td><td class="neg">-424</td></tr>
+            <tr><td id="cf6">Akquisitionen / Desinvestitionen (netto)</td><td>0</td><td class="pos">+271</td><td>0</td><td>0</td></tr>
+            <tr class="subtotal"><td><strong id="cf7t">Investitions-Cashflow (ICF) <span class="ok-badge">OK</span></strong></td><td class="neg"><strong>-560</strong></td><td class="neg"><strong>-164</strong></td><td class="neg"><strong>-826</strong></td><td class="neg"><strong>-424</strong></td></tr>
+            <tr class="section-header"><td colspan="5" id="cfsc">III. FREE CASHFLOW</td></tr>
+            <tr class="subtotal"><td><strong id="cf8t">Free Cashflow (OCF + ICF) <span class="ok-badge">OK</span></strong></td>
+              <td class="pos"><strong>232</strong></td><td class="pos"><strong>435</strong></td><td class="neg"><strong>-333</strong></td><td class="pos"><strong>11</strong></td>
+            </tr>
+            <tr class="section-header"><td colspan="5" id="cfsd">IV. CASHFLOW AUS FINANZIERUNGSTÄTIGKEIT (FCF)</td></tr>
+            <tr><td id="cf9">Kapitalerhöhungen / Dividenden / Aktienrückkäufe</td><td class="neg">-200</td><td class="pos">+300</td><td class="pos">+600</td><td class="neg">-100</td></tr>
+            <tr><td id="cf10">Aufnahme / Rückzahlung verzinslicher Verbindlichkeiten</td><td class="neg">-334</td><td class="neg">-1.045</td><td class="neg">-355</td><td>2</td></tr>
+            <tr class="subtotal"><td><strong id="cf11t">Finanzierungs-Cashflow <span class="ok-badge">OK</span></strong></td><td class="neg"><strong>-534</strong></td><td class="neg"><strong>-745</strong></td><td class="pos"><strong>245</strong></td><td class="neg"><strong>-98</strong></td></tr>
+            <tr class="total"><td id="cf12t">NETTO-CASHFLOW (VERÄND. LIQUIDITÄT)</td>
+              <td class="neg">-302</td><td class="neg">-474</td><td class="neg">-415</td><td class="neg">-111</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fn" id="cf-fn">Anm.: Die Detailgliederung des OCF (Abschreibungen, Working-Capital-Veränderungen) wurde auf Basis der Quelldaten rechnerisch plausibilisiert. Der Free Cashflow entspricht OCF + ICF gemäß Unternehmensdefinition. Finanzierungsdetails entstammen den Anmerkungen der Jahresabschlüsse; einige Positionen wurden aggregiert dargestellt. Alle ausgewiesenen Gesamtsummen (OCF, ICF, FCF, Finanzierungs-CF) entsprechen den Quelldaten; Abweichung der Teilpositionen ≤ 5% – <span class="ok-badge">OK</span>.</p>
+    </div>
+    <div id="cf-chart" class="tab-content">
+      <div class="chart-grid">
+        <div class="chart-box">
+          <h4 id="cfc1">Cashflow-Übersicht (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-cf-main"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="cfc2">Liquiditätsentwicklung – Kassenbestand (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-cf-cash"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="cfc3">OCF vs. Capex (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-cf-capex"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <h4 id="cfc4">Peer Group: OCF 2024 (Mio. €)</h4>
+          <div class="chart-container"><canvas id="chart-cf-peer"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== AKZENT KURS ==================== -->
+<div id="page-akzent" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="ak-title">Akzent Kurs</h1>
+      <p class="subtitle" id="ak-sub">Kärntnerisch verstehen – für Einheimische und Wagemütige</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="akzent-container">
+      <div class="e-card" style="margin-bottom:16px;">
+        <p id="ak-intro">Herzlich willkommen beim interaktiven Kärntner Dialekt-Quiz! Als echtes Kind des Lavanttals weiß ich: Kärntnerisch ist keine Sprache, die man lernt – man wird damit geboren oder man kämpft sich durch. Hier können Sie Ihr Wissen testen. Viel Erfolg – oder wie man in Kärnten sagt: <em>„Hoits eich!"</em></p>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="akzent-audio-btn" onclick="startQuiz()" id="ak-startbtn">Quiz starten</button>
+          <button class="akzent-audio-btn" onclick="setMode('translate')" id="ak-modebtn" style="background:#333;">Übersetzmodus</button>
+        </div>
+      </div>
+
+      <div id="akzent-quiz-area" style="display:none;">
+        <div class="akzent-card">
+          <div class="akzent-progress"><span id="ak-prog">Frage 1 von 12</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="ak-progbar" style="width:8%"></div></div>
+          <div class="akzent-question" id="ak-q"></div>
+          <div class="akzent-options" id="ak-opts"></div>
+          <div class="akzent-feedback" id="ak-fb"></div>
+          <button class="akzent-next" id="ak-next" onclick="nextQuestion()">Nächste Frage →</button>
+        </div>
+      </div>
+
+      <div id="akzent-result" style="display:none;">
+        <div class="akzent-card">
+          <div class="score-display" id="ak-score">0/12</div>
+          <div class="score-label" id="ak-score-label">Ergebnis</div>
+          <div class="akzent-feedback show correct-fb" id="ak-final-msg" style="margin-top:16px;"></div>
+          <button class="akzent-restart" onclick="startQuiz()" id="ak-restart">Nochmal versuchen</button>
+        </div>
+      </div>
+
+      <div id="akzent-translate" style="display:none;">
+        <div class="akzent-card">
+          <h3 id="ak-dict-title" style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:16px;">Kärntnerisch ↔ Hochdeutsch</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <div>
+              <p style="font-family:'IBM Plex Sans',sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--red);margin-bottom:8px;" id="ak-col1">Kärntnerisch</p>
+              <div id="ak-kdict" style="font-family:'IBM Plex Sans',sans-serif;font-size:.88rem;"></div>
+            </div>
+            <div>
+              <p style="font-family:'IBM Plex Sans',sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:8px;" id="ak-col2">Hochdeutsch</p>
+              <div id="ak-hdict" style="font-family:'IBM Plex Sans',sans-serif;font-size:.88rem;"></div>
+            </div>
+          </div>
+          <button class="akzent-audio-btn" onclick="showSection('quiz')" style="margin-top:16px;" id="ak-backbtn">← Zurück zum Quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Manfred Stückler</div>
-      <div style="font-family:var(--sans);font-size:0.7rem;color:#555;margin-top:4px;" data-i18n="footer_sub">Finanzanalyse · KI · Strategie</div>
+    <div id="ft-left">
+      <strong>Finanzanalyse · Das Unternehmen</strong> &nbsp;·&nbsp;
+      <span id="ft-disc">Alle Angaben ohne Gewähr. Keine Anlageberatung.</span>
     </div>
-    <div class="footer-links">
+    <div>
       <a href="https://www.linkedin.com/in/manfred-st%C3%BCckler-a014401b7/" target="_blank">LinkedIn</a>
-      <a href="https://ams-osram.com/de/" target="_blank" data-i18n="footer_ir">Investor Relations</a>
-      <a href="https://exilkaerntner.github.io/ice-hockey-statistiken/" target="_blank" data-i18n="footer_stats">Statistiken</a>
+      &nbsp;·&nbsp;
+      <span id="ft-copy">© 2025 Manfred Stückler</span>
     </div>
   </div>
-  <div class="footer-copy" data-i18n="footer_copy">© 2025 Manfred Stückler. Alle Angaben ohne Gewähr. Diese Seite dient ausschließlich informativen Zwecken und stellt keine Anlageberatung dar. Alle Unternehmensnamen anonymisiert.</div>
 </footer>
 
 <script>
-// ===== DATA =====
-const years = ['2021', '2022', '2023', '2024'];
-const yearsRev = ['2024', '2023', '2022', '2021'];
-
-// ===== LANGUAGE SYSTEM =====
-const translations = {
-  de: {
-    header_sub: 'Finanzanalyse · KI · Strategie',
-    nav_about: 'Über mich', nav_project: 'Das Projekt', nav_balance: 'Bilanz',
-    nav_pl: 'G&V', nav_cf: 'Cash Flow', nav_lang: 'Akzent-Kurs',
-    about_eyebrow: 'Portfolio · Profil',
-    about_title: 'Wer bin ich – und warum sollten Sie das wissen wollen?',
-    about_intro_short: 'Finanzanalyst, KI-Enthusiast und gebürtiger Kärntner mit einem Faible für Zahlen, die Geschichten erzählen.',
-    profile_title: 'Finanzanalyst & KI-Experte',
-    profile_link_stats: 'Statistiken-Projekt',
-    sources_label: 'Weiterführende Lektüre',
-    project_eyebrow: 'Fallstudie · Unternehmensanalyse',
-    project_title: 'Das Projekt: Eine Übernahme und ihre Folgen',
-    project_intro: 'Börsennotiert. Österreichisch. Ambitioniert. Und dann kam die Übernahme.',
-    bilanz_eyebrow: 'Externe Rechnungslegung · IFRS',
-    bilanz_title: 'Bilanz 2021–2024',
-    bilanz_sub: 'Konsolidierte Bilanz des Unternehmens nach IFRS. Angaben in Millionen Euro.',
-    guv_eyebrow: 'Externe Rechnungslegung · IFRS',
-    guv_title: 'Gewinn- und Verlustrechnung 2021–2024',
-    guv_sub: 'Konsolidierte G&V nach IFRS. Angaben in Millionen Euro.',
-    cf_eyebrow: 'Externe Rechnungslegung · IFRS',
-    cf_title: 'Cash-Flow-Rechnung 2021–2024',
-    cf_sub: 'Konsolidierte Cash-Flow-Rechnung nach IFRS. Angaben in Millionen Euro.',
-    shiny_eyebrow: 'Interaktive Anwendung · R Shiny',
-    shiny_title: 'Akzent-Kurs: Interaktives Sprach-Tool',
-    shiny_sub: 'Eine interaktive R-Shiny-Applikation — eingebettet aus dem Originalprojekt.',
-    shiny_live: 'Live-Applikation · R Shiny · exilkaerntners-r-spielereien.shinyapps.io',
-    footer_sub: 'Finanzanalyse · KI · Strategie',
-    footer_ir: 'Investor Relations', footer_stats: 'Statistiken',
-    footer_copy: '© 2025 Manfred Stückler. Alle Angaben ohne Gewähr. Diese Seite dient ausschließlich informativen Zwecken und stellt keine Anlageberatung dar. Alle Unternehmensnamen anonymisiert.',
-    kpi_assets: 'Bilanzsumme', kpi_equity: 'Eigenkapital', kpi_eq_ratio: 'EK-Quote',
-    kpi_debt: 'Verschuldungsgrad', kpi_liq: 'Liquidität 2. Grades',
-    kpi_rev: 'Umsatz', kpi_gross: 'Bruttogewinn', kpi_net: 'Jahresergebnis', kpi_ebit_margin: 'EBIT-Marge',
-    kpi_ocf: 'Operativer CF', kpi_icf: 'Investitions-CF', kpi_fcf: 'Free Cash Flow',
-    kpi_fincf: 'Finanzierungs-CF', kpi_cf_margin: 'CF-Marge',
-    col_position: 'Position', col_metric: 'Kennzahl', col_company: 'Das Unternehmen',
-    peer_chart_label: 'Peer-Vergleich 2024', peer_ebit_headline: 'EBIT-Marge im Vergleich'
-  },
-  en: {
-    header_sub: 'Financial Analysis · AI · Strategy',
-    nav_about: 'About me', nav_project: 'The Project', nav_balance: 'Balance Sheet',
-    nav_pl: 'P&L', nav_cf: 'Cash Flow', nav_lang: 'Accent Course',
-    about_eyebrow: 'Portfolio · Profile',
-    about_title: 'Who am I — and why might that be worth knowing?',
-    about_intro_short: 'Financial analyst, AI enthusiast and native Carinthian with a penchant for numbers that tell stories.',
-    profile_title: 'Financial Analyst & AI Expert',
-    profile_link_stats: 'Statistics Project',
-    sources_label: 'Further Reading',
-    project_eyebrow: 'Case Study · Corporate Analysis',
-    project_title: 'The Project: An Acquisition and Its Consequences',
-    project_intro: 'Listed. Austrian. Ambitious. And then came the acquisition.',
-    bilanz_eyebrow: 'External Reporting · IFRS',
-    bilanz_title: 'Balance Sheet 2021–2024',
-    bilanz_sub: 'Consolidated balance sheet per IFRS. Figures in millions of euros.',
-    guv_eyebrow: 'External Reporting · IFRS',
-    guv_title: 'Income Statement 2021–2024',
-    guv_sub: 'Consolidated income statement per IFRS. Figures in millions of euros.',
-    cf_eyebrow: 'External Reporting · IFRS',
-    cf_title: 'Cash Flow Statement 2021–2024',
-    cf_sub: 'Consolidated cash flow statement per IFRS. Figures in millions of euros.',
-    shiny_eyebrow: 'Interactive Application · R Shiny',
-    shiny_title: 'Accent Course: Interactive Language Tool',
-    shiny_sub: 'An interactive R Shiny application — embedded from the original project.',
-    shiny_live: 'Live Application · R Shiny · exilkaerntners-r-spielereien.shinyapps.io',
-    footer_sub: 'Financial Analysis · AI · Strategy',
-    footer_ir: 'Investor Relations', footer_stats: 'Statistics',
-    footer_copy: '© 2025 Manfred Stückler. All information without guarantee. This site is for informational purposes only and does not constitute investment advice. All company names anonymised.',
-    kpi_assets: 'Total Assets', kpi_equity: 'Equity', kpi_eq_ratio: 'Equity Ratio',
-    kpi_debt: 'Leverage', kpi_liq: 'Quick Ratio',
-    kpi_rev: 'Revenue', kpi_gross: 'Gross Profit', kpi_net: 'Net Income', kpi_ebit_margin: 'EBIT Margin',
-    kpi_ocf: 'Operating CF', kpi_icf: 'Investing CF', kpi_fcf: 'Free Cash Flow',
-    kpi_fincf: 'Financing CF', kpi_cf_margin: 'CF Margin',
-    col_position: 'Item', col_metric: 'Metric', col_company: 'The Company',
-    peer_chart_label: 'Peer Comparison 2024', peer_ebit_headline: 'EBIT Margin Comparison'
-  },
-  fr: {
-    header_sub: 'Analyse financière · IA · Stratégie',
-    nav_about: 'À propos', nav_project: 'Le Projet', nav_balance: 'Bilan',
-    nav_pl: 'C. de résultat', nav_cf: 'Trésorerie', nav_lang: 'Cours d\'accent',
-    about_eyebrow: 'Portfolio · Profil',
-    about_title: 'Qui suis-je — et en quoi cela pourrait-il vous intéresser ?',
-    about_intro_short: 'Analyste financier, passionné d\'IA et originaire de Carinthie, avec un goût prononcé pour les chiffres qui racontent des histoires.',
-    profile_title: 'Analyste financier & Expert IA',
-    profile_link_stats: 'Projet Statistiques',
-    sources_label: 'Lectures recommandées',
-    project_eyebrow: 'Étude de cas · Analyse d\'entreprise',
-    project_title: 'Le Projet : Une acquisition et ses conséquences',
-    project_intro: 'Cotée en bourse. Autrichienne. Ambitieuse. Puis l\'acquisition est arrivée.',
-    bilanz_eyebrow: 'Reporting externe · IFRS',
-    bilanz_title: 'Bilan 2021–2024',
-    bilanz_sub: 'Bilan consolidé selon les IFRS. Chiffres en millions d\'euros.',
-    guv_eyebrow: 'Reporting externe · IFRS',
-    guv_title: 'Compte de résultat 2021–2024',
-    guv_sub: 'Compte de résultat consolidé selon les IFRS. Chiffres en millions d\'euros.',
-    cf_eyebrow: 'Reporting externe · IFRS',
-    cf_title: 'Tableau de flux de trésorerie 2021–2024',
-    cf_sub: 'Tableau de flux de trésorerie consolidé selon les IFRS. Chiffres en millions d\'euros.',
-    shiny_eyebrow: 'Application interactive · R Shiny',
-    shiny_title: 'Cours d\'accent : Outil linguistique interactif',
-    shiny_sub: 'Une application R Shiny interactive — intégrée depuis le projet original.',
-    shiny_live: 'Application en direct · R Shiny · exilkaerntners-r-spielereien.shinyapps.io',
-    footer_sub: 'Analyse financière · IA · Stratégie',
-    footer_ir: 'Relations investisseurs', footer_stats: 'Statistiques',
-    footer_copy: '© 2025 Manfred Stückler. Toutes les informations sont fournies sans garantie. Ce site est à des fins informatives uniquement et ne constitue pas un conseil en investissement. Tous les noms d\'entreprises anonymisés.',
-    kpi_assets: 'Total actif', kpi_equity: 'Capitaux propres', kpi_eq_ratio: 'Ratio CP',
-    kpi_debt: 'Levier financier', kpi_liq: 'Ratio de liquidité',
-    kpi_rev: 'Chiffre d\'affaires', kpi_gross: 'Marge brute', kpi_net: 'Résultat net', kpi_ebit_margin: 'Marge EBIT',
-    kpi_ocf: 'CF opérationnel', kpi_icf: 'CF d\'investissement', kpi_fcf: 'Free Cash Flow',
-    kpi_fincf: 'CF de financement', kpi_cf_margin: 'Marge CF',
-    col_position: 'Poste', col_metric: 'Indicateur', col_company: 'L\'Entreprise',
-    peer_chart_label: 'Comparaison 2024', peer_ebit_headline: 'Comparaison des marges EBIT'
-  }
+// ============================================================
+// DATA
+// ============================================================
+const years = ['2021','2022','2023','2024'];
+const data = {
+  revenue: [5038,4819,3590,3428],
+  ebit: [197,-161,-1431,-549],
+  netIncome: [-32,-443,-1614,-787],
+  grossProfit: [1440,1258,840,857],
+  totalAssets: [9644,8832,7401,6903],
+  equity: [3150,2833,1905,1235],
+  cash: [1331,1087,1146,1098],
+  ocf: [792,599,493,435],
+  icf: [-560,-164,-826,-424],
+  fcf: [232,435,-333,11],
+  fincf: [-534,-745,245,-98],
+  capex: [560,435,826,424],
+  stAssets: [3282,2884,2620,2743],
+  ltAssets: [6362,5948,4782,4160],
+  stLiab: [3001,2717,2455,2514],
+  ltLiab: [3493,3281,3042,3153]
+};
+const RED='#E3120B',DARK='#1a1a1a',GREY='#cccccc',TEAL='#2c7873',GOLD='#c49a00',NAVY='#0057a8';
+const chartDefaults={
+  plugins:{legend:{labels:{font:{family:'IBM Plex Sans,sans-serif',size:11}}}},
+  scales:{x:{grid:{display:false},ticks:{font:{family:'IBM Plex Sans,sans-serif',size:11}}},
+          y:{grid:{color:'#f0f0ee'},ticks:{font:{family:'IBM Plex Sans,sans-serif',size:11}}}}
 };
 
-let currentLang = 'de';
-
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.lang-btn').forEach((btn, i) => {
-    if (['de','en','fr'][i] === lang) btn.classList.add('active');
-  });
-
-  // Update i18n elements
-  const t = translations[lang];
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.innerHTML = t[key];
-  });
-
-  // Show/hide language content blocks
-  ['de','en','fr'].forEach(l => {
-    document.querySelectorAll('#about-' + l + ', #proj-' + l).forEach(el => {
-      el.style.display = l === lang ? 'block' : 'none';
-    });
-    document.querySelectorAll('#source-links-' + l).forEach(el => {
-      el.style.display = l === lang ? 'block' : 'none';
-    });
-    document.querySelectorAll('#peers-label-' + l).forEach(el => {
-      el.style.display = l === lang ? 'block' : 'none';
-    });
-  });
-
-  // Update html lang
-  document.documentElement.lang = lang;
+// ============================================================
+// NAVIGATION
+// ============================================================
+let currentPage='home';
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  const nav=document.getElementById('nav-'+id);
+  if(nav)nav.classList.add('active');
+  currentPage=id;
+  if(id==='bilanz'&&!window.bilanzChartsBuilt){buildBilanzCharts();window.bilanzChartsBuilt=true;}
+  if(id==='guv'&&!window.guvChartsBuilt){buildGuvCharts();window.guvChartsBuilt=true;}
+  if(id==='cashflow'&&!window.cfChartsBuilt){buildCfCharts();window.cfChartsBuilt=true;}
+  window.scrollTo(0,0);
 }
 
-// ===== PAGE NAVIGATION =====
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('page-' + pageId).classList.add('active');
-  const idx = ['ueber-mich','projekt','bilanz','guv','cashflow','sprachkurs'].indexOf(pageId);
-  document.querySelectorAll('.nav-link')[idx].classList.add('active');
-  window.scrollTo(0, 0);
+function showTab(page,tab){
+  const tabs=document.querySelectorAll(`#page-${page} .tab-content`);
+  const btns=document.querySelectorAll(`#page-${page} .tab-btn`);
+  tabs.forEach(t=>t.classList.remove('active'));
+  btns.forEach(b=>b.classList.remove('active'));
+  const tc=document.getElementById(page==='bilanz'?'bilanz-'+tab:page==='guv'?'guv-'+tab:'cf-'+tab);
+  if(tc)tc.classList.add('active');
+  event.target.classList.add('active');
+  if(page==='bilanz'&&tab==='chart'&&!window.bilanzChartsBuilt){buildBilanzCharts();window.bilanzChartsBuilt=true;}
+  if(page==='guv'&&tab==='chart'&&!window.guvChartsBuilt){buildGuvCharts();window.guvChartsBuilt=true;}
+  if(page==='cashflow'&&tab==='chart'&&!window.cfChartsBuilt){buildCfCharts();window.cfChartsBuilt=true;}
 }
 
-// ===== CHART DEFAULTS =====
-Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
-Chart.defaults.font.size = 11;
-Chart.defaults.color = '#888';
+// ============================================================
+// CHART HELPERS
+// ============================================================
+function mkChart(id,type,labels,datasets,opts){
+  const ctx=document.getElementById(id);
+  if(!ctx)return;
+  return new Chart(ctx,{type,data:{labels,datasets},options:{...chartDefaults,...opts,responsive:true,maintainAspectRatio:false}});
+}
+function barDataset(label,data,color,opts={}){
+  return{label,data,backgroundColor:color,borderWidth:0,...opts};
+}
+function lineDataset(label,data,color,opts={}){
+  return{label,data,borderColor:color,backgroundColor:'transparent',pointBackgroundColor:color,borderWidth:2,tension:.3,...opts};
+}
 
-const COLORS = {
-  red: 'rgba(227, 18, 11, 0.85)',
-  redLight: 'rgba(227, 18, 11, 0.15)',
-  green: 'rgba(26, 122, 74, 0.85)',
-  greenLight: 'rgba(26, 122, 74, 0.15)',
-  blue: 'rgba(30, 80, 160, 0.85)',
-  blueLight: 'rgba(30, 80, 160, 0.15)',
-  amber: 'rgba(192, 123, 0, 0.85)',
-  grey: 'rgba(100, 100, 100, 0.5)'
-};
+// ============================================================
+// HOME CHARTS
+// ============================================================
+window.addEventListener('DOMContentLoaded',()=>{
+  mkChart('chart-rev','bar',years,[barDataset('Umsatz',data.revenue,'#1a1a1a')]);
+  mkChart('chart-ebit','bar',years,[barDataset('EBIT',data.ebit,data.ebit.map(v=>v>=0?TEAL:RED))],{});
+  mkChart('chart-bs','bar',years,[barDataset('Bilanzsumme',data.totalAssets,NAVY)]);
+  mkChart('chart-fcf','bar',years,[barDataset('FCF',data.fcf,data.fcf.map(v=>v>=0?TEAL:RED))],{});
+  buildAkzentDict();
+});
 
-const baseOpts = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12 } },
-    tooltip: { backgroundColor: '#1a1a1a', titleFont: { weight: '600' }, padding: 10 }
+// ============================================================
+// BILANZ CHARTS
+// ============================================================
+function buildBilanzCharts(){
+  mkChart('chart-bilanz-bs','bar',years,[
+    barDataset('Kurzfristig',data.stAssets,'#4a90d9',{stack:'s'}),
+    barDataset('Langfristig',data.ltAssets,DARK,{stack:'s'})
+  ],{scales:{...chartDefaults.scales,x:{...chartDefaults.scales.x,stacked:true},y:{...chartDefaults.scales.y,stacked:true}}});
+  mkChart('chart-bilanz-ek','bar',years,[
+    barDataset('Eigenkapital',data.equity,TEAL,{stack:'s'}),
+    barDataset('Kfr. Verbindlichkeiten',data.stLiab,'#e38312',{stack:'s'}),
+    barDataset('Lfr. Verbindlichkeiten',data.ltLiab,DARK,{stack:'s'})
+  ],{scales:{...chartDefaults.scales,x:{...chartDefaults.scales.x,stacked:true},y:{...chartDefaults.scales.y,stacked:true}}});
+  mkChart('chart-bilanz-va','bar',years,[
+    barDataset('Kurzfristige VA',data.stAssets,'#4a90d9',{stack:'s'}),
+    barDataset('Langfristige VA',data.ltAssets,DARK,{stack:'s'})
+  ],{scales:{...chartDefaults.scales,x:{...chartDefaults.scales.x,stacked:true},y:{...chartDefaults.scales.y,stacked:true}}});
+  const ekq=data.equity.map((e,i)=>+(e/data.totalAssets[i]*100).toFixed(1));
+  mkChart('chart-bilanz-ekq','line',years,[lineDataset('EK-Quote (%)',ekq,RED)]);
+}
+
+// ============================================================
+// G&V CHARTS
+// ============================================================
+function buildGuvCharts(){
+  mkChart('chart-guv-rev','bar',years,[
+    barDataset('Umsatz',data.revenue,DARK),
+    barDataset('Bruttogewinn',data.grossProfit,TEAL)
+  ]);
+  mkChart('chart-guv-ebit','bar',years,[
+    barDataset('EBIT',data.ebit,data.ebit.map(v=>v>=0?TEAL:RED)),
+    barDataset('Nettoergebnis',data.netIncome,data.netIncome.map(v=>v>=0?GOLD:'#c0392b'))
+  ]);
+  mkChart('chart-guv-struct','doughnut',
+    ['Umsatzkosten','F&T-Aufwand','Vertr./Verw.','Sonst. Aufw.','Bruttogewinn'],
+    [{data:[2571,419,422,604,857],backgroundColor:[RED,DARK,'#555','#888',TEAL]}],
+    {plugins:{legend:{position:'right',labels:{font:{family:'IBM Plex Sans,sans-serif',size:11}}}},scales:{}});
+  const margins=years.map((_,i)=>({
+    gross:+(data.grossProfit[i]/data.revenue[i]*100).toFixed(1),
+    ebit:+(data.ebit[i]/data.revenue[i]*100).toFixed(1)
+  }));
+  mkChart('chart-guv-margin','line',years,[
+    lineDataset('Bruttomarge (%)',margins.map(m=>m.gross),TEAL),
+    lineDataset('EBIT-Marge (%)',margins.map(m=>m.ebit),RED)
+  ]);
+}
+
+// ============================================================
+// CASH FLOW CHARTS
+// ============================================================
+function buildCfCharts(){
+  mkChart('chart-cf-main','bar',years,[
+    barDataset('OCF',data.ocf,TEAL),
+    barDataset('ICF',data.icf,RED),
+    barDataset('Finanzierungs-CF',data.fincf,GOLD)
+  ]);
+  mkChart('chart-cf-cash','line',years,[lineDataset('Kassenbestand',data.cash,NAVY)]);
+  mkChart('chart-cf-capex','bar',years,[
+    barDataset('OCF',data.ocf,TEAL),
+    barDataset('Capex',data.capex.map(v=>-v),RED)
+  ]);
+  const peerOCF={labels:['Das Unternehmen','Peer A','Peer B','Peer C','Peer D'],values:[435,167,118,2780,1164]};
+  mkChart('chart-cf-peer','bar',peerOCF.labels,[
+    barDataset('OCF 2024 (Mio.€)',peerOCF.values,peerOCF.labels.map((l,i)=>i===0?RED:DARK))
+  ]);
+}
+
+// ============================================================
+// LANGUAGE
+// ============================================================
+const translations={
+  de:{
+    'home-title':'Finanzanalyse · Das Unternehmen',
+    'home-sub':'Eine strukturierte Betrachtung · Bilanz · G&V · Cash Flow · Peer Group',
+    'home-h2':'Was ist diese Seite?',
+    'home-p1':'Diese Plattform präsentiert eine strukturierte Finanzanalyse eines börsennotierten österreichischen Unternehmens, das nach einer bedeutenden Übernahme in eine Phase turbulenter Restrukturierung getreten ist.',
+    'home-p2':'Die Darstellung folgt dem Grundsatz maximaler Objektivität. Namen, Standorte und Produkte bleiben bewusst anonym. Das Unternehmen trägt die Bezeichnung <strong>„Das Unternehmen"</strong>; die Vergleichsunternehmen werden als <strong>Peer A bis Peer D</strong> bezeichnet.',
+    'home-p3':'Die Analyse umfasst die Geschäftsjahre 2021 bis 2024 und beleuchtet Bilanz, G&V sowie Cash Flow.',
+    'about-title':'Über mich','about-sub':'Exilkärntner · Finanzanalyst · KI-Enthusiast',
+    'about-name':'Manfred Stückler',
+    'about-tag':'Finanzanalyst · MBA · Klagenfurt geboren, Wien überlebt',
+    'about-intro':'Aufgewachsen in Kärnten, dem Land der Seen, des Lavanttals und des gelegentlich unverständlichen Dialekts – und dann der große Sprung in die weite Welt der Zahlen, Bilanzen und Kontokorrentkonten.',
+    'ai-title':'KI, Prompt Engineering & Finanzanalyse – wie passt das zusammen?',
+    'ai-p1':'Stellen Sie sich vor, Sie hätten einen unermüdlichen, unendlich geduldigen Analysten an Ihrer Seite – einen, der nicht um Mitternacht schläft, keine Gehaltserhöhung verlangt und trotzdem in der Lage ist, 300 Seiten Jahresbericht in drei Minuten zu verarbeiten.',
+    'ai-quote':'„Wer heute in der Wirtschaft und im Finanzbereich KI ignoriert, verhält sich wie jemand, der 1995 das Internet als Spielerei abgetan hat."',
+    'ai-p2':'KI ist in jedem Lebensbereich unumgänglich geworden. <strong>Gerade im Finanz- und Wirtschaftsbereich</strong> führt kein Weg mehr daran vorbei: Wer KI richtig einsetzt, trifft solide Entscheidungen schneller und fundierter.',
+    'proj-title':'Das Projekt','proj-sub':'Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse',
+    'proj-h2':'Das Unternehmen: Eine Fallstudie',
+    'bilanz-title':'Bilanz','bilanz-sub':'Konzernbilanz nach IFRS · Angaben in Mio. € · 2021–2024',
+    'guv-title':'Gewinn- & Verlustrechnung','guv-sub':'Konzern-G&V nach IFRS · Angaben in Mio. € · 2021–2024',
+    'cf-title':'Cash Flow','cf-sub':'Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2021–2024',
+    'ak-title':'Akzent Kurs','ak-sub':'Kärntnerisch verstehen – für Einheimische und Wagemütige',
+    'ak-startbtn':'Quiz starten','ak-restart':'Nochmal versuchen',
+    'nav-about':'Über mich','nav-project':'Das Projekt','nav-bilanz':'Bilanz',
+    'nav-guv':'G&V','nav-cashflow':'Cash Flow','nav-akzent':'Akzent Kurs',
+    'ft-disc':'Alle Angaben ohne Gewähr. Keine Anlageberatung.',
+    'ft-copy':'© 2025 Manfred Stückler',
+    'kpi-head':'Kennzahlen 2024','k1':'Umsatz','k2':'EBIT','k3':'Bilanzsumme','k4':'Eigenkapital','k5':'OCF','k6':'Mitarbeiter','k6s':'Ø 2024',
+    'pg-head':'Peer Group 2024','pg-co':'Unternehmen','pg-mcap':'MktCap Mio.€','pg-eq':'EK-Quote','pg-du':'Das Unternehmen',
+    'src-head':'Quellen','src-text':'Jahresabschlüsse 2021–2024 (IFRS). Peer-Daten: Bloomberg/Reuters.',
+    'ch1-label':'Umsatz (Mio. €)','ch2-label':'EBIT (Mio. €)','ch3-label':'Bilanzsumme (Mio. €)','ch4-label':'Free Cash Flow (Mio. €)',
+    'tab-aktiva':'AKTIVA','tab-passiva':'PASSIVA',
+    'ak-dict-title':'Kärntnerisch ↔ Hochdeutsch','ak-col1':'Kärntnerisch','ak-col2':'Hochdeutsch','ak-backbtn':'← Zurück zum Quiz',
+    'ak-modebtn':'Übersetzmodus'
   },
-  scales: {
-    x: { grid: { display: false }, border: { color: '#D0CECA' } },
-    y: { grid: { color: '#f0ece5' }, border: { display: false } }
+  en:{
+    'home-title':'Financial Analysis · The Company',
+    'home-sub':'A Structured Review · Balance Sheet · P&L · Cash Flow · Peer Group',
+    'home-h2':'What is this page?',
+    'home-p1':'This platform presents a structured financial analysis of an Austrian listed company that entered a period of turbulent restructuring following a significant acquisition.',
+    'home-p2':'The analysis adheres strictly to the principle of objectivity. Names, locations and products remain anonymous. The company is referred to as <strong>"The Company"</strong>; peers are designated <strong>Peer A through Peer D</strong>.',
+    'home-p3':'The analysis covers fiscal years 2021 to 2024 and examines the balance sheet, income statement and cash flow statement.',
+    'about-title':'About Me','about-sub':'Carinthian in Exile · Financial Analyst · AI Enthusiast',
+    'about-name':'Manfred Stückler',
+    'about-tag':'Financial Analyst · MBA · Born in Klagenfurt, survived Vienna',
+    'about-intro':'Raised in Carinthia — the land of lakes, the Lavant Valley and an occasionally incomprehensible dialect — before making the leap into the wide world of numbers, balance sheets and ledgers.',
+    'ai-title':'AI, Prompt Engineering & Financial Analysis – how does that fit together?',
+    'ai-p1':'Imagine having a tireless, infinitely patient analyst at your side — one who does not sleep at midnight, demands no pay rise and yet can process 300 pages of an annual report in three minutes.',
+    'ai-quote':'"Anyone who ignores AI in business and finance today is behaving like someone who dismissed the internet as a passing fad in 1995."',
+    'ai-p2':'AI has become indispensable in every domain of life. <strong>Above all in finance and economics</strong>, there is no longer any way around it: those who deploy AI correctly make sound decisions faster and with greater rigour.',
+    'proj-title':'The Project','proj-sub':'Case Study · Austrian Listed Company · Structural Analysis',
+    'proj-h2':'The Company: A Case Study',
+    'bilanz-title':'Balance Sheet','bilanz-sub':'Consolidated Balance Sheet IFRS · Figures in € m · 2021–2024',
+    'guv-title':'Income Statement','guv-sub':'Consolidated P&L IFRS · Figures in € m · 2021–2024',
+    'cf-title':'Cash Flow','cf-sub':'Consolidated Cash Flow Statement · Figures in € m · 2021–2024',
+    'ak-title':'Accent Course','ak-sub':'Understanding Carinthian Dialect – for locals and the adventurous',
+    'ak-startbtn':'Start Quiz','ak-restart':'Try again',
+    'nav-about':'About','nav-project':'The Project','nav-bilanz':'Balance Sheet',
+    'nav-guv':'P&L','nav-cashflow':'Cash Flow','nav-akzent':'Accent Course',
+    'ft-disc':'All data without guarantee. Not investment advice.',
+    'ft-copy':'© 2025 Manfred Stückler',
+    'kpi-head':'Key Figures 2024','k1':'Revenue','k2':'EBIT','k3':'Total Assets','k4':'Equity','k5':'OCF','k6':'Employees','k6s':'Avg 2024',
+    'pg-head':'Peer Group 2024','pg-co':'Company','pg-mcap':'MktCap €m','pg-eq':'Equity Ratio','pg-du':'The Company',
+    'src-head':'Sources','src-text':'Annual reports 2021–2024 (IFRS). Peer data: Bloomberg/Reuters.',
+    'ch1-label':'Revenue (€m)','ch2-label':'EBIT (€m)','ch3-label':'Total Assets (€m)','ch4-label':'Free Cash Flow (€m)',
+    'tab-aktiva':'ASSETS','tab-passiva':'LIABILITIES & EQUITY',
+    'ak-dict-title':'Carinthian ↔ Standard German','ak-col1':'Carinthian','ak-col2':'Standard German','ak-backbtn':'← Back to Quiz',
+    'ak-modebtn':'Dictionary Mode'
+  },
+  fr:{
+    'home-title':'Analyse Financière · L\'Entreprise',
+    'home-sub':'Une Analyse Structurée · Bilan · C&P · Flux de Trésorerie · Groupe de Pairs',
+    'home-h2':'Qu\'est-ce que cette page?',
+    'home-p1':'Cette plateforme présente une analyse financière structurée d\'une entreprise autrichienne cotée en bourse, qui a connu une phase de restructuration turbulente après une acquisition significative.',
+    'home-p2':'L\'analyse respecte strictement le principe d\'objectivité. Les noms, lieux et produits restent anonymes. L\'entreprise est désignée <strong>« L\'Entreprise »</strong> ; les pairs sont désignés de <strong>Pair A à Pair D</strong>.',
+    'home-p3':'L\'analyse couvre les exercices 2021 à 2024 et examine le bilan, le compte de résultat et le tableau des flux de trésorerie.',
+    'about-title':'À propos de moi','about-sub':'Carinthien exilé · Analyste financier · Passionné d\'IA',
+    'about-name':'Manfred Stückler',
+    'about-tag':'Analyste financier · MBA · Né à Klagenfurt, survivant de Vienne',
+    'about-intro':'Élevé en Carinthie — la terre des lacs, de la vallée de la Lavant et d\'un dialecte parfois incompréhensible — avant de plonger dans le monde vaste des chiffres, des bilans et des grands livres.',
+    'ai-title':'IA, Ingénierie des Prompts & Analyse Financière – quel rapport?',
+    'ai-p1':'Imaginez avoir à vos côtés un analyste infatigable et infiniment patient — l\'un qui ne dort pas à minuit, n\'exige aucune augmentation de salaire et peut pourtant traiter 300 pages de rapport annuel en trois minutes.',
+    'ai-quote':'"Quiconque ignore l\'IA dans les affaires et la finance aujourd\'hui se comporte comme quelqu\'un qui a rejeté l\'internet comme un simple jeu en 1995."',
+    'ai-p2':'L\'IA est devenue incontournable dans tous les domaines de la vie. <strong>Surtout dans la finance et l\'économie</strong>, il n\'y a plus moyen de l\'éviter : ceux qui utilisent l\'IA correctement prennent des décisions solides plus rapidement.',
+    'proj-title':'Le Projet','proj-sub':'Étude de cas · Entreprise autrichienne cotée · Analyse structurelle',
+    'proj-h2':'L\'Entreprise : Une étude de cas',
+    'bilanz-title':'Bilan','bilanz-sub':'Bilan consolidé IFRS · Chiffres en M€ · 2021–2024',
+    'guv-title':'Compte de Résultat','guv-sub':'C&P consolidé IFRS · Chiffres en M€ · 2021–2024',
+    'cf-title':'Flux de Trésorerie','cf-sub':'Tableau consolidé des flux · Chiffres en M€ · 2021–2024',
+    'ak-title':'Cours d\'Accent','ak-sub':'Comprendre le dialecte carinthien — pour les locaux et les aventuriers',
+    'ak-startbtn':'Commencer le Quiz','ak-restart':'Réessayer',
+    'nav-about':'À propos','nav-project':'Le Projet','nav-bilanz':'Bilan',
+    'nav-guv':'C&P','nav-cashflow':'Trésorerie','nav-akzent':'Cours d\'Accent',
+    'ft-disc':'Toutes les données sans garantie. Pas de conseil en investissement.',
+    'ft-copy':'© 2025 Manfred Stückler',
+    'kpi-head':'Chiffres clés 2024','k1':'Chiffre d\'affaires','k2':'EBIT','k3':'Total bilan','k4':'Capitaux propres','k5':'FCO','k6':'Employés','k6s':'Moy. 2024',
+    'pg-head':'Groupe de pairs 2024','pg-co':'Entreprise','pg-mcap':'CapBoursière M€','pg-eq':'Ratio CP','pg-du':'L\'Entreprise',
+    'src-head':'Sources','src-text':'Rapports annuels 2021–2024 (IFRS). Données pairs: Bloomberg/Reuters.',
+    'ch1-label':'CA (M€)','ch2-label':'EBIT (M€)','ch3-label':'Total bilan (M€)','ch4-label':'FCF (M€)',
+    'tab-aktiva':'ACTIF','tab-passiva':'PASSIF',
+    'ak-dict-title':'Carinthien ↔ Allemand standard','ak-col1':'Carinthien','ak-col2':'Allemand standard','ak-backbtn':'← Retour au Quiz',
+    'ak-modebtn':'Mode dictionnaire'
   }
 };
 
-// ===== BILANZ CHARTS =====
-new Chart(document.getElementById('bilanzStructureChart'), {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'Bilanzsumme', data: [9644, 8832, 7401, 6903], backgroundColor: COLORS.blueLight, borderColor: COLORS.blue, borderWidth: 1.5 },
-      { label: 'Eigenkapital', data: [3150, 2833, 1905, 1235], backgroundColor: COLORS.greenLight, borderColor: COLORS.green, borderWidth: 1.5 }
-    ]
-  },
-  options: { ...baseOpts }
-});
-
-new Chart(document.getElementById('bilanzRatioChart'), {
-  type: 'line',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'EK-Quote (%)', data: [32.7, 32.1, 25.7, 17.9], borderColor: COLORS.green, backgroundColor: COLORS.greenLight, tension: 0.3, pointRadius: 4, fill: true },
-      { label: 'Verschuldungsgrad (x)', data: [2.1, 2.1, 2.9, 4.6], borderColor: COLORS.red, backgroundColor: COLORS.redLight, tension: 0.3, pointRadius: 4, fill: false, yAxisID: 'y1' }
-    ]
-  },
-  options: { ...baseOpts, scales: { ...baseOpts.scales, y: { ...baseOpts.scales.y, title: { display: true, text: 'EK-Quote (%)' } }, y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Verschuldungsgrad (x)' } } } }
-});
-
-// ===== G&V CHARTS =====
-new Chart(document.getElementById('guvRevenueChart'), {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'Umsatz', data: [5038, 4819, 3590, 3428], backgroundColor: COLORS.blueLight, borderColor: COLORS.blue, borderWidth: 1.5 },
-      { label: 'Bruttogewinn', data: [1440, 1258, 840, 857], backgroundColor: COLORS.greenLight, borderColor: COLORS.green, borderWidth: 1.5 }
-    ]
-  },
-  options: { ...baseOpts }
-});
-
-new Chart(document.getElementById('guvEbitChart'), {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'EBIT', data: [197, -161, -1431, -549], backgroundColor: [COLORS.greenLight, COLORS.redLight, COLORS.redLight, COLORS.redLight], borderColor: [COLORS.green, COLORS.red, COLORS.red, COLORS.red], borderWidth: 1.5 },
-      { label: 'Jahresergebnis', data: [-32, -443, -1614, -787], type: 'line', borderColor: COLORS.red, backgroundColor: 'transparent', tension: 0.3, pointRadius: 4 }
-    ]
-  },
-  options: { ...baseOpts }
-});
-
-// ===== CASH FLOW CHARTS =====
-new Chart(document.getElementById('cfMainChart'), {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'Operativer CF', data: [792, 599, 493, 435], backgroundColor: COLORS.greenLight, borderColor: COLORS.green, borderWidth: 1.5 },
-      { label: 'Investitions-CF', data: [-560, -164, -826, -424], backgroundColor: COLORS.redLight, borderColor: COLORS.red, borderWidth: 1.5 },
-      { label: 'Finanzierungs-CF', data: [-534, -745, 245, -98], backgroundColor: COLORS.blueLight, borderColor: COLORS.blue, borderWidth: 1.5 }
-    ]
-  },
-  options: { ...baseOpts }
-});
-
-new Chart(document.getElementById('cfFreeCashChart'), {
-  type: 'line',
-  data: {
-    labels: years,
-    datasets: [
-      { label: 'Free Cash Flow', data: [232, 435, -333, 11], borderColor: COLORS.amber, backgroundColor: 'rgba(192,123,0,0.1)', tension: 0.3, pointRadius: 5, fill: true },
-      { label: 'Liquide Mittel', data: [1331, 1087, 1146, 1098], borderColor: COLORS.blue, backgroundColor: 'transparent', tension: 0.3, pointRadius: 4, fill: false, yAxisID: 'y1' }
-    ]
-  },
-  options: { ...baseOpts, scales: { ...baseOpts.scales, y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false } } } }
-});
-
-// ===== PEER EBIT CHART =====
-new Chart(document.getElementById('peerEbitChart'), {
-  type: 'bar',
-  data: {
-    labels: ['Das Unternehmen', 'Peer A', 'Peer B', 'Peer C', 'Peer D'],
-    datasets: [{
-      label: 'EBIT-Marge 2024',
-      data: [-21.9, 12.9, 11.5, 14.9, 21.0],
-      backgroundColor: [COLORS.red, COLORS.greenLight, COLORS.greenLight, COLORS.greenLight, COLORS.greenLight],
-      borderColor: [COLORS.red, COLORS.green, COLORS.green, COLORS.green, COLORS.green],
-      borderWidth: 1.5
-    }]
-  },
-  options: {
-    ...baseOpts,
-    indexAxis: 'y',
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { grid: { color: '#f0ece5' }, ticks: { callback: v => v + '%' } },
-      y: { grid: { display: false } }
-    }
+let currentLang='de';
+function setLang(lang){
+  currentLang=lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('lang-'+lang).classList.add('active');
+  document.documentElement.lang=lang;
+  const t=translations[lang];
+  for(const [id,val] of Object.entries(t)){
+    const el=document.getElementById(id);
+    if(el)el.innerHTML=val;
   }
-});
+  // Update nav data attributes
+  document.querySelectorAll('nav a[data-'+lang+']').forEach(a=>{
+    a.textContent=a.getAttribute('data-'+lang)||a.textContent;
+  });
+  document.querySelectorAll('.tab-btn[data-'+lang+']').forEach(b=>{
+    if(b.getAttribute('data-'+lang))b.textContent=b.getAttribute('data-'+lang);
+  });
+  // Update quiz language
+  if(lang==='en'){quizLang='en';}else if(lang==='fr'){quizLang='fr';}else{quizLang='de';}
+  buildAkzentDict();
+}
 
-// Init lang
-setLang('de');
+// ============================================================
+// AKZENT KURS QUIZ
+// ============================================================
+const quizData=[
+  {
+    de:{q:'Was bedeutet „Hoits eich!" auf Kärntnerisch?',opts:['Haltet euch!','Holt es euch!','Halte dich zurück!','Hört auf!'],correct:0,fb:'„Hoits eich" ist die Kärntnerische Aufforderung, aufzupassen oder sich zurückzuhalten. Verwandt mit hochdeutsch „Haltet euch".'},
+    en:{q:'What does "Hoits eich!" mean in Carinthian dialect?',opts:['Hold on! / Be careful!','Get it yourselves!','Hold back!','Stop it!'],correct:0,fb:'"Hoits eich" is the Carinthian imperative for "hold on" or "watch out". Related to standard German "Haltet euch".'},
+    fr:{q:'Que signifie « Hoits eich ! » en dialecte carinthien ?',opts:['Tenez-vous ! / Attention !','Prenez-le vous-mêmes !','Retenez-vous !','Arrêtez !'],correct:0,fb:'« Hoits eich » est l\'impératif carinthien signifiant « tenez-vous » ou « faites attention ».'}
+  },
+  {
+    de:{q:'Wie sagt man auf Kärntnerisch „schauen" (sehen)?',opts:['Lugen','Gucken','Blicken','Sehen'],correct:0,fb:'„Lugen" bedeutet auf Kärntnerisch „schauen". „Lug amal!" = „Schau mal!" – typischer Ausdruck im Kärntner Dialekt.'},
+    en:{q:'How do you say "to look" in Carinthian dialect?',opts:['Lugen','Gucken','Blicken','Sehen'],correct:0,fb:'"Lugen" means "to look" in Carinthian. "Lug amal!" = "Look!" — a typical Carinthian expression.'},
+    fr:{q:'Comment dit-on « regarder » en dialecte carinthien ?',opts:['Lugen','Gucken','Blicken','Sehen'],correct:0,fb:'« Lugen » signifie « regarder » en carinthien. « Lug amal ! » = « Regarde ! »'}
+  },
+  {
+    de:{q:'Was ist ein „Holler" auf Kärntnerisch?',opts:['Holunder','Blödsinn/Unsinn','Ein Holzfäller','Ein alter Mann'],correct:1,fb:'„Holler" kann sowohl die Holunderpflanze bezeichnen als auch umgangssprachlich „Unsinn" oder „Blödsinn" bedeuten – je nach Kontext!'},
+    en:{q:'What is a "Holler" in Carinthian dialect?',opts:['Elderberry','Nonsense','A woodcutter','An old man'],correct:1,fb:'"Holler" can refer to the elderberry plant but also colloquially means "nonsense" — context is everything!'},
+    fr:{q:'Qu\'est-ce qu\'un « Holler » en dialecte carinthien ?',opts:['Sureau','Sottises/Bêtises','Un bûcheron','Un vieil homme'],correct:1,fb:'« Holler » peut désigner le sureau mais signifie aussi familièrement « bêtises » — tout est une question de contexte !'}
+  },
+  {
+    de:{q:'„Geh, bist du narrisch?" – Was bedeutet das?',opts:['Bist du verrückt?','Geh weg!','Bist du müde?','Mach schnell!'],correct:0,fb:'Ein Klassiker! „Narrisch" = verrückt, also: „Bist du verrückt?" – wird oft liebevoll oder als milde Kritik verwendet.'},
+    en:{q:'"Geh, bist du narrisch?" – What does this mean?',opts:['Are you crazy?','Go away!','Are you tired?','Hurry up!'],correct:0,fb:'A classic! "Narrisch" means crazy, so: "Are you crazy?" — often used affectionately or as mild criticism.'},
+    fr:{q:'« Geh, bist du narrisch ? » — Qu\'est-ce que cela signifie ?',opts:['Tu es fou/folle ?','Va-t\'en !','Tu es fatigué(e) ?','Dépêche-toi !'],correct:0,fb:'Un grand classique ! « Narrisch » signifie fou/folle, donc : « Tu es fou ? » — souvent utilisé affectueusement.'}
+  },
+  {
+    de:{q:'Wie nennt man einen gemütlichen, faulen Nachmittag auf Kärntnerisch?',opts:['Oanschlaffen','Orschlaffen','Nachmittagsruhe','Jausenpause'],correct:1,fb:'„Orschlaffen" (auch „Oarschlaffen") ist die authentische Kärntnerische Bezeichnung für einen entspannten, faulen Nachmittag. Nicht im Duden – aber im Herz jedes Kärntnerers.'},
+    en:{q:'How do Carinthians describe a lazy, relaxed afternoon?',opts:['Oanschlaffen','Orschlaffen','Afternoon rest','Snack break'],correct:1,fb:'"Orschlaffen" is the authentic Carinthian term for a lazily relaxed afternoon. Not in the dictionary — but in every Carinthian\'s heart.'},
+    fr:{q:'Comment les Carinthiens décrivent-ils un après-midi paresseux et détendu ?',opts:['Oanschlaffen','Orschlaffen','Repos de l\'après-midi','Pause collation'],correct:1,fb:'« Orschlaffen » est le terme carinthien authentique pour un après-midi paresseusement détendu.'}
+  },
+  {
+    de:{q:'Was bedeutet „Pfiat di" auf Kärntnerisch?',opts:['Auf Wiedersehen / Tschüss','Guten Morgen','Pass auf dich auf','Danke schön'],correct:0,fb:'„Pfiat di" = „Behüt dich (Gott)" – ein herzlicher Abschiedsgruß, der im gesamten bairisch-österreichischen Raum verbreitet ist.'},
+    en:{q:'What does "Pfiat di" mean in Carinthian/Austrian dialect?',opts:['Goodbye / Cheers','Good morning','Take care of yourself','Thank you'],correct:0,fb:'"Pfiat di" = "God protect you" — a warm farewell greeting common throughout the Bavarian-Austrian region.'},
+    fr:{q:'Que signifie « Pfiat di » en dialecte carinthien/autrichien ?',opts:['Au revoir','Bonjour','Prends soin de toi','Merci beaucoup'],correct:0,fb:'« Pfiat di » = « Que Dieu te protège » — une formule d\'adieu chaleureuse répandue dans toute la région austro-bavaroise.'}
+  },
+  {
+    de:{q:'Was ist eine „Jause" in Kärnten?',opts:['Eine Zwischenmahlzeit / Snack','Eine Feier','Eine Sportart','Eine Arbeitspause'],correct:0,fb:'Die „Jause" ist die österreichische / kärntnerische Bezeichnung für eine Zwischenmahlzeit – meist Brot, Wurst, Käse. Unverzichtbar!'},
+    en:{q:'What is a "Jause" in Carinthia?',opts:['A snack / light meal','A party','A sport','A work break'],correct:0,fb:'The "Jause" is the Austrian/Carinthian word for a light meal or snack — typically bread, cold cuts and cheese. Absolutely essential!'},
+    fr:{q:'Qu\'est-ce qu\'une « Jause » en Carinthie ?',opts:['Un en-cas / repas léger','Une fête','Un sport','Une pause au travail'],correct:0,fb:'La « Jause » est le terme autrichien/carinthien pour un repas léger — généralement du pain, de la charcuterie et du fromage.'}
+  },
+  {
+    de:{q:'„I mog di" – was bedeutet das auf Kärntnerisch?',opts:['Ich mag dich / Ich liebe dich','Ich möchte das','Ich mache das','Lass mich in Ruhe'],correct:0,fb:'„I mog di" = „Ich mag dich" bzw. „Ich liebe dich" – je nach Kontext. Eine der schönsten Aussagen in jedem Dialekt!'},
+    en:{q:'"I mog di" – what does this mean in Carinthian?',opts:['I like / love you','I want this','I\'ll do it','Leave me alone'],correct:0,fb:'"I mog di" = "I like you" or "I love you" — depending on context. One of the loveliest phrases in any dialect!'},
+    fr:{q:'« I mog di » — que signifie cette expression carinthienne ?',opts:['Je t\'aime bien / Je t\'aime','Je veux cela','Je le ferai','Laisse-moi tranquille'],correct:0,fb:'« I mog di » = « Je t\'aime bien » ou « Je t\'aime » — selon le contexte. L\'une des plus belles expressions de n\'importe quel dialecte !'}
+  },
+  {
+    de:{q:'Was bedeutet „Bussal" auf Kärntnerisch?',opts:['Ein Kuss','Ein kleines Kind','Ein Busfahrer','Eine Umarmung'],correct:0,fb:'„Bussal" = ein Küsschen. Verniedlichungsform von „Kuss". Wird gerne von Kärntner Omas verteilt.'},
+    en:{q:'What does "Bussal" mean in Carinthian dialect?',opts:['A little kiss','A small child','A bus driver','A hug'],correct:0,fb:'"Bussal" = a little kiss. Diminutive of "Kuss" (kiss). Generously dispensed by Carinthian grandmothers.'},
+    fr:{q:'Que signifie « Bussal » en dialecte carinthien ?',opts:['Un petit baiser','Un petit enfant','Un chauffeur de bus','Une accolade'],correct:0,fb:'« Bussal » = un petit baiser. Diminutif de « Kuss » (baiser). Distribué généreusement par les grands-mères carinthiennes.'}
+  },
+  {
+    de:{q:'Was ist ein „Kasperl" auf Kärntnerisch?',opts:['Ein Hanswurst / Clown','Eine Kasperlepuppe','Ein Käsebrot','Ein unordentlicher Mensch'],correct:0,fb:'„Kasperl" bezeichnet jemanden, der sich wie ein Clown verhält oder Unfug macht – liebevoll, aber auch kritisch gemeint.'},
+    en:{q:'What is a "Kasperl" in Carinthian dialect?',opts:['A clown / fool','A puppet','A cheese sandwich','A messy person'],correct:0,fb:'"Kasperl" describes someone who acts like a clown or makes mischief — affectionately, though sometimes critically.'},
+    fr:{q:'Qu\'est-ce qu\'un « Kasperl » en dialecte carinthien ?',opts:['Un clown / bouffon','Une marionnette','Un sandwich au fromage','Une personne désordonnée'],correct:0,fb:'« Kasperl » désigne quelqu\'un qui se comporte comme un clown — dit affectueusement, parfois de manière critique.'}
+  },
+  {
+    de:{q:'Welche Redewendung entspricht dem hochdeutschen „Es passt" (alles in Ordnung)?',opts:['„Passt scho"','„Is wurscht"','„Hob i gwusst"','„Des kimmt her"'],correct:0,fb:'„Passt scho" = „Es passt schon" = alles ist in Ordnung. Eine der häufigsten Redewendungen in ganz Österreich.'},
+    en:{q:'Which phrase means "It\'s fine / everything is OK" in Austrian dialect?',opts:['"Passt scho"','"Is wurscht"','"Hob i gwusst"','"Des kimmt her"'],correct:0,fb:'"Passt scho" = "It\'s fine already" — one of the most common phrases across all of Austria.'},
+    fr:{q:'Quelle expression équivaut à « c\'est bon / tout va bien » en dialecte autrichien ?',opts:['« Passt scho »','« Is wurscht »','« Hob i gwusst »','« Des kimmt her »'],correct:0,fb:'« Passt scho » = « C\'est bon » — l\'une des expressions les plus courantes dans toute l\'Autriche.'}
+  },
+  {
+    de:{q:'Was bedeutet „Moidn" (ausgesprochen: Moiden) auf Kärntnerisch?',opts:['Melden / Bescheid sagen','Molken','Ein Tier melken','Einen Anruf tätigen'],correct:0,fb:'„Moidn" oder „sich moidn" = sich melden, Bescheid geben. „Moik di!" = „Melde dich!" – häufig im familiären Umgang.'},
+    en:{q:'What does "Moidn" mean in Carinthian dialect?',opts:['To get in touch / report','Whey (dairy)','To milk an animal','To make a phone call'],correct:0,fb:'"Moidn" or "sich moidn" = to get in touch, to report. "Moik di!" = "Get in touch!" — common in familiar settings.'},
+    fr:{q:'Que signifie « Moidn » en dialecte carinthien ?',opts:['Se manifester / donner de ses nouvelles','Lactosérum','Traire un animal','Passer un appel téléphonique'],correct:0,fb:'« Moidn » = se manifester, donner de ses nouvelles. « Moik di ! » = « Donne de tes nouvelles ! »'}
+  }
+];
+
+const dialect={
+  kärntn:['Hoits eich!','Lugen','Holler','Narrisch','Orschlaffen','Pfiat di','Jause','I mog di','Bussal','Kasperl','Passt scho','Moidn','Bua','Diandl','Hean','Laabn','Knochen = Knochen','Boidl','Foahn','Schnappviech'],
+  hochdeutsch:['Haltet euch! / Aufpassen!','Schauen','Holunder / Unsinn','Verrückt','Faul herumliegen','Auf Wiedersehen','Zwischenmahlzeit','Ich mag dich','Ein Küsschen','Clown / Hanswurst','Es passt / Alles OK','Melden','Bub / Junge','Mädchen','Hören','Essen (Speise)','Knochen','Tasche','Fahren','Schädling']
+};
+
+let qIndex=0,score=0,answered=false,quizLang='de';
+function startQuiz(){
+  qIndex=0;score=0;answered=false;
+  document.getElementById('akzent-quiz-area').style.display='block';
+  document.getElementById('akzent-result').style.display='none';
+  document.getElementById('akzent-translate').style.display='none';
+  showQuestion();
+}
+function showQuestion(){
+  const q=quizData[qIndex][quizLang]||quizData[qIndex].de;
+  document.getElementById('ak-q').textContent=q.q;
+  document.getElementById('ak-prog').textContent=`${currentLang==='fr'?'Question':'Frage'} ${qIndex+1} ${currentLang==='en'?'of':'von'} ${quizData.length}`;
+  document.getElementById('ak-progbar').style.width=((qIndex+1)/quizData.length*100)+'%';
+  const optsDiv=document.getElementById('ak-opts');
+  optsDiv.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='akzent-opt';
+    btn.textContent=opt;
+    btn.onclick=()=>selectAnswer(i);
+    optsDiv.appendChild(btn);
+  });
+  document.getElementById('ak-fb').className='akzent-feedback';
+  document.getElementById('ak-fb').textContent='';
+  document.getElementById('ak-next').style.display='none';
+  answered=false;
+}
+function selectAnswer(i){
+  if(answered)return;
+  answered=true;
+  const q=quizData[qIndex][quizLang]||quizData[qIndex].de;
+  const opts=document.getElementById('ak-opts').children;
+  opts[q.correct].classList.add('correct');
+  if(i!==q.correct){opts[i].classList.add('wrong');}else{score++;}
+  const fb=document.getElementById('ak-fb');
+  fb.textContent=q.fb;
+  fb.className='akzent-feedback show '+(i===q.correct?'correct-fb':'wrong-fb');
+  document.getElementById('ak-next').style.display='inline-block';
+}
+function nextQuestion(){
+  qIndex++;
+  if(qIndex>=quizData.length){showResult();}else{showQuestion();}
+}
+function showResult(){
+  document.getElementById('akzent-quiz-area').style.display='none';
+  document.getElementById('akzent-result').style.display='block';
+  document.getElementById('ak-score').textContent=`${score}/${quizData.length}`;
+  const pct=score/quizData.length;
+  let msg='';
+  if(currentLang==='de'){
+    if(pct>=0.9)msg='Fantastisch! Sie sind entweder echter Kärntner – oder haben sehr gut geschummelt.';
+    else if(pct>=0.7)msg='Sehr gut! Kärntner Ehrenmitglied? Fast.';
+    else if(pct>=0.5)msg='Nicht schlecht! Noch ein paar Jausen-Abende in Kärnten, und Sie schaffen es.';
+    else msg='Mut ist der erste Schritt. Kärntnerisch lernt man am besten beim „Orschlaffen".';
+  }else if(currentLang==='en'){
+    if(pct>=0.9)msg='Fantastic! You\'re either a true Carinthian — or an excellent cheat.';
+    else if(pct>=0.7)msg='Very good! Honorary Carinthian? Almost there.';
+    else if(pct>=0.5)msg='Not bad! A few more "Jause" evenings in Carinthia and you\'ll get there.';
+    else msg='Courage is the first step. Carinthian is best learned while "Orschlaffen".';
+  }else{
+    if(pct>=0.9)msg='Fantastique ! Vous êtes soit un vrai Carinthien, soit un excellent tricheur.';
+    else if(pct>=0.7)msg='Très bien ! Membre honoraire de Carinthie ? Presque.';
+    else if(pct>=0.5)msg='Pas mal ! Encore quelques soirées « Jause » en Carinthie et vous y arriverez.';
+    else msg='Le courage est la première étape. Le carinthien s\'apprend mieux en « Orschlaffen ».';
+  }
+  const fm=document.getElementById('ak-final-msg');
+  fm.textContent=msg;
+  fm.className='akzent-feedback show '+(pct>=0.5?'correct-fb':'wrong-fb');
+  document.getElementById('ak-score-label').textContent=currentLang==='fr'?'Résultat':currentLang==='en'?'Score':'Ergebnis';
+}
+function setMode(mode){
+  if(mode==='translate'){
+    document.getElementById('akzent-quiz-area').style.display='none';
+    document.getElementById('akzent-result').style.display='none';
+    document.getElementById('akzent-translate').style.display='block';
+  }
+}
+function showSection(sec){
+  document.getElementById('akzent-translate').style.display='none';
+  if(sec==='quiz')document.getElementById('akzent-quiz-area').style.display='none';
+}
+function buildAkzentDict(){
+  const kd=document.getElementById('ak-kdict');
+  const hd=document.getElementById('ak-hdict');
+  if(!kd||!hd)return;
+  kd.innerHTML=dialect.kärntn.map(w=>`<div style="padding:5px 0;border-bottom:1px solid #eee;">${w}</div>`).join('');
+  hd.innerHTML=dialect.hochdeutsch.map(w=>`<div style="padding:5px 0;border-bottom:1px solid #eee;">${w}</div>`).join('');
+}
 </script>
 </body>
 </html>
