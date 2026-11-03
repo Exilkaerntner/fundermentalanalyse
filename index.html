@@ -388,6 +388,20 @@ footer a:hover{color:var(--red) !important;}
 @media(prefers-reduced-motion:reduce){.prg-btn{transition:none;}}
 /* ===== AKZENT PAGE HIDDEN ===== */
 #page-akzent { display: none !important; }
+
+/* ===== SPRACHFLAGGEN IM VORDERGRUND · NAVIGATION ===== */
+.header-inner{gap:14px;}
+nav{min-width:0;overflow-x:auto;scrollbar-width:none;}
+nav::-webkit-scrollbar{display:none;}
+header .lang-switcher{position:relative;z-index:1002;flex-shrink:0;display:flex;align-items:center;gap:6px;margin-left:8px;padding-left:12px;border-left:1px solid #555;}
+header .lang-btn{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:1;background:transparent;border:2px solid transparent;border-radius:4px;padding:3px 5px;cursor:pointer;line-height:1;transition:border-color .2s,background .2s;}
+header .lang-btn svg{display:block;width:30px;height:20px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.6);}
+header .lang-btn .lang-code{font-family:'IBM Plex Sans',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.08em;color:#ffffff;}
+header .lang-btn:hover{border-color:rgba(255,255,255,.7);}
+header .lang-btn.active{border-color:#ffffff;background:rgba(255,255,255,.16);}
+header .lang-btn:focus-visible{outline:2px solid #ffffff;outline-offset:2px;}
+.fin-table sup{font-size:.6rem;color:var(--mid);}
+@media(prefers-reduced-motion:reduce){header .lang-btn{transition:none;}}
 </style>
 </head>
 <body>
@@ -408,12 +422,13 @@ footer a:hover{color:var(--red) !important;}
       <a onclick="showPage('bilanz')"   id="nav-bilanz">Bilanz</a>
       <a onclick="showPage('guv')"      id="nav-guv">G&amp;V</a>
       <a onclick="showPage('cashflow')" id="nav-cashflow">Cash Flow</a>
+      <a onclick="showPage('esg')" id="nav-esg">ESG</a>
       <a onclick="showPage('prognose')" id="nav-prognose">Prognose</a>
     </nav>
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('de')" id="lang-de" title="Deutsch">🇦🇹</button>
-      <button class="lang-btn"        onclick="setLang('en')" id="lang-en" title="English">🇬🇧</button>
-      <button class="lang-btn"        onclick="setLang('fr')" id="lang-fr" title="Français">🇫🇷</button>
+    <div class="lang-switcher" role="group" aria-label="Sprache / Language / Langue">
+      <button class="lang-btn active" onclick="setLang('de')" id="lang-de" title="Deutsch" aria-label="Deutsch"><svg viewBox="0 0 9 6" preserveAspectRatio="none" aria-hidden="true"><rect width="9" height="6" fill="#C8102E"/><rect y="2" width="9" height="2" fill="#FFFFFF"/></svg><span class="lang-code">DE</span></button>
+      <button class="lang-btn" onclick="setLang('en')" id="lang-en" title="English" aria-label="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="fl-gb-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="fl-gb-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#fl-gb-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFFFFF" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#fl-gb-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#FFFFFF" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="lang-code">EN</span></button>
+      <button class="lang-btn" onclick="setLang('fr')" id="lang-fr" title="Français" aria-label="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#FFFFFF"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg><span class="lang-code">FR</span></button>
     </div>
   </div>
 </header>
@@ -425,7 +440,7 @@ footer a:hover{color:var(--red) !important;}
   <div class="page-header">
     <div class="page-header-inner">
       <h1 id="home-title">Finanzanalyse · Das Unternehmen</h1>
-      <p class="subtitle" id="home-sub">Eine strukturierte Betrachtung · Bilanz · G&amp;V · Cash Flow · Peer Group</p>
+      <p class="subtitle" id="home-sub">Eine strukturierte Betrachtung · Bilanz · G&amp;V · Cash Flow · ESG · Prognose · Peer Group</p>
     </div>
   </div>
   <div class="content-wrap">
@@ -435,7 +450,7 @@ footer a:hover{color:var(--red) !important;}
           <h2 id="home-h2">Was ist diese Seite?</h2>
           <p id="home-p1">Diese Plattform präsentiert eine strukturierte Finanzanalyse eines börsennotierten österreichischen Unternehmens, das nach einer bedeutenden Übernahme in eine Phase turbulenter Restrukturierung eingetreten ist. Die Daten entstammen geprüften Jahresabschlüssen sowie öffentlich zugänglichen Investorenunterlagen.</p>
           <p id="home-p2">Die Darstellung folgt dem Grundsatz maximaler Objektivität. Namen, Standorte und Produkte des analysierten Unternehmens sowie seiner Vergleichsgruppe bleiben bewusst anonym. Das Unternehmen trägt die Bezeichnung <strong>„Das Unternehmen"</strong>; die Vergleichsunternehmen werden als <strong>Peer A bis Peer D</strong> bezeichnet.</p>
-          <p id="home-p3">Die Analyse umfasst die Geschäftsjahre 2021 bis 2024 und beleuchtet Bilanz, Gewinn- und Verlustrechnung sowie Cash-Flow-Rechnung. Eine Peer-Group-Übersicht ergänzt den Branchenvergleich.</p>
+          <p id="home-p3">Die Analyse umfasst die Geschäftsjahre 2020 bis 2024 und beleuchtet Bilanz, Gewinn- und Verlustrechnung, Cash-Flow-Rechnung und ESG-Kennzahlen; eine Modellprognose reicht bis 2026.</p>
         </div>
         <div class="chart-grid">
           <div class="chart-box"><h4 id="ch1-label">Umsatz (Mio. €)</h4><div class="chart-container"><canvas id="chart-rev"></canvas></div></div>
@@ -449,11 +464,11 @@ footer a:hover{color:var(--red) !important;}
           <p class="section-label" id="kpi-head">Kennzahlen 2024</p>
           <div class="kpi-grid">
             <div class="kpi-item"><div class="kpi-label" id="k1-lbl">Umsatz</div><div class="kpi-value">3.428</div><div class="kpi-sub">Mio. €</div></div>
-            <div class="kpi-item"><div class="kpi-label" id="k2-lbl">EBIT</div><div class="kpi-value" style="color:var(--red)">−549</div><div class="kpi-sub">Mio. €</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k2-lbl">EBIT</div><div class="kpi-value" style="color:var(--red)">−547</div><div class="kpi-sub">Mio. €</div></div>
             <div class="kpi-item"><div class="kpi-label" id="k3-lbl">Bilanzsumme</div><div class="kpi-value">6.903</div><div class="kpi-sub">Mio. €</div></div>
             <div class="kpi-item"><div class="kpi-label" id="k4-lbl">Eigenkapital</div><div class="kpi-value">1.235</div><div class="kpi-sub">Mio. €</div></div>
             <div class="kpi-item"><div class="kpi-label" id="k5-lbl">OCF</div><div class="kpi-value">435</div><div class="kpi-sub">Mio. €</div></div>
-            <div class="kpi-item"><div class="kpi-label" id="k6-lbl">Mitarbeiter</div><div class="kpi-value">19.665</div><div class="kpi-sub" id="k6s-lbl">Ø 2024</div></div>
+            <div class="kpi-item"><div class="kpi-label" id="k6-lbl">Mitarbeiter</div><div class="kpi-value">19.665</div><div class="kpi-sub" id="k6s-lbl">31.12.2024</div></div>
           </div>
         </div>
         <div class="e-card">
@@ -471,7 +486,7 @@ footer a:hover{color:var(--red) !important;}
         </div>
         <div class="e-card">
           <p class="section-label" id="src-head">Quellen</p>
-          <p style="font-size:.8rem;" id="src-text">Jahresabschlüsse 2021–2024 (IFRS), geprüfte Konzernberichte. Peer-Daten: Bloomberg/Reuters/BAHA.</p>
+          <p style="font-size:.8rem;" id="src-text">Jahresabschlüsse 2020–2024 (IFRS). Peer-Daten: Bloomberg/Reuters/BAHA.</p>
         </div>
       </div>
     </div>
@@ -495,7 +510,7 @@ footer a:hover{color:var(--red) !important;}
              style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="profile-text">
-        <h2 id="about-name">Manfred Stückler</h2>
+        <h2 id="about-name">Mag. Manfred Stückler, CIIA, CEFA</h2>
         <p class="tagline" id="about-tag">Finanzanalyst · Exilkärntner · Wien</p>
         <p id="about-intro">Aufgewachsen in Kärnten – dem Land der Seen, des Lavanttals und eines Dialekts, den außerhalb der Kärntner Landesgrenzen kaum jemand versteht. Irgendwann führte der Weg nach Wien, und dort blieb er – zwischen Bilanzen, Jahresabschlüssen und der gelegentlichen Frage, ob man die Zahlen wirklich so interpretieren darf.</p>
         <p id="about-intro2">Was mich antreibt? Die Überzeugung, dass hinter jeder Zahl eine Geschichte steckt – manchmal eine erfreuliche, manchmal ein kleines Drama. Mit solidem Hintergrund in Betriebswirtschaft und langjähriger Praxis in der Finanzanalyse gilt: Daten lügen selten – aber sie lassen sich trefflich falsch interpretieren. Dagegen hilft präzises Handwerk.</p>
@@ -522,28 +537,35 @@ footer a:hover{color:var(--red) !important;}
       <h3 id="cv-title">Berufliche Stationen</h3>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-year">Kärnten</div>
+          <div class="timeline-year" id="cvy1">Kärnten</div>
           <div class="timeline-body">
             <strong id="cv1-t">Die Wurzeln</strong>
             <span id="cv1-s">Aufgewachsen im südlichsten Bundesland Österreichs – jedenfalls laut den Kärntnern. Frühe Faszination für Zahlen und das große Warum hinter wirtschaftlichen Zusammenhängen.</span>
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-year">Studium</div>
+          <div class="timeline-year" id="cvy2">Studium</div>
           <div class="timeline-body">
-            <strong id="cv2-t">Betriebswirtschaft &amp; Finance</strong>
-            <span id="cv2-s">Akademische Ausbildung in Betriebswirtschaft mit Schwerpunkt Finanzanalyse, Controlling und Rechnungswesen. Der Grundstein für alles, was danach kam.</span>
+            <strong id="cv2-t">Studium &amp; Zertifizierungen</strong>
+            <span id="cv2-s">Internationale Betriebswirtschaft an der Universität Wien (Mag. rer. soc. oec.) mit Schwerpunkt Ökonometrie, Finanzmathematik, Corporate Finance und internationale Rechnungslegung. Danach die Börsehändlerprüfung an der Wiener Börse, die Analystendiplome CIIA und CEFA und zuletzt der Universitätskurs Financial Business Management (Universität Graz / Akzent Wien). Lernen hört offenbar nie auf.</span>
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-year">Praxis</div>
+          <div class="timeline-year" id="cvy3">Praxis</div>
           <div class="timeline-body">
-            <strong id="cv3-t">Finanzanalyse &amp; Unternehmenssteuerung</strong>
-            <span id="cv3-s">Jahre praktischer Erfahrung in der Analyse börsennotierter Unternehmen, im Konzerncontrolling, in der Bilanzanalyse und strategischen Finanzplanung. Nicht immer glamourös – aber immer lehrreich.</span>
+            <strong id="cv3-t">Treasury, ALM &amp; Portfoliomanagement</strong>
+            <span id="cv3-s">Über 20 Jahre bei österreichischen Banken, Bausparkassen, einer Pensionskasse und einem Versicherer: Anleihen, Aktien und alternative Investments verwaltet, Liquidität gesteuert, Stresstests gerechnet. Nicht immer glamourös – aber immer lehrreich.</span>
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-year">Heute</div>
+          <div class="timeline-year" id="cvy5">2022–24</div>
+          <div class="timeline-body">
+            <strong id="cv5-t">Aufsicht</strong>
+            <span id="cv5-s">Von 2022 bis 2024 Vor-Ort-Prüfer für Versicherungen und Pensionskassen bei der Finanzmarktaufsicht (FMA). Seither weiß ich: Die spannendsten Zahlen stehen oft in den Fußnoten.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" id="cvy4">Heute</div>
           <div class="timeline-body">
             <strong id="cv4-t">KI-gestützte Finanzanalyse</strong>
             <span id="cv4-s">Verbindung von klassischer Finanzanalyse mit modernen KI-Werkzeugen und Prompt Engineering. Das Ergebnis sehen Sie hier – eine Plattform, die zeigt, was möglich ist, wenn man Zahlen wirklich ernst nimmt.</span>
@@ -594,7 +616,7 @@ footer a:hover{color:var(--red) !important;}
   <div class="page-header">
     <div class="page-header-inner">
       <h1 id="proj-title">Das Projekt</h1>
-      <p class="subtitle" id="proj-sub">Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse 2021–2024</p>
+      <p class="subtitle" id="proj-sub">Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse 2020–2024</p>
     </div>
   </div>
   <div class="content-wrap">
@@ -636,20 +658,20 @@ footer a:hover{color:var(--red) !important;}
                 </tr>
               </thead>
               <tbody>
-                <tr class="highlight"><td>Das Unternehmen</td><td>3.428</td><td style="color:var(--red)">−549</td><td style="color:var(--red)">−16 %</td><td>18 %</td><td>435</td><td>BBB</td></tr>
+                <tr class="highlight"><td>Das Unternehmen</td><td>3.428</td><td style="color:var(--red)">−547</td><td style="color:var(--red)">−16 %</td><td>18 %</td><td>435</td><td>BBB</td></tr>
                 <tr><td>Peer A</td><td>1.073</td><td>139</td><td>13 %</td><td>56 %</td><td>167</td><td>AA</td></tr>
-                <tr><td>Peer B</td><td>750</td><td>81</td><td>11 %</td><td>67 %</td><td>118</td><td>AA</td></tr>
+                <tr><td>Peer B</td><td>750 <span class="warn-badge">△</span></td><td>81</td><td>11 %</td><td>67 %</td><td>118</td><td>AA</td></tr>
                 <tr><td>Peer C</td><td>14.455</td><td>2.158</td><td>15 %</td><td>60 %</td><td>2.780</td><td>AAA</td></tr>
-                <tr><td>Peer D</td><td>4.580</td><td>958</td><td>21 %</td><td>57 %</td><td>1.164</td><td>AA</td></tr>
+                <tr><td>Peer D</td><td>4.580 <span class="warn-badge">△</span></td><td>958</td><td>21 %</td><td>57 %</td><td>1.164</td><td>AA</td></tr>
               </tbody>
             </table>
           </div>
-          <p class="fn" id="proj-fn">Quellen: Konsolidierte Jahresabschlüsse 2024 (IFRS). Marktdaten: Bloomberg/Reuters/BAHA. ESG-Ratings: MSCI. Peer-Daten gerundet.</p>
+          <p class="fn" id="proj-fn">Quellen: Konzernabschlüsse 2024 (IFRS). Marktdaten: Bloomberg/Reuters/BAHA. ESG: MSCI. △ Peer B und Peer D: Der Umsatz weicht um mehr als 5 % von den Quelldaten ab (Peer D: Werte beruhen auf Halbjahreszahlen); Korrektur offen.</p>
         </div>
 
         <div class="construction-banner">
           <span class="icon">🔧</span>
-          <span id="proj-wip">Dieses Projekt befindet sich im Aufbau. Inhalte werden laufend ergänzt und angepasst.</span>
+          <span id="proj-wip">Dieses Projekt befindet sich im Aufbau. Inhalte werden laufend ergänzt und angepasst. Hinweis: Diese Seite entsteht mit Unterstützung von claude.ai. Das Werkzeug neigt noch stark zum Fantasieren – deshalb wird jede Zahl gegen die Geschäftsberichte geprüft, und Abweichungen werden gekennzeichnet.</span>
         </div>
       </div>
 
@@ -675,7 +697,7 @@ footer a:hover{color:var(--red) !important;}
             </div>
             <div class="timeline-item">
               <div class="timeline-year">2024</div>
-              <div class="timeline-body"><strong id="tl5-t">Stabilisierung</strong><span id="tl5-s">EBIT −549 Mio. €; OCF positiv (+435 Mio. €); Restrukturierungsprogramm zeigt erste Wirkung.</span></div>
+              <div class="timeline-body"><strong id="tl5-t">Stabilisierung</strong><span id="tl5-s">EBIT −547 Mio. €; OCF +435 Mio. €; Restrukturierungsprogramm greift.</span></div>
             </div>
           </div>
         </div>
@@ -693,12 +715,12 @@ footer a:hover{color:var(--red) !important;}
   <div class="page-header">
     <div class="page-header-inner">
       <h1 id="bilanz-title">Bilanz</h1>
-      <p class="subtitle" id="bilanz-sub">Konzernbilanz nach IFRS · Angaben in Mio. € · 2021–2024</p>
+      <p class="subtitle" id="bilanz-sub">Konzernbilanz nach IFRS · Angaben in Mio. € · 2020–2024</p>
     </div>
   </div>
   <div class="content-wrap">
     <div class="disclaimer" id="bilanz-disc">
-      <strong id="bilanz-disc-lbl">Datenquelle:</strong> <span id="bilanz-disc-txt">IFRS-Konzernabschlüsse 2021–2024. Daten wurden mit den Investor-Relations-Unterlagen abgeglichen. Abweichungen ≤ 5 % sind toleriert und mit</span> <span class="ok-badge">OK</span> <span id="bilanz-disc-txt2">ausgewiesen; größere Abweichungen tragen das Kennzeichen</span> <span class="warn-badge">△</span>.
+      <strong id="bilanz-disc-lbl">Datenquelle:</strong> <span id="bilanz-disc-txt">IFRS-Konzernabschlüsse 2020–2024. Abgleich mit Investor-Relations-Unterlagen. Toleranz ≤ 5 % =</span> <span class="ok-badge">OK</span> <span id="bilanz-disc-txt2">ausgewiesen; größere Abweichungen tragen das Kennzeichen</span> <span class="warn-badge">△</span>.
     </div>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="showTab('bilanz','aktiva')" id="tab-aktiva">AKTIVA</button>
@@ -711,30 +733,30 @@ footer a:hover{color:var(--red) !important;}
       <div class="fin-table-wrap">
         <table class="fin-table">
           <caption id="bilanz-cap">Das Unternehmen – Konzernbilanz AKTIVA (Mio. €)</caption>
-          <thead><tr><th id="bh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
+          <thead><tr><th id="bh0">Position</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
           <tbody>
-            <tr class="section-header"><td colspan="5" id="bsa">KURZFRISTIGE VERMÖGENSWERTE</td></tr>
-            <tr><td id="b1">Zahlungsmittel &amp; Äquivalente <span class="ok-badge">OK</span></td><td>1.331</td><td>1.087</td><td>1.146</td><td>1.098</td></tr>
-            <tr><td id="b2">Forderungen aus L&amp;L <span class="ok-badge">OK</span></td><td>688</td><td>533</td><td>470</td><td>496</td></tr>
-            <tr><td id="b3">Sonstige kfr. finanzielle Vermögenswerte</td><td>48</td><td>71</td><td>55</td><td>49</td></tr>
-            <tr><td id="b4">Vorräte <span class="ok-badge">OK</span></td><td>938</td><td>864</td><td>716</td><td>809</td></tr>
-            <tr><td id="b5">Sonstige kfr. nichtfinanzielle Vermögenswerte</td><td>143</td><td>172</td><td>230</td><td>267</td></tr>
-            <tr><td id="b6">Zur Veräußerung bestimmte Vermögenswerte</td><td>134</td><td>157</td><td>3</td><td>23</td></tr>
-            <tr class="subtotal"><td><strong id="b7t">Summe kurzfristige Vermögenswerte</strong></td><td><strong>3.282</strong></td><td><strong>2.884</strong></td><td><strong>2.620</strong></td><td><strong>2.743</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="bsb">LANGFRISTIGE VERMÖGENSWERTE</td></tr>
-            <tr><td id="b8">Sachanlagen <span class="ok-badge">OK</span></td><td>1.606</td><td>1.856</td><td>1.997</td><td>1.729</td></tr>
-            <tr><td id="b9">Immaterielle Vermögenswerte (inkl. Goodwill) <span class="ok-badge">OK</span></td><td>3.989</td><td>3.645</td><td>2.249</td><td>2.054</td></tr>
-            <tr><td id="b10">Nutzungsrechte (IFRS 16)</td><td>260</td><td>230</td><td>215</td><td>189</td></tr>
-            <tr><td id="b11">Anteile an assoziierten Unternehmen</td><td>34</td><td>35</td><td>11</td><td>4</td></tr>
-            <tr><td id="b12">Sonstige lfr. finanzielle Vermögenswerte <span class="warn-badge">△</span></td><td>187</td><td>63</td><td>77</td><td>58</td></tr>
-            <tr><td id="b13">Aktive latente Steuern</td><td>182</td><td>69</td><td>72</td><td>74</td></tr>
-            <tr><td id="b14">Sonstige lfr. nichtfinanzielle Vermögenswerte</td><td>103</td><td>50</td><td>160</td><td>52</td></tr>
-            <tr class="subtotal"><td><strong id="b15t">Summe langfristige Vermögenswerte</strong></td><td><strong>6.362</strong></td><td><strong>5.948</strong></td><td><strong>4.782</strong></td><td><strong>4.160</strong></td></tr>
-            <tr class="total"><td id="b16t">BILANZSUMME</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
+            <tr class="section-header"><td colspan="6" id="bsa">KURZFRISTIGE VERMÖGENSWERTE</td></tr>
+            <tr><td><span id="b1">Zahlungsmittel &amp; Äquivalente</span> <span class="ok-badge">OK</span></td><td>1.597</td><td>1.331</td><td>1.087</td><td>1.146</td><td>1.098</td></tr>
+            <tr><td><span id="b2">Forderungen aus L&amp;L</span> <span class="ok-badge">OK</span></td><td>621</td><td>688</td><td>533</td><td>470</td><td>496</td></tr>
+            <tr><td><span id="b3">Sonstige kfr. finanzielle Vermögenswerte</span></td><td>19<sup>¹</sup></td><td>48</td><td>71</td><td>55</td><td>49</td></tr>
+            <tr><td><span id="b4">Vorräte</span> <span class="ok-badge">OK</span></td><td>858</td><td>938</td><td>864</td><td>716</td><td>809</td></tr>
+            <tr><td><span id="b5">Sonstige kfr. nichtfinanzielle Vermögenswerte</span></td><td>169<sup>¹</sup></td><td>143</td><td>172</td><td>230</td><td>267</td></tr>
+            <tr><td><span id="b6">Zur Veräußerung bestimmte Vermögenswerte</span></td><td>48</td><td>134</td><td>157</td><td>3</td><td>23</td></tr>
+            <tr class="subtotal"><td><strong><span id="b7t">Summe kurzfristige Vermögenswerte</span></strong></td><td><strong>3.312</strong></td><td><strong>3.282</strong></td><td><strong>2.884</strong></td><td><strong>2.620</strong></td><td><strong>2.743</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="bsb">LANGFRISTIGE VERMÖGENSWERTE</td></tr>
+            <tr><td><span id="b8">Sachanlagen</span> <span class="ok-badge">OK</span></td><td>1.938</td><td>1.606</td><td>1.856</td><td>1.997</td><td>1.729</td></tr>
+            <tr><td><span id="b9">Immaterielle Vermögenswerte (inkl. Goodwill)</span> <span class="ok-badge">OK</span></td><td>4.051</td><td>3.989</td><td>3.645</td><td>2.249</td><td>2.054</td></tr>
+            <tr><td><span id="b10">Nutzungsrechte (IFRS 16)</span></td><td>289</td><td>260</td><td>230</td><td>215</td><td>189</td></tr>
+            <tr><td><span id="b11">Anteile an assoziierten Unternehmen</span></td><td>75</td><td>34</td><td>35</td><td>11</td><td>4</td></tr>
+            <tr><td><span id="b12">Sonstige lfr. finanzielle Vermögenswerte</span> <span class="warn-badge">△</span></td><td>25<sup>¹</sup></td><td>187</td><td>63</td><td>77</td><td>58</td></tr>
+            <tr><td><span id="b13">Aktive latente Steuern</span></td><td>165</td><td>182</td><td>69</td><td>72</td><td>74</td></tr>
+            <tr><td><span id="b14">Sonstige lfr. nichtfinanzielle Vermögenswerte</span></td><td>108<sup>¹</sup></td><td>103</td><td>50</td><td>160</td><td>52</td></tr>
+            <tr class="subtotal"><td><strong><span id="b15t">Summe langfristige Vermögenswerte</span></strong></td><td><strong>6.652</strong></td><td><strong>6.362</strong></td><td><strong>5.948</strong></td><td><strong>4.782</strong></td><td><strong>4.160</strong></td></tr>
+            <tr class="total"><td><span id="b16t">BILANZSUMME</span></td><td>9.963</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="fn" id="bilanz-fn1">Anm.: Sonstige langfristige finanzielle Vermögenswerte 2021 (187 Mio. €) weichen von Detaildaten (147 Mio. €) um ~21 % ab – als <span class="warn-badge">△</span> gekennzeichnet. Alle übrigen Positionen innerhalb der 5 %-Toleranz (<span class="ok-badge">OK</span>).</p>
+      <p class="fn" id="bilanz-fn1">Anm.: 2020 laut Geschäftsbericht 2021 in älterer Gliederung (¹): Sonstige finanzielle und nichtfinanzielle Posten sind dort zusammengefasst und sinngemäß zugeordnet; „—¹“ bedeutet: im zugehörigen finanziellen Posten enthalten. Sonstige lfr. finanzielle Vermögenswerte 2021 (187 Mio. €) weichen von den Detaildaten (147 Mio. €) ab – △. Alle anderen Positionen: OK.</p>
     </div>
 
     <!-- PASSIVA -->
@@ -742,39 +764,39 @@ footer a:hover{color:var(--red) !important;}
       <div class="fin-table-wrap">
         <table class="fin-table">
           <caption id="bilanz-cap2">Das Unternehmen – Konzernbilanz PASSIVA (Mio. €)</caption>
-          <thead><tr><th id="ph0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
+          <thead><tr><th id="ph0">Position</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
           <tbody>
-            <tr class="section-header"><td colspan="5" id="psa">KURZFRISTIGE VERBINDLICHKEITEN</td></tr>
-            <tr><td id="p1">Kurzfristige verzinsliche Darlehen &amp; Schuldverschreibungen</td><td>480</td><td>169</td><td>322</td><td>495</td></tr>
-            <tr><td id="p2">Verbindlichkeiten aus L&amp;L <span class="ok-badge">OK</span></td><td>710</td><td>811</td><td>572</td><td>472</td></tr>
-            <tr><td id="p3">Sonstige kfr. finanzielle Verbindlichkeiten</td><td>1.121</td><td>1.108</td><td>1.021</td><td>1.001</td></tr>
-            <tr><td id="p4">Kurzfristige Rückstellungen</td><td>328</td><td>256</td><td>236</td><td>227</td></tr>
-            <tr><td id="p5">Ertragsteuerverbindlichkeiten</td><td>85</td><td>87</td><td>64</td><td>45</td></tr>
-            <tr><td id="p6">Sonstige kfr. nichtfinanzielle Verbindlichkeiten</td><td>237</td><td>237</td><td>238</td><td>274</td></tr>
-            <tr><td id="p7">Verbindlichkeiten Veräußerungsgruppen</td><td>40</td><td>50</td><td>—</td><td>—</td></tr>
-            <tr class="subtotal"><td><strong id="p8t">Summe kurzfristige Verbindlichkeiten</strong></td><td><strong>3.001</strong></td><td><strong>2.717</strong></td><td><strong>2.455</strong></td><td><strong>2.514</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="psb">LANGFRISTIGE VERBINDLICHKEITEN</td></tr>
-            <tr><td id="p9">Langfristige verzinsliche Darlehen &amp; Schuldverschreibungen <span class="ok-badge">OK</span></td><td>2.646</td><td>2.635</td><td>2.136</td><td>2.016</td></tr>
-            <tr><td id="p10">Sonstige lfr. finanzielle Verbindlichkeiten</td><td>320</td><td>252</td><td>580</td><td>587</td></tr>
-            <tr><td id="p11">Leistungen an Arbeitnehmer (Pensions etc.)</td><td>181</td><td>179</td><td>147</td><td>150</td></tr>
-            <tr><td id="p12">Langfristige Rückstellungen</td><td>48</td><td>45</td><td>43</td><td>58</td></tr>
-            <tr><td id="p13">Passive latente Steuern</td><td>205</td><td>105</td><td>58</td><td>46</td></tr>
-            <tr><td id="p14">Sonstige lfr. nichtfinanzielle Verbindlichkeiten</td><td>93</td><td>65</td><td>79</td><td>296</td></tr>
-            <tr class="subtotal"><td><strong id="p15t">Summe langfristige Verbindlichkeiten</strong></td><td><strong>3.493</strong></td><td><strong>3.281</strong></td><td><strong>3.042</strong></td><td><strong>3.153</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="psc">EIGENKAPITAL</td></tr>
-            <tr><td id="p16">Grundkapital</td><td>274</td><td>274</td><td>998</td><td>998</td></tr>
-            <tr><td id="p17">Kapitalrücklagen</td><td>1.997</td><td>2.036</td><td>2.130</td><td>2.090</td></tr>
-            <tr><td id="p18">Eigene Aktien</td><td>−122</td><td>−121</td><td>−103</td><td>−87</td></tr>
-            <tr><td id="p19">Sonstige Eigenkapitalbestandteile</td><td>115</td><td>280</td><td>162</td><td>292</td></tr>
-            <tr><td id="p20">Gewinnrücklagen / Verlustvortrag</td><td>877</td><td>358</td><td class="neg">−1.289</td><td class="neg">−2.064</td></tr>
-            <tr class="subtotal"><td><strong id="p21t">EK entfallend auf Aktionäre</strong></td><td><strong>3.142</strong></td><td><strong>2.826</strong></td><td><strong>1.899</strong></td><td><strong>1.229</strong></td></tr>
-            <tr><td id="p22">Nicht beherrschende Anteile</td><td>8</td><td>7</td><td>6</td><td>6</td></tr>
-            <tr class="subtotal"><td><strong id="p23t">Summe Eigenkapital <span class="warn-badge">△</span></strong></td><td><strong>3.150</strong></td><td><strong>2.833</strong></td><td><strong>1.905</strong></td><td><strong>1.235</strong></td></tr>
-            <tr class="total"><td id="p24t">BILANZSUMME</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
+            <tr class="section-header"><td colspan="6" id="psa">KURZFRISTIGE VERBINDLICHKEITEN</td></tr>
+            <tr><td><span id="p1">Kurzfristige verzinsliche Darlehen &amp; Schuldverschreibungen</span></td><td>237</td><td>480</td><td>169</td><td>322</td><td>495</td></tr>
+            <tr><td><span id="p2">Verbindlichkeiten aus L&amp;L</span> <span class="ok-badge">OK</span></td><td>545</td><td>710</td><td>811</td><td>572</td><td>472</td></tr>
+            <tr><td><span id="p3">Sonstige kfr. finanzielle Verbindlichkeiten</span></td><td>1.696<sup>¹</sup></td><td>1.121</td><td>1.108</td><td>1.021</td><td>1.001</td></tr>
+            <tr><td><span id="p4">Kurzfristige Rückstellungen</span></td><td>342</td><td>328</td><td>256</td><td>236</td><td>227</td></tr>
+            <tr><td><span id="p5">Ertragsteuerverbindlichkeiten</span></td><td>104</td><td>85</td><td>87</td><td>64</td><td>45</td></tr>
+            <tr><td><span id="p6">Sonstige kfr. nichtfinanzielle Verbindlichkeiten</span></td><td>—<sup>¹</sup></td><td>237</td><td>237</td><td>238</td><td>274</td></tr>
+            <tr><td><span id="p7">Verbindlichkeiten Veräußerungsgruppen</span></td><td>127</td><td>40</td><td>50</td><td>—</td><td>—</td></tr>
+            <tr class="subtotal"><td><strong><span id="p8t">Summe kurzfristige Verbindlichkeiten</span></strong></td><td><strong>3.052</strong></td><td><strong>3.001</strong></td><td><strong>2.717</strong></td><td><strong>2.455</strong></td><td><strong>2.514</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="psb">LANGFRISTIGE VERBINDLICHKEITEN</td></tr>
+            <tr><td><span id="p9">Langfristige verzinsliche Darlehen &amp; Schuldverschreibungen</span> <span class="ok-badge">OK</span></td><td>3.066</td><td>2.646</td><td>2.635</td><td>2.136</td><td>2.016</td></tr>
+            <tr><td><span id="p10">Sonstige lfr. finanzielle Verbindlichkeiten</span></td><td>328<sup>¹</sup></td><td>320</td><td>252</td><td>580</td><td>587</td></tr>
+            <tr><td><span id="p11">Leistungen an Arbeitnehmer (Pensions etc.)</span></td><td>218</td><td>181</td><td>179</td><td>147</td><td>150</td></tr>
+            <tr><td><span id="p12">Langfristige Rückstellungen</span></td><td>44</td><td>48</td><td>45</td><td>43</td><td>58</td></tr>
+            <tr><td><span id="p13">Passive latente Steuern</span></td><td>227</td><td>205</td><td>105</td><td>58</td><td>46</td></tr>
+            <tr><td><span id="p14">Sonstige lfr. nichtfinanzielle Verbindlichkeiten</span></td><td>—<sup>¹</sup></td><td>93</td><td>65</td><td>79</td><td>296</td></tr>
+            <tr class="subtotal"><td><strong><span id="p15t">Summe langfristige Verbindlichkeiten</span></strong></td><td><strong>3.884</strong></td><td><strong>3.493</strong></td><td><strong>3.281</strong></td><td><strong>3.042</strong></td><td><strong>3.153</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="psc">EIGENKAPITAL</td></tr>
+            <tr><td><span id="p16">Grundkapital</span></td><td>274</td><td>274</td><td>274</td><td>998</td><td>998</td></tr>
+            <tr><td><span id="p17">Kapitalrücklagen</span></td><td>2.176</td><td>1.997</td><td>2.036</td><td>2.130</td><td>2.090</td></tr>
+            <tr><td><span id="p18">Eigene Aktien</span></td><td>−127</td><td>−122</td><td>−121</td><td>−103</td><td>−87</td></tr>
+            <tr><td><span id="p19">Sonstige Eigenkapitalbestandteile</span></td><td>−161</td><td>115</td><td>280</td><td>162</td><td>292</td></tr>
+            <tr><td><span id="p20">Gewinnrücklagen / Verlustvortrag</span></td><td>925</td><td>877</td><td>358</td><td class="neg">−1.289</td><td class="neg">−2.064</td></tr>
+            <tr class="subtotal"><td><strong><span id="p21t">EK entfallend auf Aktionäre</span></strong></td><td><strong>3.088</strong></td><td><strong>3.142</strong></td><td><strong>2.826</strong></td><td><strong>1.899</strong></td><td><strong>1.229</strong></td></tr>
+            <tr><td><span id="p22">Nicht beherrschende Anteile</span></td><td>−61</td><td>8</td><td>7</td><td>6</td><td>6</td></tr>
+            <tr class="subtotal"><td><strong><span id="p23t">Summe Eigenkapital</span></strong> <span class="warn-badge">△</span></td><td><strong>3.027</strong></td><td><strong>3.150</strong></td><td><strong>2.833</strong></td><td><strong>1.905</strong></td><td><strong>1.235</strong></td></tr>
+            <tr class="total"><td><span id="p24t">BILANZSUMME</span></td><td>9.963</td><td>9.644</td><td>8.832</td><td>7.401</td><td>6.903</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="fn" id="bilanz-fn2">Anm.: Das Eigenkapital 2021 weist im Quelldokument (Tabellenblatt „Bilanz 2024–2021 IFRS") einen Wert von 315 Mio. € aus; die korrekte Summe ergibt sich rechnerisch aus den Einzelkomponenten mit 3.150 Mio. € – Abweichung ~90 %, daher <span class="warn-badge">△</span>. Maßgeblich ist die rechnerische Summe. Alle anderen Positionen: <span class="ok-badge">OK</span>.</p>
+      <p class="fn" id="bilanz-fn2">Anm.: Das Eigenkapital 2021 steht im Mastersheet mit 315 Mio. €; laut Geschäftsbericht 2021 und rechnerischer Summe sind es 3.150 Mio. € – △. Maßgeblich ist der Geschäftsbericht.</p>
     </div>
 
     <!-- BILANZ CHARTS -->
@@ -794,12 +816,12 @@ footer a:hover{color:var(--red) !important;}
   <div class="page-header">
     <div class="page-header-inner">
       <h1 id="guv-title">Gewinn- &amp; Verlustrechnung</h1>
-      <p class="subtitle" id="guv-sub">Konzern-G&amp;V nach IFRS · Angaben in Mio. € · 2021–2024</p>
+      <p class="subtitle" id="guv-sub">Konzern-G&amp;V nach IFRS · Angaben in Mio. € · 2020–2024</p>
     </div>
   </div>
   <div class="content-wrap">
     <div class="disclaimer" id="guv-disc">
-      <strong id="guv-disc-lbl">Datenquelle:</strong> <span id="guv-disc-txt">IFRS-Konzernabschlüsse 2021–2024. Abgleich mit Investor-Relations-Unterlagen erfolgt. Toleranz ≤ 5 %.</span>
+      <strong id="guv-disc-lbl">Datenquelle:</strong> <span id="guv-disc-txt">IFRS-Konzernabschlüsse 2020–2024. Abgleich erfolgt. Toleranz ≤ 5 %.</span>
     </div>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="showTab('guv','table')" id="gtab-table">Tabelle</button>
@@ -810,31 +832,32 @@ footer a:hover{color:var(--red) !important;}
       <div class="fin-table-wrap">
         <table class="fin-table">
           <caption id="guv-cap">Das Unternehmen – Konzern-GuV (Mio. €)</caption>
-          <thead><tr><th id="gh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
+          <thead><tr><th id="gh0">Position</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
           <tbody>
-            <tr><td id="g1">Umsatzerlöse <span class="ok-badge">OK</span></td><td>5.038</td><td>4.819</td><td>3.590</td><td>3.428</td></tr>
-            <tr><td id="g2">Umsatzkosten <span class="ok-badge">OK</span></td><td class="neg">−3.598</td><td class="neg">−3.561</td><td class="neg">−2.750</td><td class="neg">−2.571</td></tr>
-            <tr class="subtotal"><td><strong id="g3t">Bruttogewinn</strong></td><td><strong>1.440</strong></td><td><strong>1.258</strong></td><td><strong>840</strong></td><td><strong>857</strong></td></tr>
-            <tr><td id="g3b" style="font-size:.72rem;color:#999;">Bruttomarge</td><td>28,6 %</td><td>26,1 %</td><td>23,4 %</td><td>25,0 %</td></tr>
-            <tr class="section-header"><td colspan="5" id="gsa">OPERATIVE AUFWENDUNGEN</td></tr>
-            <tr><td id="g4">Forschung &amp; Technologie <span class="ok-badge">OK</span></td><td class="neg">−642</td><td class="neg">−630</td><td class="neg">−480</td><td class="neg">−419</td></tr>
-            <tr><td id="g5">Vertriebs- &amp; Verwaltungsaufwand <span class="ok-badge">OK</span></td><td class="neg">−745</td><td class="neg">−608</td><td class="neg">−501</td><td class="neg">−422</td></tr>
-            <tr><td id="g6">Sonstige betriebliche Erträge <span class="ok-badge">OK</span></td><td class="pos">+228</td><td class="pos">+179</td><td class="pos">+81</td><td class="pos">+39</td></tr>
-            <tr><td id="g7">Sonstige betriebliche Aufwendungen <span class="ok-badge">OK</span></td><td class="neg">−84</td><td class="neg">−360</td><td class="neg">−1.371</td><td class="neg">−604</td></tr>
-            <tr class="subtotal"><td><strong id="g8t">EBIT <span class="ok-badge">OK</span></strong></td><td class="pos"><strong>197</strong></td><td class="neg"><strong>−161</strong></td><td class="neg"><strong>−1.431</strong></td><td class="neg"><strong>−549</strong></td></tr>
-            <tr><td id="g8b" style="font-size:.72rem;color:#999;">EBIT-Marge</td><td class="pos">3,9 %</td><td class="neg">−3,3 %</td><td class="neg">−39,9 %</td><td class="neg">−16,0 %</td></tr>
-            <tr class="section-header"><td colspan="5" id="gsb">FINANZERGEBNIS</td></tr>
-            <tr><td id="g9">Finanzierungsaufwendungen <span class="ok-badge">OK</span></td><td class="neg">−264</td><td class="neg">−225</td><td class="neg">−233</td><td class="neg">−290</td></tr>
-            <tr><td id="g10">Sonstiges Finanzergebnis <span class="ok-badge">OK</span></td><td class="pos">+66</td><td class="pos">+25</td><td class="pos">+62</td><td class="pos">+85</td></tr>
-            <tr class="subtotal"><td><strong id="g11t">Finanzergebnis</strong></td><td class="neg"><strong>−198</strong></td><td class="neg"><strong>−200</strong></td><td class="neg"><strong>−171</strong></td><td class="neg"><strong>−205</strong></td></tr>
-            <tr class="subtotal"><td><strong id="g12t">EBT (vor Ertragsteuern) <span class="ok-badge">OK</span></strong></td><td class="neg"><strong>−1</strong></td><td class="neg"><strong>−361</strong></td><td class="neg"><strong>−1.602</strong></td><td class="neg"><strong>−754</strong></td></tr>
-            <tr><td id="g13">Ertragsteuern</td><td class="neg">−31</td><td class="neg">−82</td><td class="neg">−12</td><td class="neg">−33</td></tr>
-            <tr class="total"><td id="g14t">ERGEBNIS NACH STEUERN</td><td class="neg">−32</td><td class="neg">−443</td><td class="neg">−1.614</td><td class="neg">−787</td></tr>
-            <tr><td id="g15" colspan="5" style="font-size:.72rem;color:#999;">Ø Mitarbeiter: 26.130 (2021) · 22.461 (2022) · 20.378 (2023) · 19.665 (2024)</td></tr>
+            <tr><td><span id="g1">Umsatzerlöse</span> <span class="ok-badge">OK</span></td><td>3.504</td><td>5.038</td><td>4.819</td><td>3.590</td><td>3.428</td></tr>
+            <tr><td><span id="g2">Umsatzkosten</span> <span class="ok-badge">OK</span></td><td class="neg">−2.469</td><td class="neg">−3.598</td><td class="neg">−3.561</td><td class="neg">−2.750</td><td class="neg">−2.571</td></tr>
+            <tr class="subtotal"><td><strong><span id="g3t">Bruttogewinn</span></strong></td><td><strong>1.035</strong></td><td><strong>1.440</strong></td><td><strong>1.258</strong></td><td><strong>840</strong></td><td><strong>857</strong></td></tr>
+            <tr><td id="g3b" style="font-size:.72rem;color:#999;">Bruttomarge</td><td>29,5 %</td><td>28,6 %</td><td>26,1 %</td><td>23,4 %</td><td>25,0 %</td></tr>
+            <tr class="section-header"><td colspan="6" id="gsa">OPERATIVE AUFWENDUNGEN</td></tr>
+            <tr><td><span id="g4">Forschung &amp; Technologie</span> <span class="ok-badge">OK</span></td><td class="neg">−423</td><td class="neg">−642</td><td class="neg">−630</td><td class="neg">−480</td><td class="neg">−419</td></tr>
+            <tr><td><span id="g5">Vertriebs- &amp; Verwaltungsaufwand</span> <span class="ok-badge">OK</span></td><td class="neg">−527</td><td class="neg">−745</td><td class="neg">−608</td><td class="neg">−501</td><td class="neg">−422</td></tr>
+            <tr><td><span id="g6">Sonstige betriebliche Erträge</span> <span class="ok-badge">OK</span></td><td class="pos">+73</td><td class="pos">+228</td><td class="pos">+179</td><td class="pos">+81</td><td class="pos">+39</td></tr>
+            <tr><td><span id="g7">Sonstige betriebliche Aufwendungen</span> <span class="ok-badge">OK</span></td><td class="neg">−21</td><td class="neg">−84</td><td class="neg">−360</td><td class="neg">−1.371</td><td class="neg">−604</td></tr>
+            <tr class="subtotal"><td><strong><span id="g8t">EBIT</span></strong> <span class="ok-badge">OK</span></td><td class="pos"><strong>138</strong></td><td class="pos"><strong>197</strong></td><td class="neg"><strong>−161</strong></td><td class="neg"><strong>−1.430</strong></td><td class="neg"><strong>−547</strong></td></tr>
+            <tr><td id="g8b" style="font-size:.72rem;color:#999;">EBIT-Marge</td><td class="pos">3,9 %</td><td class="pos">3,9 %</td><td class="neg">−3,3 %</td><td class="neg">−39,8 %</td><td class="neg">−16,0 %</td></tr>
+            <tr class="section-header"><td colspan="6" id="gsb">FINANZERGEBNIS</td></tr>
+            <tr><td><span id="g9">Finanzierungsaufwendungen</span> <span class="ok-badge">OK</span></td><td class="neg">−242</td><td class="neg">−264</td><td class="neg">−225</td><td class="neg">−233</td><td class="neg">−290</td></tr>
+            <tr><td><span id="g10">Sonstiges Finanzergebnis</span> <span class="ok-badge">OK</span></td><td class="pos">+24</td><td class="pos">+66</td><td class="pos">+25</td><td class="pos">+62</td><td class="pos">+85</td></tr>
+            <tr class="subtotal"><td><strong><span id="g11t">Finanzergebnis</span></strong></td><td class="neg"><strong>−217</strong></td><td class="neg"><strong>−198</strong></td><td class="neg"><strong>−201</strong></td><td class="neg"><strong>−171</strong></td><td class="neg"><strong>−205</strong></td></tr>
+            <tr class="subtotal"><td><strong><span id="g12t">EBT (vor Ertragsteuern)</span></strong> <span class="ok-badge">OK</span></td><td class="neg"><strong>−80</strong></td><td class="neg"><strong>−1</strong></td><td class="neg"><strong>−361</strong></td><td class="neg"><strong>−1.601</strong></td><td class="neg"><strong>−752</strong></td></tr>
+            <tr><td><span id="g13">Ertragsteuern</span></td><td class="neg">−10</td><td class="neg">−31</td><td class="neg">−82</td><td class="neg">−12</td><td class="neg">−33</td></tr>
+            <tr class="total"><td><span id="g14t">ERGEBNIS NACH STEUERN</span></td><td class="neg">−87</td><td class="neg">−32</td><td class="neg">−444</td><td class="neg">−1.613</td><td class="neg">−785</td></tr>
+            <tr><td><span id="g15a">Mitarbeiter zum 31.12.</span> <span class="warn-badge">△</span></td><td>29.753</td><td>24.499</td><td>22.461</td><td>20.378</td><td>19.665</td></tr>
+            <tr><td><span id="g15b">Mitarbeiter im Jahresdurchschnitt (Vollzeitäquivalente)</span></td><td>30.031</td><td>26.130</td><td>23.322</td><td>20.530</td><td>19.577</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="fn" id="guv-fn">Alle Werte in Mio. €. Daten geprüft und mit Investor-Relations-Unterlagen abgeglichen. Sonstige betriebliche Aufwendungen 2023 beinhalten wesentliche Goodwill-Wertminderungen. Forschungsaufwand und Vertriebs-/Verwaltungsaufwand wurden als Einzelpositionen aus den Quellmaterialien extrahiert.</p>
+      <p class="fn" id="guv-fn">Alle Werte in Mio. € laut Konzern-G&amp;V der Geschäftsberichte 2021, 2023 und 2024. Sonstige betriebliche Aufwendungen enthalten Wertminderungen von Geschäfts- und Firmenwerten (2022: 277; 2023: 1.313), Sonderaufwendungen 2024 (576) und das Ergebnis aus assoziierten Unternehmen. Zwischensummen wie berichtet; Abweichungen zur Summe der gerundeten Einzelposten (±2 Mio. €) sind Rundungsdifferenzen. EBIT 2024 laut Bericht −547 Mio. € (bisher −549; Abweichung 0,4 % – OK). 2020 inklusive aufgegebener Geschäftsbereich (+3 Mio. €). △ Mitarbeiter: Die Vorversion mischte Stichtags- und Durchschnittswerte; jetzt beide Reihen getrennt.</p>
     </div>
 
     <div id="guv-gchart" class="tab-content">
@@ -853,12 +876,12 @@ footer a:hover{color:var(--red) !important;}
   <div class="page-header">
     <div class="page-header-inner">
       <h1 id="cf-title">Cash Flow</h1>
-      <p class="subtitle" id="cf-sub">Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2021–2024</p>
+      <p class="subtitle" id="cf-sub">Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2020–2024</p>
     </div>
   </div>
   <div class="content-wrap">
     <div class="disclaimer" id="cf-disc">
-      <strong id="cf-disc-lbl">Datenquelle:</strong> <span id="cf-disc-txt">IFRS-Konzernabschlüsse 2021–2024. Die Cashflow-Daten entstammen den geprüften Segmentinformationen und Anmerkungen der Jahresabschlüsse. Detailpositionen aus dem internen Analysewerk.</span>
+      <strong id="cf-disc-lbl">Datenquelle:</strong> <span id="cf-disc-txt">Konzern-Kapitalflussrechnungen der Geschäftsberichte 2021, 2023 und 2024 (Geschäftsjahre 2020–2024).</span>
     </div>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="showTab('cf','table')" id="ctab-table">Tabelle</button>
@@ -869,28 +892,29 @@ footer a:hover{color:var(--red) !important;}
       <div class="fin-table-wrap">
         <table class="fin-table">
           <caption id="cf-cap">Das Unternehmen – Konzern-Cashflow-Rechnung (Mio. €)</caption>
-          <thead><tr><th id="cfh0">Position</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
+          <thead><tr><th id="cfh0">Position</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
           <tbody>
-            <tr class="section-header"><td colspan="5" id="cfsa">I. CASHFLOW AUS LAUFENDER GESCHÄFTSTÄTIGKEIT (OCF)</td></tr>
-            <tr><td id="cf1">Ergebnis nach Steuern</td><td class="neg">−32</td><td class="neg">−443</td><td class="neg">−1.614</td><td class="neg">−787</td></tr>
-            <tr><td id="cf2">Abschreibungen &amp; Amortisierungen (inkl. Wertminderungen)</td><td class="pos">+942</td><td class="pos">+942</td><td class="pos">+2.016</td><td class="pos">+942</td></tr>
-            <tr><td id="cf3">Veränd. Working Capital &amp; sonstige Korrekturen</td><td class="neg">−118</td><td class="pos">+100</td><td class="pos">+91</td><td class="pos">+280</td></tr>
-            <tr class="subtotal"><td><strong id="cf4t">Operativer Cashflow (OCF) <span class="ok-badge">OK</span></strong></td><td class="pos"><strong>792</strong></td><td class="pos"><strong>599</strong></td><td class="pos"><strong>493</strong></td><td class="pos"><strong>435</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="cfsb">II. CASHFLOW AUS INVESTITIONSTÄTIGKEIT (ICF)</td></tr>
-            <tr><td id="cf5">Investitionen in Sachanlagen &amp; immaterielle Vermögenswerte (Capex)</td><td class="neg">−560</td><td class="neg">−435</td><td class="neg">−826</td><td class="neg">−424</td></tr>
-            <tr><td id="cf6">Akquisitionen / Desinvestitionen (netto)</td><td>0</td><td class="pos">+271</td><td>0</td><td>0</td></tr>
-            <tr class="subtotal"><td><strong id="cf7t">Investitions-Cashflow (ICF) <span class="ok-badge">OK</span></strong></td><td class="neg"><strong>−560</strong></td><td class="neg"><strong>−164</strong></td><td class="neg"><strong>−826</strong></td><td class="neg"><strong>−424</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="cfsc">III. FREE CASHFLOW (OCF + ICF)</td></tr>
-            <tr class="subtotal"><td><strong id="cf8t">Free Cashflow <span class="ok-badge">OK</span></strong></td><td class="pos"><strong>232</strong></td><td class="pos"><strong>435</strong></td><td class="neg"><strong>−333</strong></td><td class="pos"><strong>11</strong></td></tr>
-            <tr class="section-header"><td colspan="5" id="cfsd">IV. CASHFLOW AUS FINANZIERUNGSTÄTIGKEIT</td></tr>
-            <tr><td id="cf9">Kapitalerhöhungen / Dividenden / Aktienrückkäufe</td><td class="neg">−200</td><td class="pos">+300</td><td class="pos">+600</td><td class="neg">−100</td></tr>
-            <tr><td id="cf10">Aufnahme / Rückzahlung verzinslicher Verbindlichkeiten</td><td class="neg">−334</td><td class="neg">−1.045</td><td class="neg">−355</td><td class="pos">+2</td></tr>
-            <tr class="subtotal"><td><strong id="cf11t">Finanzierungs-Cashflow <span class="ok-badge">OK</span></strong></td><td class="neg"><strong>−534</strong></td><td class="neg"><strong>−745</strong></td><td class="pos"><strong>+245</strong></td><td class="neg"><strong>−98</strong></td></tr>
-            <tr class="total"><td id="cf12t">NETTO-CASHFLOW (VERÄND. LIQUIDITÄT)</td><td class="neg">−302</td><td class="neg">−474</td><td class="neg">−415</td><td class="neg">−111</td></tr>
+            <tr class="section-header"><td colspan="6" id="cfsa">I. CASHFLOW AUS LAUFENDER GESCHÄFTSTÄTIGKEIT (OCF)</td></tr>
+            <tr><td><span id="cf1">Ergebnis nach Steuern</span> <span class="ok-badge">OK</span></td><td class="neg">−87</td><td class="neg">−32</td><td class="neg">−444</td><td class="neg">−1.613</td><td class="neg">−785</td></tr>
+            <tr><td><span id="cf2">Abschreibungen und Wertminderungen</span> <span class="warn-badge">△</span></td><td class="pos">+580</td><td class="pos">+760</td><td class="pos">+1.018</td><td class="pos">+1.892</td><td class="pos">+942</td></tr>
+            <tr><td><span id="cf3">Übrige Positionen (Working Capital, Steuern, Zinsen u. a.) – rechnerisch</span></td><td class="pos">+214</td><td class="pos">+64</td><td class="pos">+25</td><td class="pos">+214</td><td class="pos">+278</td></tr>
+            <tr class="subtotal"><td><strong><span id="cf4t">Operativer Cashflow (OCF)</span></strong> <span class="ok-badge">OK</span></td><td class="pos"><strong>+707</strong></td><td class="pos"><strong>+792</strong></td><td class="pos"><strong>+599</strong></td><td class="pos"><strong>+493</strong></td><td class="pos"><strong>+435</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="cfsb">II. CASHFLOW AUS INVESTITIONSTÄTIGKEIT (ICF)</td></tr>
+            <tr><td><span id="cf5">Investitionen in immaterielle Vermögenswerte und Sachanlagen (Capex)</span> <span class="warn-badge">△</span></td><td class="neg">−177</td><td class="neg">−310</td><td class="neg">−537</td><td class="neg">−1.049</td><td class="neg">−502</td></tr>
+            <tr><td><span id="cf6">Übrige Investitionstätigkeit (Erwerbe, Verkäufe u. a.) – rechnerisch</span></td><td class="neg">−1.318</td><td class="neg">−250</td><td class="pos">+373</td><td class="pos">+223</td><td class="pos">+78</td></tr>
+            <tr class="subtotal"><td><strong><span id="cf7t">Investitions-Cashflow (ICF)</span></strong> <span class="ok-badge">OK</span></td><td class="neg"><strong>−1.495</strong></td><td class="neg"><strong>−560</strong></td><td class="neg"><strong>−164</strong></td><td class="neg"><strong>−826</strong></td><td class="neg"><strong>−424</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="cfsc">III. FREE CASHFLOW (OCF + ICF)</td></tr>
+            <tr class="subtotal"><td><strong><span id="cf8t">Free Cashflow</span></strong> <span class="ok-badge">OK</span></td><td class="neg"><strong>−788</strong></td><td class="pos"><strong>+232</strong></td><td class="pos"><strong>+435</strong></td><td class="neg"><strong>−333</strong></td><td class="pos"><strong>+11</strong></td></tr>
+            <tr class="section-header"><td colspan="6" id="cfsd">IV. CASHFLOW AUS FINANZIERUNGSTÄTIGKEIT</td></tr>
+            <tr class="subtotal"><td><strong><span id="cf11t">Finanzierungs-Cashflow</span></strong> <span class="warn-badge">△</span></td><td class="pos"><strong>+1.951</strong></td><td class="neg"><strong>−534</strong></td><td class="neg"><strong>−745</strong></td><td class="pos"><strong>+426</strong></td><td class="neg"><strong>−98</strong></td></tr>
+            <tr class="total"><td><span id="cf12t">NETTO-CASHFLOW (OCF + ICF + FINANZIERUNGS-CF)</span> <span class="warn-badge">△</span></td><td>+1.163</td><td>−302</td><td>−310</td><td>+93</td><td>−87</td></tr>
+            <tr class="section-header"><td colspan="6" id="cfse">V. ÜBERLEITUNG ZUM ZAHLUNGSMITTELBESTAND</td></tr>
+            <tr><td><span id="cf13">Wechselkurs- und sonstige Effekte – rechnerisch</span></td><td class="neg">−66</td><td class="pos">+36</td><td class="pos">+66</td><td class="neg">−34</td><td class="pos">+39</td></tr>
+            <tr class="subtotal"><td><strong><span id="cf14t">Zahlungsmittel zum Jahresende (Bilanz)</span></strong> <span class="ok-badge">OK</span></td><td><strong>1.597</strong></td><td><strong>1.331</strong></td><td><strong>1.087</strong></td><td><strong>1.146</strong></td><td><strong>1.098</strong></td></tr>
           </tbody>
         </table>
       </div>
-      <p class="fn" id="cf-fn">Anm.: Die Detailgliederung des OCF wurde auf Basis der Quelldaten rechnerisch plausibilisiert. Free Cashflow = OCF + ICF gemäß Unternehmensdefinition. Finanzierungsdetails entstammen den Anmerkungen der Jahresabschlüsse; einzelne Positionen wurden aggregiert. Alle ausgewiesenen Gesamtsummen entsprechen den Quelldaten; Abweichungen der Teilpositionen ≤ 5 % – <span class="ok-badge">OK</span>.</p>
+      <p class="fn" id="cf-fn">Quellen: Kapitalflussrechnungen der Geschäftsberichte 2021 (2020/2021), 2023 (2022) und 2024 (2023 reklassifiziert, 2024). △ = Abweichung über 5 % zur Vorversion dieser Seite, korrigiert: Abschreibungen, Capex und Netto-Cashflow waren falsch; die Zeilen „Kapitalerhöhungen/Dividenden/Aktienrückkäufe“ und „Aufnahme/Rückzahlung verzinslicher Verbindlichkeiten“ waren in keinem Bericht belegt und sind entfernt. Ausweisänderung: Gezahlte Zinsen stehen ab 2023 im operativen Cashflow (2023 ursprünglich: OCF 674, Finanzierungs-CF 245), 2020–2022 im Finanzierungs-Cashflow. „Rechnerisch“ = Differenz zur jeweiligen Summe. Wechselkurs- und sonstige Effekte = Veränderung der Zahlungsmittel laut Bilanz minus Netto-Cashflow (inkl. Umgliederung zur Veräußerung gehaltener Zahlungsmittel und Rundung); Anfangsbestand 2020 laut Kapitalflussrechnung: 500 Mio. €.</p>
     </div>
 
     <div id="cf-cchart" class="tab-content">
@@ -899,6 +923,61 @@ footer a:hover{color:var(--red) !important;}
         <div class="chart-box"><h4 id="cfc2">Kassenbestand (Mio. €)</h4><div class="chart-container"><canvas id="chart-cf-cash"></canvas></div></div>
         <div class="chart-box"><h4 id="cfc3">OCF vs. Capex (Mio. €)</h4><div class="chart-container"><canvas id="chart-cf-capex"></canvas></div></div>
         <div class="chart-box"><h4 id="cfc4">Peer Group: OCF 2024 (Mio. €)</h4><div class="chart-container"><canvas id="chart-cf-peer"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ESG ==================== -->
+<div id="page-esg" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="esg-title">ESG</h1>
+      <p class="subtitle" id="esg-sub">Umwelt · Soziales · Angaben laut Nachhaltigkeitsbericht · 2020–2024</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="disclaimer">
+      <strong id="esg-disc-lbl">Datenquelle:</strong> <span id="esg-disc-txt">Nachhaltigkeitsbericht im Geschäftsbericht 2024 (Fünfjahresübersichten); Abgleich mit dem Mastersheet (2022–2024). Toleranz ≤ 5 % = OK, darüber △.</span>
+    </div>
+    <div class="e-card">
+      <h2 id="esg-intro-h">Was bedeutet ESG?</h2>
+      <p id="esg-intro">ESG steht für Umwelt (Environmental), Soziales (Social) und gute Unternehmensführung (Governance). Hier sehen Sie, wie viel Treibhausgas das Unternehmen ausstößt, wie viel Energie und Wasser es verbraucht, wie viel Abfall entsteht und wie sicher und gut ausgebildet die Belegschaft arbeitet. Sinkende Emissionen sind gut für das Klima; sinkende Unfallraten sind gut für die Menschen.</p>
+    </div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('esg','table')" id="etab-table">Tabelle</button>
+      <button class="tab-btn" onclick="showTab('esg','echart')" id="etab-chart">Grafiken</button>
+    </div>
+    <div id="esg-table" class="tab-content active">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <thead><tr><th id="eh0">Position</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
+          <tbody>
+            <tr class="section-header"><td colspan="6" id="esa">UMWELT</td></tr>
+            <tr><td><span id="e1">THG-Emissionen Scope 1 (t CO₂e)</span> <span class="ok-badge">OK</span></td><td>51.700</td><td>46.600</td><td>65.500</td><td>51.700</td><td>53.100</td></tr>
+            <tr><td><span id="e2">THG-Emissionen Scope 2, marktbasiert (t CO₂e)</span> <span class="ok-badge">OK</span></td><td>264.100</td><td>261.700</td><td>230.500</td><td>229.400</td><td>211.600</td></tr>
+            <tr><td><span id="e3">THG-Emissionen Scope 2, standortbasiert (t CO₂e)</span> <span class="ok-badge">OK</span></td><td>332.300</td><td>321.400</td><td>291.000</td><td>292.900</td><td>308.600</td></tr>
+            <tr class="subtotal"><td><strong><span id="e4t">Netto-THG-Emissionen Scope 1 + 2, marktbasiert (t CO₂e)</span></strong> <span class="ok-badge">OK</span></td><td><strong>315.800</strong></td><td><strong>308.300</strong></td><td><strong>280.900</strong></td><td><strong>234.400</strong></td><td><strong>173.100</strong></td></tr>
+            <tr><td><span id="e5">Energieverbrauch gesamt (MWh)</span> <span class="ok-badge">OK</span></td><td>899.300</td><td>892.400</td><td>830.400</td><td>785.400</td><td>799.000</td></tr>
+            <tr><td><span id="e6">Anteil erneuerbarer Strom</span> <span class="warn-badge">△</span></td><td>—</td><td>—</td><td>39 %</td><td>49 %</td><td>61 %</td></tr>
+            <tr><td><span id="e7">Wasserentnahme (Tsd. m³)</span> <span class="ok-badge">OK</span></td><td>4.205</td><td>4.110</td><td>3.980</td><td>3.962</td><td>4.194</td></tr>
+            <tr><td><span id="e8">Abfall gesamt (t)</span> <span class="ok-badge">OK</span></td><td>15.400</td><td>15.700</td><td>13.200</td><td>11.800</td><td>12.100</td></tr>
+            <tr><td><span id="e9">Anteil Abfall zum Recycling</span> <span class="ok-badge">OK</span></td><td>56 %</td><td>54 %</td><td>55 %</td><td>52 %</td><td>50 %</td></tr>
+            <tr class="section-header"><td colspan="6" id="esb">SOZIALES</td></tr>
+            <tr><td><span id="e10">Mitarbeiter zum 31.12.</span> <span class="ok-badge">OK</span></td><td>29.753</td><td>24.499</td><td>22.461</td><td>20.378</td><td>19.665</td></tr>
+            <tr><td><span id="e11">Mitarbeiter im Jahresdurchschnitt (Vollzeitäquivalente)</span></td><td>30.031</td><td>26.130</td><td>23.322</td><td>20.530</td><td>19.577</td></tr>
+            <tr><td><span id="e12">Unfallrate mit Ausfalltagen (LTIFR)</span> <span class="ok-badge">OK</span></td><td>0,31</td><td>0,23</td><td>0,27</td><td>0,24</td><td>0,22</td></tr>
+            <tr><td><span id="e13">Schwerequote der Unfälle</span> <span class="ok-badge">OK</span></td><td>5,0</td><td>7,4</td><td>4,7</td><td>5,2</td><td>6,1</td></tr>
+            <tr><td><span id="e14">Weiterbildungsstunden je Mitarbeiter (Ø)</span> <span class="ok-badge">OK</span></td><td>—</td><td>—</td><td>6,4</td><td>9,4</td><td>9,0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fn" id="esg-fn">Anm.: Alle Werte laut Nachhaltigkeitsbericht 2024; OK = Übereinstimmung mit dem Mastersheet (2022–2024). △ Anteil erneuerbarer Strom: Das Mastersheet nennt diesen Wert „Anteil erneuerbarer Energien“; bezogen auf den gesamten Energieverbrauch liegt der Anteil 2024 bei 50 %. „—“ = im Bericht nicht ausgewiesen. Governance-Kennzahlen und ESG-Ratings sind nicht enthalten, weil sie in den Unterlagen nicht vollständig belegt sind.</p>
+    </div>
+    <div id="esg-echart" class="tab-content">
+      <div class="chart-grid">
+        <div class="chart-box"><h4 id="esgc1">Netto-THG-Emissionen Scope 1 + 2 (t CO₂e)</h4><div class="chart-container"><canvas id="chart-esg-ghg"></canvas></div></div>
+        <div class="chart-box"><h4 id="esgc2">Energieverbrauch (MWh)</h4><div class="chart-container"><canvas id="chart-esg-energy"></canvas></div></div>
       </div>
     </div>
   </div>
@@ -916,6 +995,11 @@ footer a:hover{color:var(--red) !important;}
     <div class="disclaimer">
       <strong id="prg-disc-lbl">Methodik:</strong> <span id="prg-disc-txt">Modellrechnung auf Basis der Startwerte 2024 aus G&amp;V und Bilanz dieser Plattform. Jede Zeile beruht auf einer benannten Annahme (A1–A4) und einem Rechenschritt (R1–R7). Keine Anlageberatung.</span>
     </div>
+    <div class="e-card">
+      <h2 id="prg-intro-h">Worum geht es?</h2>
+      <p id="prg-intro">Diese Seite schaut zwei Jahre in die Zukunft. Niemand kennt die Zukunft genau – deshalb rechnet der Computer 10.000 mögliche Verläufe durch, so als würde man 10.000-mal würfeln. Daraus ergeben sich ein mittlerer Wert (Basis) sowie ein schlechter und ein guter Fall. Unten sieht man außerdem, wie die echten Zahlen des ersten Halbjahres 2025 dazu passen.</p>
+    </div>
+
 
     <div class="prg-grid2">
       <div>
@@ -946,6 +1030,17 @@ footer a:hover{color:var(--red) !important;}
     <p class="prg-note" id="prg-fak-note">Faktor = Wert im Jahr ÷ Startwert 2024. Die Faktoren hängen nur von den Annahmen A1–A4 ab. Jeder Prognosewert ist Startwert × Faktor.</p>
     <div class="fin-table-wrap"><table class="fin-table prg-table" id="prg-fak"></table></div>
 
+    <div class="section-label" id="prg-lbl-ist">Abgleich mit Ist-Zahlen 1. Halbjahr 2025</div>
+    <p class="prg-note" id="prg-ist-note">Quelle: Halbjahresbericht 2025 (ungeprüft). Beträge in Mio. €.</p>
+    <div class="fin-table-wrap"><table class="fin-table">
+      <thead><tr><th id="prg-ist-h0">Position</th><th id="prg-ist-h1">Ist 2025</th><th id="prg-ist-h2">Vergleichswert</th><th class="prg-l" id="prg-ist-h3">Einordnung</th></tr></thead>
+      <tbody>
+        <tr><td><span id="prg-ist-r1">Umsatz, 1. Halbjahr</span></td><td>1.595</td><td>1.665 <span class="prg-src">(<span id="prg-ist-r1b">1. Hj. 2024</span>)</span></td><td class="prg-l prg-src"><span id="prg-ist-r1c">−4,2 % gegenüber dem Vorjahr; die Basis-Prognose unterstellt +2,0 % für das Gesamtjahr.</span></td></tr>
+        <tr><td><span id="prg-ist-r2">EBIT, 1. Halbjahr</span></td><td class="pos">+50</td><td class="neg">−616 <span class="prg-src">(<span id="prg-ist-r2b">1. Hj. 2024</span>)</span></td><td class="prg-l prg-src"><span id="prg-ist-r2c">Wieder positiv; das Vorjahr war durch Sonderaufwendungen von 625 Mio. € belastet.</span></td></tr>
+        <tr><td><span id="prg-ist-r3">Liquidität (Stichtag)</span> <span class="warn-badge">△</span></td><td>511 <span class="prg-src">(<span id="prg-ist-r3a">30.06.2025</span>)</span></td><td>1.098 <span class="prg-src">(<span id="prg-ist-r3b">31.12.2024</span>)</span></td><td class="prg-l prg-src"><span id="prg-ist-r3c">−53 % seit Jahresende und damit deutlich unter dem pessimistischen Wert für 2025. Die Annahme A3 (+1 %) wird vom Ist widerlegt.</span></td></tr>
+      </tbody>
+    </table></div>
+
     <div class="prg-two">
       <div class="e-card">
         <h2 id="prg-rw-h">Rechenweg</h2>
@@ -965,14 +1060,14 @@ footer a:hover{color:var(--red) !important;}
           <li><span class="prg-tag">H1</span><span id="prg-h1"><strong>Abgrenzung der Kosten.</strong> Kosten = Umsatz − EBIT. Eine engere Abgrenzung verändert Kosten- und EBIT-Zeile.</span></li>
           <li><span class="prg-tag">H2</span><span id="prg-h2"><strong>Unabhängigkeit.</strong> Umsatz und Kosten schwanken unabhängig voneinander. Laufen sie teilweise mit, wird die EBIT-Spanne deutlich schmaler.</span></li>
           <li><span class="prg-tag">H3</span><span id="prg-h3"><strong>Kostenvolatilität 20 %.</strong> Doppelt so hoch wie beim Umsatz; weil die Kostenbasis über dem Umsatz liegt, bestimmt sie die EBIT-Spanne fast allein.</span></li>
-          <li><span class="prg-tag">H4</span><span id="prg-h4"><strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −549 Mio. € liegt.</span></li>
+          <li><span class="prg-tag">H4</span><span id="prg-h4"><strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −547 Mio. € liegt – und bis 30.06.2025 ist sie tatsächlich auf 511 Mio. € gefallen.</span></li>
           <li><span class="prg-tag">H5</span><span id="prg-h5"><strong>Personalbestand.</strong> ±20 % Schwankung pro Jahr ist für eine Belegschaft viel, und der Personalbestand wirkt nicht auf die Kosten. Mehr Personal (P90) gilt hier als optimistisch.</span></li>
           <li><span class="prg-tag">H6</span><span id="prg-h6"><strong>Basisjahr 2024.</strong> Liegt der Konzernabschluss 2025 vor, sollte 2025 aus Ist-Zahlen kommen und nur 2026 prognostiziert werden.</span></li>
         </ol>
       </div>
     </div>
 
-    <p class="fn" id="prg-fn">Anm.: Personalbestand = Ø Mitarbeiter 2024 laut G&amp;V (kein Stichtagswert). Liquidität 2024 = Zahlungsmittel &amp; Äquivalente laut Bilanz <span class="warn-badge">△</span>: Der Netto-Cashflow der Cash-Flow-Seite (2024: −111 Mio. €) weicht von der Veränderung der Zahlungsmittel laut Bilanz (−48 Mio. €) um mehr als 5 % ab; maßgeblich für den Startwert ist die Bilanz. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.</p>
+    <p class="fn" id="prg-fn">Anm.: Personalbestand = Mitarbeiter zum 31.12.2024 laut Geschäftsbericht (Stichtagswert; Jahresdurchschnitt 19.577 Vollzeitäquivalente). EBIT 2024 laut Geschäftsbericht −547 Mio. € (die frühere Vorgabe −549 Mio. € war die Summe gerundeter Einzelposten; Abweichung 0,4 % – OK). Ist-Werte 2025 aus dem ungeprüften Halbjahresbericht. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.</p>
   </div>
 </div>
 
@@ -1056,24 +1151,24 @@ footer a:hover{color:var(--red) !important;}
 // ============================================================
 // DATA
 // ============================================================
-const YEARS = ['2021','2022','2023','2024'];
+const YEARS = ['2020','2021','2022','2023','2024'];
 const D = {
-  revenue:    [5038, 4819, 3590, 3428],
-  ebit:       [197,  -161, -1431, -549],
-  netIncome:  [-32,  -443, -1614, -787],
-  grossProfit:[1440, 1258,  840,   857],
-  totalAssets:[9644, 8832, 7401,  6903],
-  equity:     [3150, 2833, 1905,  1235],
-  cash:       [1331, 1087, 1146,  1098],
-  ocf:        [792,  599,  493,   435],
-  icf:        [-560, -164, -826, -424],
-  fcf:        [232,  435,  -333,   11],
-  fincf:      [-534, -745,  245,  -98],
-  capex:      [560,  435,  826,   424],
-  stAssets:   [3282, 2884, 2620,  2743],
-  ltAssets:   [6362, 5948, 4782,  4160],
-  stLiab:     [3001, 2717, 2455,  2514],
-  ltLiab:     [3493, 3281, 3042,  3153]
+  revenue:    [3504, 5038, 4819, 3590, 3428],
+  ebit:       [138, 197, -161, -1430, -547],
+  netIncome:  [-87, -32, -444, -1613, -785],
+  grossProfit:[1035, 1440, 1258, 840, 857],
+  totalAssets:[9963, 9644, 8832, 7401, 6903],
+  equity:     [3027, 3150, 2833, 1905, 1235],
+  cash:       [1597, 1331, 1087, 1146, 1098],
+  ocf:        [707, 792, 599, 493, 435],
+  icf:        [-1495, -560, -164, -826, -424],
+  fcf:        [-788, 232, 435, -333, 11],
+  fincf:      [1951, -534, -745, 426, -98],
+  capex:      [177, 310, 537, 1049, 502],
+  stAssets:   [3312, 3282, 2884, 2620, 2743],
+  ltAssets:   [6652, 6362, 5948, 4782, 4160],
+  stLiab:     [3052, 3001, 2717, 2455, 2514],
+  ltLiab:     [3884, 3493, 3281, 3042, 3153]
 };
 const C = { RED:'#E3120B', DARK:'#1a1a1a', TEAL:'#2c7873', GOLD:'#c49a00', NAVY:'#0057a8' };
 const chartBase = {
@@ -1099,22 +1194,19 @@ function showPage(id) {
   if (pg && id !== 'akzent') { pg.classList.add('active'); }
   const nav = document.getElementById('nav-' + id);
   if (nav) nav.classList.add('active');
-  if (id==='bilanz' && !window._bilanzBuilt) { buildBilanzCharts(); window._bilanzBuilt=true; }
-  if (id==='guv'    && !window._guvBuilt)    { buildGuvCharts();    window._guvBuilt=true; }
-  if (id==='cashflow' && !window._cfBuilt)   { buildCfCharts();     window._cfBuilt=true; }
+  buildChartsFor(id);
   window.scrollTo(0,0);
 }
 
 function showTab(page, tab) {
+  const pageId = {cf:'cashflow'}[page] || page;
   const prefix = {bilanz:'bilanz', guv:'guv', cf:'cf'}[page] || page;
-  document.querySelectorAll('#page-'+page+' .tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('#page-'+page+' .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#page-'+pageId+' .tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#page-'+pageId+' .tab-btn').forEach(b => b.classList.remove('active'));
   const tc = document.getElementById(prefix+'-'+tab);
   if (tc) tc.classList.add('active');
-  if (event && event.target) event.target.classList.add('active');
-  if (page==='bilanz' && tab==='bchart' && !window._bilanzBuilt) { buildBilanzCharts(); window._bilanzBuilt=true; }
-  if (page==='guv'    && tab==='gchart' && !window._guvBuilt)    { buildGuvCharts();    window._guvBuilt=true; }
-  if (page==='cashflow' && tab==='cchart' && !window._cfBuilt)   { buildCfCharts();     window._cfBuilt=true; }
+  if (typeof event !== 'undefined' && event && event.target) { const b = event.target.closest('.tab-btn'); if (b) b.classList.add('active'); }
+  buildChartsFor(pageId);
 }
 
 // ============================================================
@@ -1136,59 +1228,51 @@ function lineDs(label,data,color) {
 }
 
 // ============================================================
-// HOME CHARTS
+// DIAGRAMME (Beschriftungen aus T, Neuaufbau bei Sprachwechsel)
 // ============================================================
-window.addEventListener('DOMContentLoaded', () => {
-  mkChart('chart-rev','bar',YEARS,[barDs('Umsatz',D.revenue,C.DARK)]);
-  mkChart('chart-ebit','bar',YEARS,[barDs('EBIT',D.ebit,D.ebit.map(v=>v>=0?C.TEAL:C.RED))]);
-  mkChart('chart-bs','bar',YEARS,[barDs('Bilanzsumme',D.totalAssets,C.NAVY)]);
-  mkChart('chart-fcf','bar',YEARS,[barDs('FCF',D.fcf,D.fcf.map(v=>v>=0?C.TEAL:C.RED))]);
-  buildAkzentDict();
-});
-
-// ============================================================
-// BILANZ CHARTS
-// ============================================================
+function L(k) {
+  const l = (typeof currentLang !== 'undefined' && T[currentLang]) ? T[currentLang] : T.de;
+  const v = (l[k] !== undefined) ? l[k] : (T.de[k] !== undefined ? T.de[k] : k);
+  const el = document.createElement('textarea'); el.innerHTML = v; return el.value;
+}
+const CHART_BUILT = {};
+function buildHomeCharts() {
+  mkChart('chart-rev','bar',YEARS,[barDs(L('cl-rev'),D.revenue,C.DARK)]);
+  mkChart('chart-ebit','bar',YEARS,[barDs(L('cl-ebit'),D.ebit,D.ebit.map(v=>v>=0?C.TEAL:C.RED))]);
+  mkChart('chart-bs','bar',YEARS,[barDs(L('cl-bs'),D.totalAssets,C.NAVY)]);
+  mkChart('chart-fcf','bar',YEARS,[barDs(L('cl-fcf'),D.fcf,D.fcf.map(v=>v>=0?C.TEAL:C.RED))]);
+}
 function buildBilanzCharts() {
-  const stacked = {
-    ...chartBase,
-    scales:{
-      x:{...chartBase.scales.x,stacked:true},
-      y:{...chartBase.scales.y,stacked:true}
-    }
-  };
+  const stacked = {...chartBase, scales:{x:{...chartBase.scales.x,stacked:true}, y:{...chartBase.scales.y,stacked:true}}};
   mkChart('chart-bilanz-bs','bar',YEARS,[
-    barDs('Kurzfristig',D.stAssets,'#4a90d9',{stack:'s'}),
-    barDs('Langfristig',D.ltAssets,C.DARK,{stack:'s'})
+    barDs(L('cl-st'),D.stAssets,'#4a90d9',{stack:'s'}),
+    barDs(L('cl-lt'),D.ltAssets,C.DARK,{stack:'s'})
   ], stacked);
   mkChart('chart-bilanz-ek','bar',YEARS,[
-    barDs('Eigenkapital',D.equity,C.TEAL,{stack:'s'}),
-    barDs('Kfr. Verbindl.',D.stLiab,'#e38312',{stack:'s'}),
-    barDs('Lfr. Verbindl.',D.ltLiab,C.DARK,{stack:'s'})
+    barDs(L('cl-eq'),D.equity,C.TEAL,{stack:'s'}),
+    barDs(L('cl-stl'),D.stLiab,'#e38312',{stack:'s'}),
+    barDs(L('cl-ltl'),D.ltLiab,C.DARK,{stack:'s'})
   ], stacked);
   mkChart('chart-bilanz-va','bar',YEARS,[
-    barDs('Kurzfristige VA',D.stAssets,'#4a90d9',{stack:'s'}),
-    barDs('Langfristige VA',D.ltAssets,C.DARK,{stack:'s'})
+    barDs(L('cl-sta'),D.stAssets,'#4a90d9',{stack:'s'}),
+    barDs(L('cl-lta'),D.ltAssets,C.DARK,{stack:'s'})
   ], stacked);
   const ekq = D.equity.map((e,i) => +(e/D.totalAssets[i]*100).toFixed(1));
-  mkChart('chart-bilanz-ekq','line',YEARS,[lineDs('EK-Quote (%)',ekq,C.RED)]);
+  mkChart('chart-bilanz-ekq','line',YEARS,[lineDs(L('cl-ekq'),ekq,C.RED)]);
 }
-
-// ============================================================
-// G&V CHARTS
-// ============================================================
 function buildGuvCharts() {
+  const i24 = YEARS.indexOf('2024');
   mkChart('chart-guv-rev','bar',YEARS,[
-    barDs('Umsatz',D.revenue,C.DARK),
-    barDs('Bruttogewinn',D.grossProfit,C.TEAL)
+    barDs(L('cl-rev'),D.revenue,C.DARK),
+    barDs(L('cl-gp'),D.grossProfit,C.TEAL)
   ]);
   mkChart('chart-guv-ebit','bar',YEARS,[
-    barDs('EBIT',D.ebit,D.ebit.map(v=>v>=0?C.TEAL:C.RED)),
-    barDs('Nettoergebnis',D.netIncome,D.netIncome.map(v=>v>=0?C.GOLD:'#c0392b'))
+    barDs(L('cl-ebit'),D.ebit,D.ebit.map(v=>v>=0?C.TEAL:C.RED)),
+    barDs(L('cl-ni'),D.netIncome,D.netIncome.map(v=>v>=0?C.GOLD:'#c0392b'))
   ]);
   mkChart('chart-guv-struct','doughnut',
-    ['Umsatzkosten','F&T','Vertrieb/Verw.','Sonst. Aufw.','Bruttogewinn'],
-    [{data:[2571,419,422,604,857], backgroundColor:[C.RED,C.DARK,'#555','#888',C.TEAL]}],
+    [L('cl-cogs'),L('cl-rnd'),L('cl-sga'),L('cl-oth'),L('cl-gp')],
+    [{data:[2571,419,422,604,D.grossProfit[i24]], backgroundColor:[C.RED,C.DARK,'#555','#888',C.TEAL]}],
     {...chartBase, scales:{}, plugins:{legend:{position:'right',labels:{font:{family:'IBM Plex Sans, sans-serif',size:11}}}}}
   );
   const margins = YEARS.map((_,i)=>({
@@ -1196,31 +1280,40 @@ function buildGuvCharts() {
     ebit:  +(D.ebit[i]/D.revenue[i]*100).toFixed(1)
   }));
   mkChart('chart-guv-margin','line',YEARS,[
-    lineDs('Bruttomarge (%)',margins.map(m=>m.gross),C.TEAL),
-    lineDs('EBIT-Marge (%)',margins.map(m=>m.ebit),C.RED)
+    lineDs(L('cl-gm'),margins.map(m=>m.gross),C.TEAL),
+    lineDs(L('cl-em'),margins.map(m=>m.ebit),C.RED)
   ]);
 }
-
-// ============================================================
-// CASH FLOW CHARTS
-// ============================================================
 function buildCfCharts() {
   mkChart('chart-cf-main','bar',YEARS,[
-    barDs('OCF',D.ocf,C.TEAL),
-    barDs('ICF',D.icf,C.RED),
-    barDs('Finanzierungs-CF',D.fincf,C.GOLD)
+    barDs(L('cl-ocf'),D.ocf,C.TEAL),
+    barDs(L('cl-icf'),D.icf,C.RED),
+    barDs(L('cl-fin'),D.fincf,C.GOLD)
   ]);
-  mkChart('chart-cf-cash','line',YEARS,[lineDs('Kassenbestand',D.cash,C.NAVY)]);
+  mkChart('chart-cf-cash','line',YEARS,[lineDs(L('cl-cash'),D.cash,C.NAVY)]);
   mkChart('chart-cf-capex','bar',YEARS,[
-    barDs('OCF',D.ocf,C.TEAL),
-    barDs('Capex',D.capex.map(v=>-v),C.RED)
+    barDs(L('cl-ocf'),D.ocf,C.TEAL),
+    barDs(L('cl-capex'),D.capex.map(v=>-v),C.RED)
   ]);
-  const peerLabels = ['Das Unternehmen','Peer A','Peer B','Peer C','Peer D'];
+  const peerLabels = [L('pg-du'),'Peer A','Peer B','Peer C','Peer D'];
   const peerOCF   = [435, 167, 118, 2780, 1164];
   mkChart('chart-cf-peer','bar',peerLabels,[
-    barDs('OCF 2024 (Mio.€)',peerOCF,peerOCF.map((_,i)=>i===0?C.RED:C.DARK))
+    barDs(L('cl-peer-ocf'),peerOCF,peerOCF.map((_,i)=>i===0?C.RED:C.DARK))
   ]);
 }
+const ESG_DATA = {ghg:[315800,308300,280900,234400,173100], energy:[899300,892400,830400,785400,799000]};
+function buildEsgCharts() {
+  mkChart('chart-esg-ghg','bar',YEARS,[barDs(L('cl-ghg'),ESG_DATA.ghg,C.TEAL)]);
+  mkChart('chart-esg-energy','bar',YEARS,[barDs(L('cl-energy'),ESG_DATA.energy,C.DARK)]);
+}
+function buildChartsFor(id) {
+  const f = {home:buildHomeCharts, bilanz:buildBilanzCharts, guv:buildGuvCharts, cashflow:buildCfCharts, esg:buildEsgCharts}[id];
+  if (f && !CHART_BUILT[id] && typeof Chart !== 'undefined') { f(); CHART_BUILT[id] = true; }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  buildChartsFor('home');
+  buildAkzentDict();
+});
 
 // ============================================================
 // TRANSLATIONS
@@ -1234,18 +1327,18 @@ const T = {
     'nav-guv':'G&V','nav-cashflow':'Cash Flow',
     // home
     'home-title':'Finanzanalyse · Das Unternehmen',
-    'home-sub':'Eine strukturierte Betrachtung · Bilanz · G&V · Cash Flow · Peer Group',
+    'home-sub':'Eine strukturierte Betrachtung · Bilanz · G&amp;V · Cash Flow · ESG · Prognose · Peer Group',
     'home-h2':'Was ist diese Seite?',
     'home-p1':'Diese Plattform präsentiert eine strukturierte Finanzanalyse eines börsennotierten österreichischen Unternehmens, das nach einer bedeutenden Übernahme in eine Phase turbulenter Restrukturierung eingetreten ist.',
     'home-p2':'Die Darstellung folgt dem Grundsatz maximaler Objektivität. Das Unternehmen trägt die Bezeichnung <strong>„Das Unternehmen"</strong>; die Vergleichsunternehmen werden als <strong>Peer A bis Peer D</strong> bezeichnet.',
-    'home-p3':'Die Analyse umfasst die Geschäftsjahre 2021 bis 2024 und beleuchtet Bilanz, Gewinn- und Verlustrechnung sowie Cash-Flow-Rechnung.',
+    'home-p3':'Die Analyse umfasst die Geschäftsjahre 2020 bis 2024 und beleuchtet Bilanz, Gewinn- und Verlustrechnung, Cash-Flow-Rechnung und ESG-Kennzahlen; eine Modellprognose reicht bis 2026.',
     'ch1-label':'Umsatz (Mio. €)','ch2-label':'EBIT (Mio. €)','ch3-label':'Bilanzsumme (Mio. €)','ch4-label':'Free Cash Flow (Mio. €)',
-    'kpi-head':'Kennzahlen 2024','k1-lbl':'Umsatz','k2-lbl':'EBIT','k3-lbl':'Bilanzsumme','k4-lbl':'Eigenkapital','k5-lbl':'OCF','k6-lbl':'Mitarbeiter','k6s-lbl':'Ø 2024',
+    'kpi-head':'Kennzahlen 2024','k1-lbl':'Umsatz','k2-lbl':'EBIT','k3-lbl':'Bilanzsumme','k4-lbl':'Eigenkapital','k5-lbl':'OCF','k6-lbl':'Mitarbeiter','k6s-lbl':'31.12.2024',
     'pg-head':'Peer Group 2024','pg-co':'Unternehmen','pg-mcap':'MktCap M€','pg-eq':'EK-Quote','pg-du':'Das Unternehmen',
-    'src-head':'Quellen','src-text':'Jahresabschlüsse 2021–2024 (IFRS). Peer-Daten: Bloomberg/Reuters/BAHA.',
+    'src-head':'Quellen','src-text':'Jahresabschlüsse 2020–2024 (IFRS). Peer-Daten: Bloomberg/Reuters/BAHA.',
     // about
     'about-title':'Über mich','about-sub':'Exilkärntner · Finanzanalyst · KI-Enthusiast',
-    'about-name':'Manfred Stückler','about-tag':'Finanzanalyst · Exilkärntner · Wien',
+    'about-name':'Mag. Manfred Stückler, CIIA, CEFA','about-tag':'Finanzanalyst · Exilkärntner · Wien',
     'about-intro':'Aufgewachsen in Kärnten – dem Land der Seen, des Lavanttals und eines Dialekts, den außerhalb der Kärntner Landesgrenzen kaum jemand versteht. Irgendwann führte der Weg nach Wien, und dort blieb er – zwischen Bilanzen, Jahresabschlüssen und der gelegentlichen Frage, ob man die Zahlen wirklich so interpretieren darf.',
     'about-intro2':'Was mich antreibt? Die Überzeugung, dass hinter jeder Zahl eine Geschichte steckt – manchmal eine erfreuliche, manchmal ein kleines Drama. Mit solidem Hintergrund in Betriebswirtschaft und langjähriger Praxis in der Finanzanalyse gilt: Daten lügen selten – aber sie lassen sich trefflich falsch interpretieren. Dagegen hilft präzises Handwerk.',
     'about-linkedin':'→ LinkedIn Profil',
@@ -1257,13 +1350,13 @@ const T = {
     'ai-p4':'Prompt Engineering ist nicht bloß ein technisches Handwerk – es ist eine Form des strukturierten Denkens: Wer gut prompten kann, der kann auch gut analysieren.',
     'cv-title':'Berufliche Stationen',
     'cv1-t':'Die Wurzeln','cv1-s':'Aufgewachsen im südlichsten Bundesland Österreichs. Frühe Faszination für Zahlen und das große Warum hinter wirtschaftlichen Zusammenhängen.',
-    'cv2-t':'Betriebswirtschaft &amp; Finance','cv2-s':'Akademische Ausbildung mit Schwerpunkt Finanzanalyse, Controlling und Rechnungswesen. Der Grundstein für alles, was danach kam.',
-    'cv3-t':'Finanzanalyse &amp; Unternehmenssteuerung','cv3-s':'Jahre praktischer Erfahrung in der Analyse börsennotierter Unternehmen, im Konzerncontrolling und in der strategischen Finanzplanung.',
+    'cv2-t':'Studium &amp; Zertifizierungen','cv2-s':'Internationale Betriebswirtschaft an der Universität Wien (Mag. rer. soc. oec.) mit Schwerpunkt Ökonometrie, Finanzmathematik, Corporate Finance und internationale Rechnungslegung. Danach die Börsehändlerprüfung an der Wiener Börse, die Analystendiplome CIIA und CEFA und zuletzt der Universitätskurs Financial Business Management (Universität Graz / Akzent Wien). Lernen hört offenbar nie auf.',
+    'cv3-t':'Treasury, ALM &amp; Portfoliomanagement','cv3-s':'Über 20 Jahre bei österreichischen Banken, Bausparkassen, einer Pensionskasse und einem Versicherer: Anleihen, Aktien und alternative Investments verwaltet, Liquidität gesteuert, Stresstests gerechnet. Nicht immer glamourös – aber immer lehrreich.',
     'cv4-t':'KI-gestützte Finanzanalyse','cv4-s':'Verbindung von klassischer Finanzanalyse mit modernen KI-Werkzeugen und Prompt Engineering. Das Ergebnis sehen Sie hier.',
     'pub-title':'Weiterführende Lektüre','pub-sub':'Für Liebhaber ernsthafter Wirtschaftsjournalistik:',
     'pub-de-head':'Deutsch','pub-en-head':'English','pub-fr-head':'Français',
     // project
-    'proj-title':'Das Projekt','proj-sub':'Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse 2021–2024',
+    'proj-title':'Das Projekt','proj-sub':'Fallstudie · Österreichisches Börsenunternehmen · Strukturanalyse 2020–2024',
     'proj-h2':'Das Unternehmen: Eine Fallstudie',
     'proj-lead':'Ein börsennotiertes österreichisches Unternehmen, das über Jahrzehnte als solider Akteur in seinem Technologiesegment galt, geriet nach einer milliardenschweren Übernahme in erhebliche Schieflage.',
     'proj-p1':'Die Folgen waren gravierend: massive Abschreibungen auf den Firmenwert, ein deutlicher Umsatzrückgang, anhaltende operative Verluste und ein Eigenkapital, das sich innerhalb von drei Jahren auf einen Bruchteil seines Werts reduzierte.',
@@ -1273,18 +1366,18 @@ const T = {
     'ps1-l':'Umsatz \'21→\'24','ps2-l':'EK-Erosion \'21→\'24','ps3-l':'OCF 2024 (Mio. €)','ps4-l':'Mitarbeiter \'21→\'24','ps5-l':'EK-Quote 2024','ps6-l':'Credit Rating (S&P / Moody\'s)',
     'proj-pg-h':'Peer-Group-Vergleich 2024',
     'pg2-co':'Unternehmen','pg2-rev':'Umsatz<br>Mio. €','pg2-ebit':'EBIT<br>Mio. €','pg2-mg':'EBIT-<br>Marge','pg2-eq':'EK-<br>Quote','pg2-ocf':'OCF<br>Mio. €','pg2-esg':'ESG<br>(MSCI)',
-    'proj-fn':'Quellen: Konzernabschlüsse 2024 (IFRS). Marktdaten: Bloomberg/Reuters/BAHA. ESG: MSCI.',
-    'proj-wip':'Dieses Projekt befindet sich im Aufbau. Inhalte werden laufend ergänzt und angepasst.',
+    'proj-fn':'Quellen: Konzernabschlüsse 2024 (IFRS). Marktdaten: Bloomberg/Reuters/BAHA. ESG: MSCI. △ Peer B und Peer D: Der Umsatz weicht um mehr als 5 % von den Quelldaten ab (Peer D: Werte beruhen auf Halbjahreszahlen); Korrektur offen.',
+    'proj-wip':'Dieses Projekt befindet sich im Aufbau. Inhalte werden laufend ergänzt und angepasst. Hinweis: Diese Seite entsteht mit Unterstützung von claude.ai. Das Werkzeug neigt noch stark zum Fantasieren – deshalb wird jede Zahl gegen die Geschäftsberichte geprüft, und Abweichungen werden gekennzeichnet.',
     'timeline-head':'Chronologie',
     'tl1-t':'Abschluss der Übernahme','tl1-s':'Vollzug der milliardenschweren Akquisition; Beginn der Integration.',
     'tl2-t':'Positives EBIT','tl2-s':'197 Mio. € EBIT; Umsatz 5,0 Mrd. €; EK 3,15 Mrd. €.',
     'tl3-t':'Erste Verluste','tl3-s':'EBIT −161 Mio. €; Abschreibungen Goodwill; Restrukturierung startet.',
     'tl4-t':'Tiefstwert EBIT','tl4-s':'EBIT −1.431 Mio. €; massive Wertberichtigungen; Kapitalerhöhung.',
-    'tl5-t':'Stabilisierung','tl5-s':'EBIT −549 Mio. €; OCF +435 Mio. €; Restrukturierungsprogramm greift.',
+    'tl5-t':'Stabilisierung','tl5-s':'EBIT −547 Mio. €; OCF +435 Mio. €; Restrukturierungsprogramm greift.',
     'meth-head':'Methodik','meth-text':'Die Analyse basiert auf IFRS-Konzernabschlüssen. Alle Angaben in Mio. €. Abweichungen werden gesondert ausgewiesen. Peer-Daten aus öffentlichen Quellen (Bloomberg, Reuters, BAHA).',
     // bilanz
-    'bilanz-title':'Bilanz','bilanz-sub':'Konzernbilanz nach IFRS · Angaben in Mio. € · 2021–2024',
-    'bilanz-disc-lbl':'Datenquelle:','bilanz-disc-txt':'IFRS-Konzernabschlüsse 2021–2024. Abgleich mit Investor-Relations-Unterlagen. Toleranz ≤ 5 % =','bilanz-disc-txt2':'; größere Abweichungen:',
+    'bilanz-title':'Bilanz','bilanz-sub':'Konzernbilanz nach IFRS · Angaben in Mio. € · 2020–2024',
+    'bilanz-disc-lbl':'Datenquelle:','bilanz-disc-txt':'IFRS-Konzernabschlüsse 2020–2024. Abgleich mit Investor-Relations-Unterlagen. Toleranz ≤ 5 % =','bilanz-disc-txt2':'; größere Abweichungen:',
     'tab-aktiva':'AKTIVA','tab-passiva':'PASSIVA','tab-bchart':'Grafiken',
     'bilanz-cap':'Das Unternehmen – Konzernbilanz AKTIVA (Mio. €)',
     'bilanz-cap2':'Das Unternehmen – Konzernbilanz PASSIVA (Mio. €)',
@@ -1310,11 +1403,11 @@ const T = {
     'p24t':'BILANZSUMME',
     'bc1':'Bilanzsumme – Struktur (Mio. €)','bc2':'EK vs. Fremdkapital (Mio. €)',
     'bc3':'Kurzfristige vs. Langfristige Vermögenswerte','bc4':'EK-Quote (%)',
-    'bilanz-fn1':'Anm.: Sonstige lfr. finanzielle Vermögenswerte 2021 (187 Mio. €) weichen von Detaildaten ab – △ markiert. Alle anderen Positionen: OK.',
-    'bilanz-fn2':'Anm.: EK 2021 im Quelldokument mit 315 Mio. € angegeben; rechnerisch korrekt 3.150 Mio. € – △ markiert. Maßgeblich: rechnerische Summe.',
+    'bilanz-fn1':'Anm.: 2020 laut Geschäftsbericht 2021 in älterer Gliederung (¹): Sonstige finanzielle und nichtfinanzielle Posten sind dort zusammengefasst und sinngemäß zugeordnet; „—¹“ bedeutet: im zugehörigen finanziellen Posten enthalten. Sonstige lfr. finanzielle Vermögenswerte 2021 (187 Mio. €) weichen von den Detaildaten (147 Mio. €) ab – △. Alle anderen Positionen: OK.',
+    'bilanz-fn2':'Anm.: Das Eigenkapital 2021 steht im Mastersheet mit 315 Mio. €; laut Geschäftsbericht 2021 und rechnerischer Summe sind es 3.150 Mio. € – △. Maßgeblich ist der Geschäftsbericht.',
     // guv
-    'guv-title':'Gewinn- &amp; Verlustrechnung','guv-sub':'Konzern-G&amp;V nach IFRS · Angaben in Mio. € · 2021–2024',
-    'guv-disc-lbl':'Datenquelle:','guv-disc-txt':'IFRS-Konzernabschlüsse 2021–2024. Abgleich erfolgt. Toleranz ≤ 5 %.',
+    'guv-title':'Gewinn- &amp; Verlustrechnung','guv-sub':'Konzern-G&amp;V nach IFRS · Angaben in Mio. € · 2020–2024',
+    'guv-disc-lbl':'Datenquelle:','guv-disc-txt':'IFRS-Konzernabschlüsse 2020–2024. Abgleich erfolgt. Toleranz ≤ 5 %.',
     'gtab-table':'Tabelle','gtab-chart':'Grafiken',
     'guv-cap':'Das Unternehmen – Konzern-GuV (Mio. €)',
     'gh0':'Position',
@@ -1325,29 +1418,116 @@ const T = {
     'g8t':'EBIT','g8b':'EBIT-Marge','gsb':'FINANZERGEBNIS',
     'g9':'Finanzierungsaufwendungen','g10':'Sonstiges Finanzergebnis','g11t':'Finanzergebnis',
     'g12t':'EBT (vor Ertragsteuern)','g13':'Ertragsteuern','g14t':'ERGEBNIS NACH STEUERN',
-    'g15':'Ø Mitarbeiter: 26.130 (2021) · 22.461 (2022) · 20.378 (2023) · 19.665 (2024)',
+    
     'gc1':'Umsatz &amp; Bruttogewinn (Mio. €)','gc2':'EBIT &amp; Nettoergebnis (Mio. €)',
     'gc3':'Aufwandsstruktur 2024','gc4':'Margenentwicklung (%)',
-    'guv-fn':'Alle Werte in Mio. €. Sonstige betriebliche Aufwendungen 2023 beinhalten wesentliche Goodwill-Wertminderungen.',
+    'guv-fn':'Alle Werte in Mio. € laut Konzern-G&amp;V der Geschäftsberichte 2021, 2023 und 2024. Sonstige betriebliche Aufwendungen enthalten Wertminderungen von Geschäfts- und Firmenwerten (2022: 277; 2023: 1.313), Sonderaufwendungen 2024 (576) und das Ergebnis aus assoziierten Unternehmen. Zwischensummen wie berichtet; Abweichungen zur Summe der gerundeten Einzelposten (±2 Mio. €) sind Rundungsdifferenzen. EBIT 2024 laut Bericht −547 Mio. € (bisher −549; Abweichung 0,4 % – OK). 2020 inklusive aufgegebener Geschäftsbereich (+3 Mio. €). △ Mitarbeiter: Die Vorversion mischte Stichtags- und Durchschnittswerte; jetzt beide Reihen getrennt.',
     // cashflow
-    'cf-title':'Cash Flow','cf-sub':'Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2021–2024',
-    'cf-disc-lbl':'Datenquelle:','cf-disc-txt':'IFRS-Konzernabschlüsse 2021–2024. Cashflow-Daten aus geprüften Segmentinformationen.',
+    'cf-title':'Cash Flow','cf-sub':'Konzern-Cashflow-Rechnung · Angaben in Mio. € · 2020–2024',
+    'cf-disc-lbl':'Datenquelle:','cf-disc-txt':'Konzern-Kapitalflussrechnungen der Geschäftsberichte 2021, 2023 und 2024 (Geschäftsjahre 2020–2024).',
     'ctab-table':'Tabelle','ctab-chart':'Grafiken',
     'cf-cap':'Das Unternehmen – Konzern-Cashflow-Rechnung (Mio. €)',
     'cfh0':'Position',
     'cfsa':'I. CASHFLOW AUS LAUFENDER GESCHÄFTSTÄTIGKEIT (OCF)',
-    'cf1':'Ergebnis nach Steuern','cf2':'Abschreibungen &amp; Amortisierungen (inkl. Wertminderungen)',
-    'cf3':'Veränd. Working Capital &amp; sonstige Korrekturen','cf4t':'Operativer Cashflow (OCF)',
+    'cf1':'Ergebnis nach Steuern','cf2':'Abschreibungen und Wertminderungen',
+    'cf3':'Übrige Positionen (Working Capital, Steuern, Zinsen u. a.) – rechnerisch','cf4t':'Operativer Cashflow (OCF)',
     'cfsb':'II. CASHFLOW AUS INVESTITIONSTÄTIGKEIT (ICF)',
-    'cf5':'Investitionen in Sachanlagen &amp; immaterielle Vermögenswerte (Capex)',
-    'cf6':'Akquisitionen / Desinvestitionen (netto)','cf7t':'Investitions-Cashflow (ICF)',
+    'cf5':'Investitionen in immaterielle Vermögenswerte und Sachanlagen (Capex)',
+    'cf6':'Übrige Investitionstätigkeit (Erwerbe, Verkäufe u. a.) – rechnerisch','cf7t':'Investitions-Cashflow (ICF)',
     'cfsc':'III. FREE CASHFLOW (OCF + ICF)','cf8t':'Free Cashflow',
     'cfsd':'IV. CASHFLOW AUS FINANZIERUNGSTÄTIGKEIT',
-    'cf9':'Kapitalerhöhungen / Dividenden / Aktienrückkäufe',
-    'cf10':'Aufnahme / Rückzahlung verzinslicher Verbindlichkeiten','cf11t':'Finanzierungs-Cashflow',
-    'cf12t':'NETTO-CASHFLOW (VERÄND. LIQUIDITÄT)',
+    
+    'cf11t':'Finanzierungs-Cashflow',
+    'cf12t':'NETTO-CASHFLOW (OCF + ICF + FINANZIERUNGS-CF)',
     'cfc1':'Cashflow-Übersicht (Mio. €)','cfc2':'Kassenbestand (Mio. €)','cfc3':'OCF vs. Capex (Mio. €)','cfc4':'Peer Group: OCF 2024 (Mio. €)',
-    'cf-fn':'Anm.: Detailgliederung OCF rechnerisch plausibilisiert. FCF = OCF + ICF. Ausgewiesene Gesamtsummen entsprechen Quelldaten; Abweichungen Teilpositionen ≤ 5 % – OK.',
+    'cf-fn':'Quellen: Kapitalflussrechnungen der Geschäftsberichte 2021 (2020/2021), 2023 (2022) und 2024 (2023 reklassifiziert, 2024). △ = Abweichung über 5 % zur Vorversion dieser Seite, korrigiert: Abschreibungen, Capex und Netto-Cashflow waren falsch; die Zeilen „Kapitalerhöhungen/Dividenden/Aktienrückkäufe“ und „Aufnahme/Rückzahlung verzinslicher Verbindlichkeiten“ waren in keinem Bericht belegt und sind entfernt. Ausweisänderung: Gezahlte Zinsen stehen ab 2023 im operativen Cashflow (2023 ursprünglich: OCF 674, Finanzierungs-CF 245), 2020–2022 im Finanzierungs-Cashflow. „Rechnerisch“ = Differenz zur jeweiligen Summe. Wechselkurs- und sonstige Effekte = Veränderung der Zahlungsmittel laut Bilanz minus Netto-Cashflow (inkl. Umgliederung zur Veräußerung gehaltener Zahlungsmittel und Rundung); Anfangsbestand 2020 laut Kapitalflussrechnung: 500 Mio. €.',
+    'nav-esg':'ESG',
+    'cvy1':'Kärnten',
+    'cvy2':'Studium',
+    'cvy3':'Praxis',
+    'cvy5':'2022–24',
+    'cvy4':'Heute',
+    'cv5-t':'Aufsicht',
+    'cv5-s':'Von 2022 bis 2024 Vor-Ort-Prüfer für Versicherungen und Pensionskassen bei der Finanzmarktaufsicht (FMA). Seither weiß ich: Die spannendsten Zahlen stehen oft in den Fußnoten.',
+    'g15a':'Mitarbeiter zum 31.12.',
+    'g15b':'Mitarbeiter im Jahresdurchschnitt (Vollzeitäquivalente)',
+    'cfse':'V. ÜBERLEITUNG ZUM ZAHLUNGSMITTELBESTAND',
+    'cf13':'Wechselkurs- und sonstige Effekte – rechnerisch',
+    'cf14t':'Zahlungsmittel zum Jahresende (Bilanz)',
+    'esg-title':'ESG',
+    'esg-sub':'Umwelt · Soziales · Angaben laut Nachhaltigkeitsbericht · 2020–2024',
+    'esg-disc-lbl':'Datenquelle:',
+    'esg-disc-txt':'Nachhaltigkeitsbericht im Geschäftsbericht 2024 (Fünfjahresübersichten); Abgleich mit dem Mastersheet (2022–2024). Toleranz ≤ 5 % = OK, darüber △.',
+    'esg-intro-h':'Was bedeutet ESG?',
+    'esg-intro':'ESG steht für Umwelt (Environmental), Soziales (Social) und gute Unternehmensführung (Governance). Hier sehen Sie, wie viel Treibhausgas das Unternehmen ausstößt, wie viel Energie und Wasser es verbraucht, wie viel Abfall entsteht und wie sicher und gut ausgebildet die Belegschaft arbeitet. Sinkende Emissionen sind gut für das Klima; sinkende Unfallraten sind gut für die Menschen.',
+    'etab-table':'Tabelle',
+    'etab-chart':'Grafiken',
+    'eh0':'Position',
+    'esa':'UMWELT',
+    'esb':'SOZIALES',
+    'e1':'THG-Emissionen Scope 1 (t CO₂e)',
+    'e2':'THG-Emissionen Scope 2, marktbasiert (t CO₂e)',
+    'e3':'THG-Emissionen Scope 2, standortbasiert (t CO₂e)',
+    'e4t':'Netto-THG-Emissionen Scope 1 + 2, marktbasiert (t CO₂e)',
+    'e5':'Energieverbrauch gesamt (MWh)',
+    'e6':'Anteil erneuerbarer Strom',
+    'e7':'Wasserentnahme (Tsd. m³)',
+    'e8':'Abfall gesamt (t)',
+    'e9':'Anteil Abfall zum Recycling',
+    'e10':'Mitarbeiter zum 31.12.',
+    'e11':'Mitarbeiter im Jahresdurchschnitt (Vollzeitäquivalente)',
+    'e12':'Unfallrate mit Ausfalltagen (LTIFR)',
+    'e13':'Schwerequote der Unfälle',
+    'e14':'Weiterbildungsstunden je Mitarbeiter (Ø)',
+    'esg-fn':'Anm.: Alle Werte laut Nachhaltigkeitsbericht 2024; OK = Übereinstimmung mit dem Mastersheet (2022–2024). △ Anteil erneuerbarer Strom: Das Mastersheet nennt diesen Wert „Anteil erneuerbarer Energien“; bezogen auf den gesamten Energieverbrauch liegt der Anteil 2024 bei 50 %. „—“ = im Bericht nicht ausgewiesen. Governance-Kennzahlen und ESG-Ratings sind nicht enthalten, weil sie in den Unterlagen nicht vollständig belegt sind.',
+    'esgc1':'Netto-THG-Emissionen Scope 1 + 2 (t CO₂e)',
+    'esgc2':'Energieverbrauch (MWh)',
+    'cl-rev':'Umsatz',
+    'cl-ebit':'EBIT',
+    'cl-bs':'Bilanzsumme',
+    'cl-fcf':'Free Cashflow',
+    'cl-st':'Kurzfristig',
+    'cl-lt':'Langfristig',
+    'cl-eq':'Eigenkapital',
+    'cl-stl':'Kfr. Verbindlichkeiten',
+    'cl-ltl':'Lfr. Verbindlichkeiten',
+    'cl-sta':'Kurzfristige Vermögenswerte',
+    'cl-lta':'Langfristige Vermögenswerte',
+    'cl-ekq':'EK-Quote (%)',
+    'cl-gp':'Bruttogewinn',
+    'cl-ni':'Ergebnis nach Steuern',
+    'cl-cogs':'Umsatzkosten',
+    'cl-rnd':'F&amp;E',
+    'cl-sga':'Vertrieb/Verwaltung',
+    'cl-oth':'Sonstige Aufwendungen',
+    'cl-gm':'Bruttomarge (%)',
+    'cl-em':'EBIT-Marge (%)',
+    'cl-ocf':'Operativer Cashflow',
+    'cl-icf':'Investitions-Cashflow',
+    'cl-fin':'Finanzierungs-Cashflow',
+    'cl-cash':'Zahlungsmittel',
+    'cl-capex':'Capex',
+    'cl-peer-ocf':'Operativer Cashflow 2024 (Mio. €)',
+    'cl-ghg':'Netto-THG Scope 1 + 2',
+    'cl-energy':'Energieverbrauch',
+    'prg-intro-h':'Worum geht es?',
+    'prg-intro':'Diese Seite schaut zwei Jahre in die Zukunft. Niemand kennt die Zukunft genau – deshalb rechnet der Computer 10.000 mögliche Verläufe durch, so als würde man 10.000-mal würfeln. Daraus ergeben sich ein mittlerer Wert (Basis) sowie ein schlechter und ein guter Fall. Unten sieht man außerdem, wie die echten Zahlen des ersten Halbjahres 2025 dazu passen.',
+    'prg-lbl-ist':'Abgleich mit Ist-Zahlen 1. Halbjahr 2025',
+    'prg-ist-note':'Quelle: Halbjahresbericht 2025 (ungeprüft). Beträge in Mio. €.',
+    'prg-ist-h0':'Position',
+    'prg-ist-h1':'Ist 2025',
+    'prg-ist-h2':'Vergleichswert',
+    'prg-ist-h3':'Einordnung',
+    'prg-ist-r1':'Umsatz, 1. Halbjahr',
+    'prg-ist-r1b':'1. Hj. 2024',
+    'prg-ist-r1c':'−4,2 % gegenüber dem Vorjahr; die Basis-Prognose unterstellt +2,0 % für das Gesamtjahr.',
+    'prg-ist-r2':'EBIT, 1. Halbjahr',
+    'prg-ist-r2b':'1. Hj. 2024',
+    'prg-ist-r2c':'Wieder positiv; das Vorjahr war durch Sonderaufwendungen von 625 Mio. € belastet.',
+    'prg-ist-r3':'Liquidität (Stichtag)',
+    'prg-ist-r3a':'30.06.2025',
+    'prg-ist-r3b':'31.12.2024',
+    'prg-ist-r3c':'−53 % seit Jahresende und damit deutlich unter dem pessimistischen Wert für 2025. Die Annahme A3 (+1 %) wird vom Ist widerlegt.',
     // prognose
     'nav-prognose':'Prognose',
     'prg-title':'Prognose 2025–2026',
@@ -1374,10 +1554,10 @@ const T = {
     'prg-h1':'<strong>Abgrenzung der Kosten.</strong> Kosten = Umsatz − EBIT. Eine engere Abgrenzung verändert Kosten- und EBIT-Zeile.',
     'prg-h2':'<strong>Unabhängigkeit.</strong> Umsatz und Kosten schwanken unabhängig voneinander. Laufen sie teilweise mit, wird die EBIT-Spanne deutlich schmaler.',
     'prg-h3':'<strong>Kostenvolatilität 20 %.</strong> Doppelt so hoch wie beim Umsatz; weil die Kostenbasis über dem Umsatz liegt, bestimmt sie die EBIT-Spanne fast allein.',
-    'prg-h4':'<strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −549 Mio. € liegt.',
+    'prg-h4':'<strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −547 Mio. € liegt – und bis 30.06.2025 ist sie tatsächlich auf 511 Mio. € gefallen.',
     'prg-h5':'<strong>Personalbestand.</strong> ±20 % Schwankung pro Jahr ist für eine Belegschaft viel, und der Personalbestand wirkt nicht auf die Kosten. Mehr Personal (P90) gilt hier als optimistisch.',
     'prg-h6':'<strong>Basisjahr 2024.</strong> Liegt der Konzernabschluss 2025 vor, sollte 2025 aus Ist-Zahlen kommen und nur 2026 prognostiziert werden.',
-    'prg-fn':'Anm.: Personalbestand = Ø Mitarbeiter 2024 laut G&amp;V (kein Stichtagswert). Liquidität 2024 = Zahlungsmittel &amp; Äquivalente laut Bilanz <span class="warn-badge">△</span>: Der Netto-Cashflow der Cash-Flow-Seite (2024: −111 Mio. €) weicht von der Veränderung der Zahlungsmittel laut Bilanz (−48 Mio. €) um mehr als 5 % ab; maßgeblich für den Startwert ist die Bilanz. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.',
+    'prg-fn':'Anm.: Personalbestand = Mitarbeiter zum 31.12.2024 laut Geschäftsbericht (Stichtagswert; Jahresdurchschnitt 19.577 Vollzeitäquivalente). EBIT 2024 laut Geschäftsbericht −547 Mio. € (die frühere Vorgabe −549 Mio. € war die Summe gerundeter Einzelposten; Abweichung 0,4 % – OK). Ist-Werte 2025 aus dem ungeprüften Halbjahresbericht. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.',
     'prgx-pos':'Position',
     'prgx-val':'Wert 2024',
     'prgx-src':'Quelle / Berechnung',
@@ -1395,19 +1575,19 @@ const T = {
     'prgx-L':'Liquidität',
     'prgx-P':'Personalbestand',
     'prgx-unit-m':'Mio. €',
-    'prgx-unit-p':'Mitarbeiter, Ø',
+    'prgx-unit-p':'Mitarbeiter, 31.12.',
     'prgx-derived':'abgeleitet',
     'prgx-a1':'Umsatz steigend',
     'prgx-a2':'Kosten leicht fallend',
     'prgx-a3':'Liquidität leicht steigend',
     'prgx-a4':'Personalbestand abnehmend',
     'prgx-srcU':'G&amp;V · Umsatzerlöse',
-    'prgx-srcE':'G&amp;V · EBIT (G&amp;V-Detail)',
+    'prgx-srcE':'G&amp;V · EBIT laut Geschäftsbericht 2024',
     'prgx-srcK':'R4 · Umsatz − EBIT',
     'prgx-srcL':'Bilanz · Zahlungsmittel &amp; Äquivalente',
-    'prgx-srcP':'G&amp;V-Anm. · Ø Mitarbeiter',
+    'prgx-srcP':'Geschäftsbericht · Mitarbeiter zum 31.12.2024',
     'prgx-start':'Startwert',
-    'prgx-givenE':'Vorgabe G&amp;V-Detail',
+    'prgx-givenE':'Geschäftsbericht 2024',
     'prgx-runs':'Umsatz − Kosten je Lauf',
     'prgx-err':'Bitte bei jeder Annahme eine Zahl eintragen, die Volatilität darf nicht negativ sein. Die Tabellen zeigen bis dahin den letzten gültigen Stand.',
     'prgx-legend':'P10 / P50 / P90 = 10., 50. und 90. Perzentil der 10.000 Läufe (R6).',
@@ -1423,17 +1603,17 @@ const T = {
     'nav-about':'About','nav-project':'The Project','nav-bilanz':'Balance Sheet',
     'nav-guv':'P&L','nav-cashflow':'Cash Flow',
     'home-title':'Financial Analysis · The Company',
-    'home-sub':'A Structured Review · Balance Sheet · P&L · Cash Flow · Peer Group',
+    'home-sub':'A structured analysis · Balance Sheet · P&amp;L · Cash Flow · ESG · Forecast · Peer Group',
     'home-h2':'What is this page?',
     'home-p1':'This platform presents a structured financial analysis of an Austrian listed company that entered a period of turbulent restructuring following a significant acquisition.',
     'home-p2':'The analysis adheres strictly to the principle of objectivity. The company is referred to as <strong>"The Company"</strong>; peers are designated <strong>Peer A through Peer D</strong>.',
-    'home-p3':'The analysis covers fiscal years 2021 to 2024 and examines the balance sheet, income statement and cash flow statement.',
+    'home-p3':'The analysis covers fiscal years 2020 to 2024 and examines the balance sheet, income statement, cash flow statement and ESG indicators; a model forecast extends to 2026.',
     'ch1-label':'Revenue (€m)','ch2-label':'EBIT (€m)','ch3-label':'Total Assets (€m)','ch4-label':'Free Cash Flow (€m)',
-    'kpi-head':'Key Figures 2024','k1-lbl':'Revenue','k2-lbl':'EBIT','k3-lbl':'Total Assets','k4-lbl':'Equity','k5-lbl':'OCF','k6-lbl':'Employees','k6s-lbl':'Avg 2024',
+    'kpi-head':'Key Figures 2024','k1-lbl':'Revenue','k2-lbl':'EBIT','k3-lbl':'Total Assets','k4-lbl':'Equity','k5-lbl':'OCF','k6-lbl':'Employees','k6s-lbl':'31 Dec 2024',
     'pg-head':'Peer Group 2024','pg-co':'Company','pg-mcap':'MktCap €m','pg-eq':'Equity Ratio','pg-du':'The Company',
-    'src-head':'Sources','src-text':'Annual reports 2021–2024 (IFRS). Peer data: Bloomberg/Reuters/BAHA.',
+    'src-head':'Sources','src-text':'Annual reports 2020–2024 (IFRS). Peer data: Bloomberg/Reuters/BAHA.',
     'about-title':'About Me','about-sub':'Carinthian in Exile · Financial Analyst · AI Enthusiast',
-    'about-name':'Manfred Stückler','about-tag':'Financial Analyst · Carinthian in Exile · Vienna',
+    'about-name':'Mag. Manfred Stückler, CIIA, CEFA','about-tag':'Financial Analyst · Carinthian in Exile · Vienna',
     'about-intro':'Raised in Carinthia — the land of lakes, the Lavant Valley and a dialect barely understood outside its borders. The path eventually led to Vienna, where it stayed — among balance sheets, annual reports and the occasional question of whether the numbers really can be read that way.',
     'about-intro2':'What drives me? The conviction that behind every number there is a story — sometimes encouraging, sometimes a minor drama. With a solid background in business administration and years of practical experience in financial analysis: data rarely lies — but it can be splendidly misinterpreted. Precise craftsmanship helps.',
     'about-linkedin':'→ LinkedIn Profile',
@@ -1445,12 +1625,12 @@ const T = {
     'ai-p4':'Prompt engineering is not merely a technical craft — it is a form of structured thinking: those who can prompt well can also analyse well.',
     'cv-title':'Professional Background',
     'cv1-t':'The Roots','cv1-s':'Raised in the southernmost province of Austria. Early fascination with numbers and the deeper why behind economic decisions.',
-    'cv2-t':'Business Administration &amp; Finance','cv2-s':'Academic training with a focus on financial analysis, controlling and accounting. The foundation for everything that followed.',
-    'cv3-t':'Financial Analysis &amp; Corporate Management','cv3-s':'Years of practical experience in the analysis of listed companies, group controlling, balance sheet analysis and strategic financial planning.',
+    'cv2-t':'Studies &amp; certifications','cv2-s':'International Business Administration at the University of Vienna (Mag. rer. soc. oec.), focusing on econometrics, financial mathematics, corporate finance and international accounting. Then the Vienna Stock Exchange trader’s exam, the CIIA and CEFA analyst designations and, most recently, the university course in Financial Business Management (University of Graz / Akzent Vienna). Learning, it seems, never stops.',
+    'cv3-t':'Treasury, ALM &amp; portfolio management','cv3-s':'More than 20 years at Austrian banks, building societies, a pension fund and an insurer: managing bonds, equities and alternative investments, steering liquidity and running stress tests. Not always glamorous – but always instructive.',
     'cv4-t':'AI-Supported Financial Analysis','cv4-s':'Combining classical financial analysis with modern AI tools and prompt engineering. The result is what you see here.',
     'pub-title':'Further Reading','pub-sub':'For lovers of serious financial journalism:',
     'pub-de-head':'Deutsch','pub-en-head':'English','pub-fr-head':'Français',
-    'proj-title':'The Project','proj-sub':'Case Study · Austrian Listed Company · Structural Analysis 2021–2024',
+    'proj-title':'The Project','proj-sub':'Case Study · Austrian Listed Company · Structural Analysis 2020–2024',
     'proj-h2':'The Company: A Case Study',
     'proj-lead':'An Austrian listed company, long considered a reliable player in its technology segment, ran into serious difficulties following a multi-billion acquisition. Integrating the acquired business proved far costlier and more complex than originally calculated.',
     'proj-p1':'The consequences were severe: massive goodwill impairments, a significant decline in revenues, persistent operating losses and equity that shrank to a fraction of its original value within three years.',
@@ -1460,17 +1640,17 @@ const T = {
     'ps1-l':'Revenue \'21→\'24','ps2-l':'Equity erosion \'21→\'24','ps3-l':'OCF 2024 (€m)','ps4-l':'Headcount \'21→\'24','ps5-l':'Equity ratio 2024','ps6-l':'Credit Rating (S&P / Moody\'s)',
     'proj-pg-h':'Peer Group Comparison 2024',
     'pg2-co':'Company','pg2-rev':'Revenue<br>€m','pg2-ebit':'EBIT<br>€m','pg2-mg':'EBIT<br>Margin','pg2-eq':'Equity<br>Ratio','pg2-ocf':'OCF<br>€m','pg2-esg':'ESG<br>(MSCI)',
-    'proj-fn':'Sources: Consolidated annual reports 2024 (IFRS). Market data: Bloomberg/Reuters/BAHA. ESG: MSCI.',
-    'proj-wip':'This project is under construction. Content is being continuously expanded and updated.',
+    'proj-fn':'Sources: Consolidated annual reports 2024 (IFRS). Market data: Bloomberg/Reuters/BAHA. ESG: MSCI. △ Peer B and Peer D: revenue deviates by more than 5% from the source data (Peer D: figures are based on half-year data); correction pending.',
+    'proj-wip':'This project is under construction. Content is being continuously expanded and updated. Note: this site is built with the help of claude.ai. The tool still has a strong tendency to make things up – which is why every figure is checked against the annual reports and deviations are flagged.',
     'timeline-head':'Timeline',
     'tl1-t':'Acquisition completed','tl1-s':'Multi-billion acquisition closed; integration commences.',
     'tl2-t':'Positive EBIT','tl2-s':'€197m EBIT; revenue €5.0bn; equity €3.15bn.',
     'tl3-t':'First losses','tl3-s':'EBIT −€161m; goodwill impairments; restructuring begins.',
     'tl4-t':'EBIT trough','tl4-s':'EBIT −€1,431m; major write-downs; capital increase.',
-    'tl5-t':'Stabilisation','tl5-s':'EBIT −€549m; OCF +€435m; restructuring programme taking effect.',
+    'tl5-t':'Stabilisation','tl5-s':'EBIT −€547m; OCF +€435m; restructuring programme taking effect.',
     'meth-head':'Methodology','meth-text':'Analysis based on IFRS consolidated financial statements. All figures in € millions unless otherwise stated. Deviations are separately disclosed. Peer data from public sources (Bloomberg, Reuters, BAHA).',
-    'bilanz-title':'Balance Sheet','bilanz-sub':'Consolidated Balance Sheet IFRS · Figures in €m · 2021–2024',
-    'bilanz-disc-lbl':'Data source:','bilanz-disc-txt':'IFRS consolidated financial statements 2021–2024. Cross-checked against investor relations materials. Deviations ≤ 5% =','bilanz-disc-txt2':'; larger deviations:',
+    'bilanz-title':'Balance Sheet','bilanz-sub':'Consolidated Balance Sheet IFRS · Figures in €m · 2020–2024',
+    'bilanz-disc-lbl':'Data source:','bilanz-disc-txt':'IFRS consolidated financial statements 2020–2024. Cross-checked against investor relations materials. Deviations ≤ 5% =','bilanz-disc-txt2':'; larger deviations:',
     'tab-aktiva':'ASSETS','tab-passiva':'LIABILITIES & EQUITY','tab-bchart':'Charts',
     'bilanz-cap':'The Company – Balance Sheet ASSETS (€m)',
     'bilanz-cap2':'The Company – Balance Sheet LIABILITIES & EQUITY (€m)',
@@ -1496,10 +1676,10 @@ const T = {
     'p24t':'TOTAL ASSETS',
     'bc1':'Total Assets – Structure (€m)','bc2':'Equity vs. Debt (€m)',
     'bc3':'Current vs. Non-current Assets','bc4':'Equity Ratio (%)',
-    'bilanz-fn1':'Note: Other non-current financial assets 2021 (€187m) deviate from detailed data by ~21% — marked △. All other items within 5% tolerance (OK).',
-    'bilanz-fn2':'Note: Equity 2021 stated as €315m in source document; arithmetically correct: €3,150m — marked △. Arithmetic sum is authoritative.',
-    'guv-title':'Income Statement','guv-sub':'Consolidated P&L IFRS · Figures in €m · 2021–2024',
-    'guv-disc-lbl':'Data source:','guv-disc-txt':'IFRS consolidated financial statements 2021–2024. Cross-checked. Tolerance ≤ 5%.',
+    'bilanz-fn1':'Note: 2020 per the 2021 annual report in the older structure (¹): other financial and non-financial items are combined there and allocated accordingly; “—¹” means: included in the related financial item. Other non-current financial assets 2021 (€187m) deviate from the detailed data (€147m) – △. All other items: OK.',
+    'bilanz-fn2':'Note: Equity 2021 is shown as €315m in the master sheet; according to the 2021 annual report and the arithmetic sum it is €3,150m – △. The annual report is authoritative.',
+    'guv-title':'Income Statement','guv-sub':'Consolidated P&L IFRS · Figures in €m · 2020–2024',
+    'guv-disc-lbl':'Data source:','guv-disc-txt':'IFRS consolidated financial statements 2020–2024. Cross-checked. Tolerance ≤ 5%.',
     'gtab-table':'Table','gtab-chart':'Charts',
     'guv-cap':'The Company – Consolidated Income Statement (€m)',
     'gh0':'Line Item',
@@ -1510,28 +1690,115 @@ const T = {
     'g8t':'EBIT','g8b':'EBIT margin','gsb':'FINANCIAL RESULT',
     'g9':'Finance costs','g10':'Other financial result','g11t':'Net financial result',
     'g12t':'EBT (before income tax)','g13':'Income taxes','g14t':'NET INCOME / LOSS',
-    'g15':'Avg. employees: 26,130 (2021) · 22,461 (2022) · 20,378 (2023) · 19,665 (2024)',
+    
     'gc1':'Revenue &amp; Gross Profit (€m)','gc2':'EBIT &amp; Net Income (€m)',
     'gc3':'Cost Structure 2024','gc4':'Margin Development (%)',
-    'guv-fn':'All figures in €m. Other operating expenses 2023 include substantial goodwill impairments.',
-    'cf-title':'Cash Flow','cf-sub':'Consolidated Cash Flow Statement · Figures in €m · 2021–2024',
-    'cf-disc-lbl':'Data source:','cf-disc-txt':'IFRS consolidated financial statements 2021–2024. Cash flow data from audited segment information.',
+    'guv-fn':'All figures in €m per the consolidated income statements of the 2021, 2023 and 2024 annual reports. Other operating expenses include goodwill impairments (2022: 277; 2023: 1,313), special charges in 2024 (576) and the result from associates. Subtotals as reported; differences to the sum of rounded line items (±€2m) are rounding. EBIT 2024 per the report −€547m (previously −549; deviation 0.4% – OK). 2020 including discontinued operations (+€3m). △ Employees: the previous version mixed year-end and average figures; both series are now shown separately.',
+    'cf-title':'Cash Flow','cf-sub':'Consolidated Cash Flow Statement · Figures in €m · 2020–2024',
+    'cf-disc-lbl':'Data source:','cf-disc-txt':'Consolidated cash flow statements from the 2021, 2023 and 2024 annual reports (fiscal years 2020–2024).',
     'ctab-table':'Table','ctab-chart':'Charts',
     'cf-cap':'The Company – Consolidated Cash Flow Statement (€m)',
     'cfh0':'Line Item',
     'cfsa':'I. CASH FLOW FROM OPERATING ACTIVITIES (OCF)',
-    'cf1':'Net income / loss','cf2':'Depreciation, amortisation &amp; impairments',
-    'cf3':'Changes in working capital &amp; other adjustments','cf4t':'Operating Cash Flow (OCF)',
+    'cf1':'Net income / loss','cf2':'Depreciation, amortisation and impairments',
+    'cf3':'Other items (working capital, taxes, interest etc.) – derived','cf4t':'Operating Cash Flow (OCF)',
     'cfsb':'II. CASH FLOW FROM INVESTING ACTIVITIES (ICF)',
-    'cf5':'Capital expenditure (property, plant &amp; intangibles)',
-    'cf6':'Acquisitions / Disposals (net)','cf7t':'Investing Cash Flow (ICF)',
+    'cf5':'Investments in intangible assets and property, plant &amp; equipment (capex)',
+    'cf6':'Other investing activities (acquisitions, disposals etc.) – derived','cf7t':'Investing Cash Flow (ICF)',
     'cfsc':'III. FREE CASH FLOW (OCF + ICF)','cf8t':'Free Cash Flow',
     'cfsd':'IV. CASH FLOW FROM FINANCING ACTIVITIES',
-    'cf9':'Capital increases / Dividends / Share buybacks',
-    'cf10':'Proceeds from / Repayment of borrowings','cf11t':'Financing Cash Flow',
-    'cf12t':'NET CASH FLOW (CHANGE IN LIQUIDITY)',
+    
+    'cf11t':'Financing Cash Flow',
+    'cf12t':'NET CASH FLOW (OCF + ICF + FINANCING CF)',
     'cfc1':'Cash Flow Overview (€m)','cfc2':'Cash &amp; Equivalents (€m)','cfc3':'OCF vs. Capex (€m)','cfc4':'Peer Group: OCF 2024 (€m)',
-    'cf-fn':'Note: OCF detail arithmetically verified. FCF = OCF + ICF. All aggregate totals match source data; partial deviations ≤ 5% — OK.',
+    'cf-fn':'Sources: cash flow statements of the 2021 (2020/2021), 2023 (2022) and 2024 (2023 reclassified, 2024) annual reports. △ = deviation above 5% from the previous version of this page, corrected: depreciation, capex and net cash flow were wrong; the lines “capital increases/dividends/share buybacks” and “drawdown/repayment of interest-bearing liabilities” were not supported by any report and have been removed. Change in presentation: interest paid is shown in operating cash flow from 2023 (2023 originally: OCF 674, financing CF 245) and in financing cash flow for 2020–2022. “Derived” = difference to the respective total. Exchange-rate and other effects = change in cash per balance sheet minus net cash flow (incl. reclassification of cash held for sale and rounding); opening balance 2020 per cash flow statement: €500m.',
+    'nav-esg':'ESG',
+    'cvy1':'Carinthia',
+    'cvy2':'Studies',
+    'cvy3':'Practice',
+    'cvy5':'2022–24',
+    'cvy4':'Today',
+    'cv5-t':'Supervision',
+    'cv5-s':'From 2022 to 2024, on-site examiner for insurers and pension funds at the Austrian Financial Market Authority (FMA). Since then I know: the most interesting figures are often in the footnotes.',
+    'g15a':'Employees at 31 Dec',
+    'g15b':'Average employees (full-time equivalents)',
+    'cfse':'V. RECONCILIATION TO CASH',
+    'cf13':'Exchange-rate and other effects – derived',
+    'cf14t':'Cash at year-end (balance sheet)',
+    'esg-title':'ESG',
+    'esg-sub':'Environment · Social · Figures per sustainability report · 2020–2024',
+    'esg-disc-lbl':'Data source:',
+    'esg-disc-txt':'Sustainability report in the 2024 annual report (five-year overviews); reconciled with the master sheet (2022–2024). Tolerance ≤ 5% = OK, above △.',
+    'esg-intro-h':'What does ESG mean?',
+    'esg-intro':'ESG stands for Environmental, Social and Governance. This page shows how much greenhouse gas the company emits, how much energy and water it uses, how much waste it produces and how safely and how well trained its workforce is. Falling emissions are good for the climate; falling accident rates are good for people.',
+    'etab-table':'Table',
+    'etab-chart':'Charts',
+    'eh0':'Line Item',
+    'esa':'ENVIRONMENT',
+    'esb':'SOCIAL',
+    'e1':'GHG emissions scope 1 (t CO₂e)',
+    'e2':'GHG emissions scope 2, market-based (t CO₂e)',
+    'e3':'GHG emissions scope 2, location-based (t CO₂e)',
+    'e4t':'Net GHG emissions scope 1 + 2, market-based (t CO₂e)',
+    'e5':'Total energy consumption (MWh)',
+    'e6':'Share of renewable electricity',
+    'e7':'Water withdrawal (thousand m³)',
+    'e8':'Total waste (t)',
+    'e9':'Share of waste recycled',
+    'e10':'Employees at 31 Dec',
+    'e11':'Average employees (full-time equivalents)',
+    'e12':'Lost-time injury frequency rate (LTIFR)',
+    'e13':'Accident severity rate',
+    'e14':'Training hours per employee (avg.)',
+    'esg-fn':'Note: all figures per the 2024 sustainability report; OK = consistent with the master sheet (2022–2024). △ Share of renewable electricity: the master sheet calls this figure “share of renewable energy”; relative to total energy consumption the share was 50% in 2024. “—” = not reported. Governance indicators and ESG ratings are not included because they are not fully supported by the documents.',
+    'esgc1':'Net GHG emissions scope 1 + 2 (t CO₂e)',
+    'esgc2':'Energy consumption (MWh)',
+    'cl-rev':'Revenue',
+    'cl-ebit':'EBIT',
+    'cl-bs':'Total assets',
+    'cl-fcf':'Free cash flow',
+    'cl-st':'Current',
+    'cl-lt':'Non-current',
+    'cl-eq':'Equity',
+    'cl-stl':'Current liabilities',
+    'cl-ltl':'Non-current liabilities',
+    'cl-sta':'Current assets',
+    'cl-lta':'Non-current assets',
+    'cl-ekq':'Equity ratio (%)',
+    'cl-gp':'Gross profit',
+    'cl-ni':'Net result',
+    'cl-cogs':'Cost of sales',
+    'cl-rnd':'R&amp;D',
+    'cl-sga':'Selling/admin.',
+    'cl-oth':'Other expenses',
+    'cl-gm':'Gross margin (%)',
+    'cl-em':'EBIT margin (%)',
+    'cl-ocf':'Operating cash flow',
+    'cl-icf':'Investing cash flow',
+    'cl-fin':'Financing cash flow',
+    'cl-cash':'Cash',
+    'cl-capex':'Capex',
+    'cl-peer-ocf':'Operating cash flow 2024 (€m)',
+    'cl-ghg':'Net GHG scope 1 + 2',
+    'cl-energy':'Energy consumption',
+    'prg-intro-h':'What is this about?',
+    'prg-intro':'This page looks two years ahead. Nobody knows the future exactly – so the computer works through 10,000 possible paths, much like rolling a die 10,000 times. This yields a middle value (base case) plus a bad and a good case. Further down you can also see how the actual figures for the first half of 2025 compare.',
+    'prg-lbl-ist':'Comparison with actual figures H1 2025',
+    'prg-ist-note':'Source: half-year report 2025 (unaudited). Amounts in €m.',
+    'prg-ist-h0':'Item',
+    'prg-ist-h1':'Actual 2025',
+    'prg-ist-h2':'Comparison',
+    'prg-ist-h3':'Assessment',
+    'prg-ist-r1':'Revenue, first half',
+    'prg-ist-r1b':'H1 2024',
+    'prg-ist-r1c':'−4.2% year on year; the base forecast assumes +2.0% for the full year.',
+    'prg-ist-r2':'EBIT, first half',
+    'prg-ist-r2b':'H1 2024',
+    'prg-ist-r2c':'Positive again; the prior year was burdened by special charges of €625m.',
+    'prg-ist-r3':'Liquidity (reporting date)',
+    'prg-ist-r3a':'30 Jun 2025',
+    'prg-ist-r3b':'31 Dec 2024',
+    'prg-ist-r3c':'−53% since year-end and thus well below the pessimistic value for 2025. Assumption A3 (+1%) is contradicted by the actual figures.',
     // prognose
     'nav-prognose':'Forecast',
     'prg-title':'Forecast 2025–2026',
@@ -1558,10 +1825,10 @@ const T = {
     'prg-h1':'<strong>Cost definition.</strong> Costs = revenue − EBIT. A narrower definition changes the cost and EBIT rows.',
     'prg-h2':'<strong>Independence.</strong> Revenue and costs fluctuate independently. If they partly move together, the EBIT range narrows considerably.',
     'prg-h3':'<strong>Cost volatility of 20%.</strong> Twice that of revenue; because the cost base exceeds revenue, it drives almost the entire EBIT range.',
-    'prg-h4':'<strong>Liquidity unlinked to earnings.</strong> It grows by 1% on average although 2024 EBIT was −€549m.',
+    'prg-h4':'<strong>Liquidity unlinked to earnings.</strong> It grows by 1% on average although 2024 EBIT was −€547m – and by 30 June 2025 it had in fact fallen to €511m.',
     'prg-h5':'<strong>Headcount.</strong> ±20% annual fluctuation is high for a workforce, and headcount does not feed into costs. A higher headcount (P90) counts as optimistic here.',
     'prg-h6':'<strong>Base year 2024.</strong> If the 2025 consolidated accounts are available, 2025 should use actual figures and only 2026 be forecast.',
-    'prg-fn':'Note: Headcount = average employees 2024 per P&amp;L (not a year-end figure). Liquidity 2024 = cash &amp; equivalents per balance sheet <span class="warn-badge">△</span>: the net cash flow on the Cash Flow page (2024: −€111m) deviates by more than 5% from the change in cash per balance sheet (−€48m); the balance sheet figure is used. Model calculation; not a company forecast and not investment advice.',
+    'prg-fn':'Note: Headcount = employees at 31 Dec 2024 per annual report (year-end figure; annual average 19,577 full-time equivalents). EBIT 2024 per annual report −€547m (the earlier input of −€549m was the sum of rounded line items; deviation 0.4% – OK). Actual 2025 figures from the unaudited half-year report. Model calculation; not a company forecast and not investment advice.',
     'prgx-pos':'Item',
     'prgx-val':'Value 2024',
     'prgx-src':'Source / calculation',
@@ -1579,19 +1846,19 @@ const T = {
     'prgx-L':'Liquidity',
     'prgx-P':'Headcount',
     'prgx-unit-m':'€m',
-    'prgx-unit-p':'employees, avg.',
+    'prgx-unit-p':'employees, 31 Dec',
     'prgx-derived':'derived',
     'prgx-a1':'Revenue rising',
     'prgx-a2':'Costs slightly falling',
     'prgx-a3':'Liquidity slightly rising',
     'prgx-a4':'Headcount declining',
     'prgx-srcU':'P&amp;L · revenue',
-    'prgx-srcE':'P&amp;L · EBIT (P&amp;L detail)',
+    'prgx-srcE':'P&amp;L · EBIT per 2024 annual report',
     'prgx-srcK':'R4 · revenue − EBIT',
     'prgx-srcL':'Balance sheet · cash &amp; equivalents',
-    'prgx-srcP':'P&amp;L note · avg. employees',
+    'prgx-srcP':'Annual report · employees at 31 Dec 2024',
     'prgx-start':'Starting value',
-    'prgx-givenE':'Given: P&amp;L detail',
+    'prgx-givenE':'2024 annual report',
     'prgx-runs':'Revenue − costs per run',
     'prgx-err':'Please enter a number for every assumption; volatility must not be negative. Until then the tables show the last valid state.',
     'prgx-legend':'P10 / P50 / P90 = 10th, 50th and 90th percentile of the 10,000 runs (R6).',
@@ -1606,17 +1873,17 @@ const T = {
     'nav-about':'À propos','nav-project':'Le Projet','nav-bilanz':'Bilan',
     'nav-guv':'C&R','nav-cashflow':'Trésorerie',
     'home-title':'Analyse Financière · L\'Entreprise',
-    'home-sub':'Une Analyse Structurée · Bilan · C&R · Trésorerie · Groupe de Pairs',
+    'home-sub':'Une analyse structurée · Bilan · C&amp;R · Trésorerie · ESG · Prévisions · Groupe de pairs',
     'home-h2':'Qu\'est-ce que cette page ?',
     'home-p1':'Cette plateforme présente une analyse financière structurée d\'une entreprise autrichienne cotée en bourse, qui a traversé une phase de restructuration turbulente à la suite d\'une acquisition significative.',
     'home-p2':'L\'analyse respecte strictement le principe d\'objectivité. L\'entreprise est désignée <strong>« L\'Entreprise »</strong> ; les pairs sont désignés de <strong>Pair A à Pair D</strong>.',
-    'home-p3':'L\'analyse couvre les exercices 2021 à 2024 et examine le bilan, le compte de résultat et le tableau des flux de trésorerie.',
+    'home-p3':'L’analyse couvre les exercices 2020 à 2024 et examine le bilan, le compte de résultat, le tableau des flux de trésorerie et les indicateurs ESG ; une prévision modélisée s’étend jusqu’en 2026.',
     'ch1-label':'CA (M€)','ch2-label':'EBIT (M€)','ch3-label':'Total Bilan (M€)','ch4-label':'FCF (M€)',
-    'kpi-head':'Chiffres clés 2024','k1-lbl':'Chiffre d\'affaires','k2-lbl':'EBIT','k3-lbl':'Total bilan','k4-lbl':'Capitaux propres','k5-lbl':'FCO','k6-lbl':'Employés','k6s-lbl':'Moy. 2024',
+    'kpi-head':'Chiffres clés 2024','k1-lbl':'Chiffre d\'affaires','k2-lbl':'EBIT','k3-lbl':'Total bilan','k4-lbl':'Capitaux propres','k5-lbl':'FCO','k6-lbl':'Employés','k6s-lbl':'31.12.2024',
     'pg-head':'Groupe de pairs 2024','pg-co':'Entreprise','pg-mcap':'CapBourse M€','pg-eq':'Ratio CP','pg-du':'L\'Entreprise',
-    'src-head':'Sources','src-text':'Rapports annuels 2021–2024 (IFRS). Données pairs : Bloomberg/Reuters/BAHA.',
+    'src-head':'Sources','src-text':'Rapports annuels 2020–2024 (IFRS). Données pairs : Bloomberg/Reuters/BAHA.',
     'about-title':'À propos de moi','about-sub':'Carinthien exilé · Analyste financier · Passionné d\'IA',
-    'about-name':'Manfred Stückler','about-tag':'Analyste financier · Carinthien exilé · Vienne',
+    'about-name':'Mag. Manfred Stückler, CIIA, CEFA','about-tag':'Analyste financier · Carinthien exilé · Vienne',
     'about-intro':'Élevé en Carinthie — la terre des lacs, de la vallée de la Lavant et d\'un dialecte à peine compris au-delà de ses frontières. Le chemin a finalement mené à Vienne, où il est resté — entre bilans, rapports annuels et la question récurrente de savoir si les chiffres peuvent vraiment être interprétés ainsi.',
     'about-intro2':'Ce qui me motive ? La conviction que derrière chaque chiffre se cache une histoire — parfois encourageante, parfois un petit drame. Fort d\'une solide formation en gestion et de nombreuses années de pratique en analyse financière : les données mentent rarement — mais elles peuvent être magnifiquement mal interprétées. C\'est là qu\'intervient le savoir-faire précis.',
     'about-linkedin':'→ Profil LinkedIn',
@@ -1628,12 +1895,12 @@ const T = {
     'ai-p4':'Le prompt engineering n\'est pas seulement un savoir-faire technique — c\'est une forme de pensée structurée : celui qui sait bien prompter sait aussi bien analyser.',
     'cv-title':'Parcours professionnel',
     'cv1-t':'Les racines','cv1-s':'Élevé dans la province la plus méridionale d\'Autriche. Fascination précoce pour les chiffres et le grand pourquoi des décisions économiques.',
-    'cv2-t':'Gestion d\'entreprise &amp; Finance','cv2-s':'Formation académique en gestion avec spécialisation en analyse financière, controlling et comptabilité. La base de tout ce qui a suivi.',
-    'cv3-t':'Analyse financière &amp; pilotage d\'entreprise','cv3-s':'Des années d\'expérience pratique dans l\'analyse de sociétés cotées, le controlling de groupe, l\'analyse bilantielle et la planification financière stratégique.',
+    'cv2-t':'Études et certifications','cv2-s':'Gestion internationale des entreprises à l’Université de Vienne (Mag. rer. soc. oec.), avec pour spécialités l’économétrie, les mathématiques financières, la finance d’entreprise et la comptabilité internationale. Ensuite, l’examen de négociateur de la Bourse de Vienne, les titres d’analyste CIIA et CEFA et, plus récemment, le cursus universitaire Financial Business Management (Université de Graz / Akzent Vienne). Apprendre ne s’arrête jamais, semble-t-il.',
+    'cv3-t':'Trésorerie, ALM et gestion de portefeuille','cv3-s':'Plus de 20 ans dans des banques, des caisses d’épargne-logement, une caisse de pension et un assureur autrichiens : gestion d’obligations, d’actions et d’investissements alternatifs, pilotage de la liquidité, tests de résistance. Pas toujours glamour – mais toujours instructif.',
     'cv4-t':'Analyse financière assistée par IA','cv4-s':'Alliance de l\'analyse financière classique et des outils d\'IA modernes. Le résultat est ce que vous voyez ici.',
     'pub-title':'Lectures recommandées','pub-sub':'Pour les amateurs de journalisme économique sérieux :',
     'pub-de-head':'Deutsch','pub-en-head':'English','pub-fr-head':'Français',
-    'proj-title':'Le Projet','proj-sub':'Étude de cas · Entreprise autrichienne cotée · Analyse structurelle 2021–2024',
+    'proj-title':'Le Projet','proj-sub':'Étude de cas · Entreprise autrichienne cotée · Analyse structurelle 2020–2024',
     'proj-h2':'L\'Entreprise : une étude de cas',
     'proj-lead':'Une entreprise autrichienne cotée, longtemps considérée comme un acteur fiable dans son segment technologique, s\'est retrouvée en grande difficulté à la suite d\'une acquisition de plusieurs milliards. L\'intégration s\'est avérée bien plus coûteuse et complexe que prévu.',
     'proj-p1':'Les conséquences ont été graves : dépréciations massives du goodwill, recul significatif du chiffre d\'affaires, pertes opérationnelles persistantes et capitaux propres réduits à une fraction de leur valeur initiale en trois ans.',
@@ -1643,17 +1910,17 @@ const T = {
     'ps1-l':'CA \'21→\'24','ps2-l':'Érosion CP \'21→\'24','ps3-l':'FCO 2024 (M€)','ps4-l':'Effectifs \'21→\'24','ps5-l':'Ratio CP 2024','ps6-l':'Notation (S&P / Moody\'s)',
     'proj-pg-h':'Comparaison groupe de pairs 2024',
     'pg2-co':'Entreprise','pg2-rev':'CA<br>M€','pg2-ebit':'EBIT<br>M€','pg2-mg':'Marge<br>EBIT','pg2-eq':'Ratio<br>CP','pg2-ocf':'FCO<br>M€','pg2-esg':'ESG<br>(MSCI)',
-    'proj-fn':'Sources : Comptes consolidés 2024 (IFRS). Données de marché : Bloomberg/Reuters/BAHA. ESG : MSCI.',
-    'proj-wip':'Ce projet est en cours de construction. Le contenu est continuellement enrichi et mis à jour.',
+    'proj-fn':'Sources : Comptes consolidés 2024 (IFRS). Données de marché : Bloomberg/Reuters/BAHA. ESG : MSCI. △ Pair B et Pair D : le chiffre d’affaires s’écarte de plus de 5 % des données sources (Pair D : chiffres fondés sur des données semestrielles) ; correction en attente.',
+    'proj-wip':'Ce projet est en cours de construction. Le contenu est continuellement enrichi et mis à jour. Remarque : ce site est réalisé avec l’aide de claude.ai. L’outil a encore une forte tendance à inventer – c’est pourquoi chaque chiffre est vérifié par rapport aux rapports annuels et les écarts sont signalés.',
     'timeline-head':'Chronologie',
     'tl1-t':'Finalisation de l\'acquisition','tl1-s':'Clôture de l\'acquisition ; début de l\'intégration.',
     'tl2-t':'EBIT positif','tl2-s':'EBIT 197 M€ ; CA 5,0 Mrd € ; CP 3,15 Mrd €.',
     'tl3-t':'Premières pertes','tl3-s':'EBIT −161 M€ ; dépréciations goodwill ; restructuration lancée.',
     'tl4-t':'Point bas EBIT','tl4-s':'EBIT −1 431 M€ ; dépréciations majeures ; augmentation de capital.',
-    'tl5-t':'Stabilisation','tl5-s':'EBIT −549 M€ ; FCO +435 M€ ; effets du programme de restructuration.',
+    'tl5-t':'Stabilisation','tl5-s':'EBIT −547 M€ ; FCO +435 M€ ; effets du programme de restructuration.',
     'meth-head':'Méthodologie','meth-text':'Analyse fondée sur les états financiers IFRS consolidés. Tous les chiffres en millions d\'euros. Les écarts sont signalés séparément. Données pairs issues de sources publiques (Bloomberg, Reuters, BAHA).',
-    'bilanz-title':'Bilan','bilanz-sub':'Bilan consolidé IFRS · Chiffres en M€ · 2021–2024',
-    'bilanz-disc-lbl':'Source :','bilanz-disc-txt':'États financiers IFRS 2021–2024. Contrôlés avec les documents de relations investisseurs. Écarts ≤ 5 % =','bilanz-disc-txt2':' ; écarts plus importants :',
+    'bilanz-title':'Bilan','bilanz-sub':'Bilan consolidé IFRS · Chiffres en M€ · 2020–2024',
+    'bilanz-disc-lbl':'Source :','bilanz-disc-txt':'États financiers IFRS 2020–2024. Contrôlés avec les documents de relations investisseurs. Écarts ≤ 5 % =','bilanz-disc-txt2':' ; écarts plus importants :',
     'tab-aktiva':'ACTIF','tab-passiva':'PASSIF','tab-bchart':'Graphiques',
     'bilanz-cap':'L\'Entreprise – Bilan ACTIF (M€)',
     'bilanz-cap2':'L\'Entreprise – Bilan PASSIF (M€)',
@@ -1679,10 +1946,10 @@ const T = {
     'p24t':'TOTAL DU BILAN',
     'bc1':'Total Bilan – Structure (M€)','bc2':'CP vs. Dettes (M€)',
     'bc3':'Actifs courants vs. non courants','bc4':'Ratio capitaux propres (%)',
-    'bilanz-fn1':'Note : Autres actifs financiers non courants 2021 (187 M€) dévient des données détaillées (~21 %) — marqué △. Tous les autres postes dans la tolérance de 5 % (OK).',
-    'bilanz-fn2':'Note : CP 2021 indiqués à 315 M€ dans le document source ; arithmétiquement corrects : 3 150 M€ — marqué △. La somme arithmétique est la référence.',
-    'guv-title':'Compte de Résultat','guv-sub':'C&R consolidé IFRS · Chiffres en M€ · 2021–2024',
-    'guv-disc-lbl':'Source :','guv-disc-txt':'États financiers IFRS 2021–2024. Contrôle effectué. Tolérance ≤ 5 %.',
+    'bilanz-fn1':'Note : 2020 selon le rapport annuel 2021, dans l’ancienne structure (¹) : les autres postes financiers et non financiers y sont regroupés et affectés par analogie ; « —¹ » signifie : inclus dans le poste financier correspondant. Autres actifs financiers non courants 2021 (187 M€) : écart par rapport aux données détaillées (147 M€) – △. Tous les autres postes : OK.',
+    'bilanz-fn2':'Note : Les capitaux propres 2021 figurent pour 315 M€ dans le fichier maître ; selon le rapport annuel 2021 et la somme arithmétique, ils s’élèvent à 3 150 M€ – △. Le rapport annuel fait foi.',
+    'guv-title':'Compte de Résultat','guv-sub':'C&R consolidé IFRS · Chiffres en M€ · 2020–2024',
+    'guv-disc-lbl':'Source :','guv-disc-txt':'États financiers IFRS 2020–2024. Contrôle effectué. Tolérance ≤ 5 %.',
     'gtab-table':'Tableau','gtab-chart':'Graphiques',
     'guv-cap':'L\'Entreprise – Compte de résultat consolidé (M€)',
     'gh0':'Poste',
@@ -1693,28 +1960,115 @@ const T = {
     'g8t':'EBIT','g8b':'Marge EBIT','gsb':'RÉSULTAT FINANCIER',
     'g9':'Charges financières','g10':'Autres résultats financiers','g11t':'Résultat financier net',
     'g12t':'Résultat avant impôts','g13':'Impôts sur le résultat','g14t':'RÉSULTAT NET',
-    'g15':'Moy. effectifs : 26 130 (2021) · 22 461 (2022) · 20 378 (2023) · 19 665 (2024)',
+    
     'gc1':'CA &amp; Résultat brut (M€)','gc2':'EBIT &amp; Résultat net (M€)',
     'gc3':'Structure des charges 2024','gc4':'Évolution des marges (%)',
-    'guv-fn':'Tous les chiffres en M€. Les autres charges d\'exploitation 2023 incluent des dépréciations substantielles du goodwill.',
-    'cf-title':'Flux de Trésorerie','cf-sub':'Tableau consolidé des flux · Chiffres en M€ · 2021–2024',
-    'cf-disc-lbl':'Source :','cf-disc-txt':'États financiers IFRS 2021–2024. Données de flux issues des informations sectorielles auditées.',
+    'guv-fn':'Tous les chiffres en M€ selon les comptes de résultat consolidés des rapports annuels 2021, 2023 et 2024. Les autres charges d’exploitation incluent des dépréciations du goodwill (2022 : 277 ; 2023 : 1 313), des charges exceptionnelles en 2024 (576) et le résultat des entreprises associées. Sous-totaux tels que publiés ; les écarts par rapport à la somme des postes arrondis (±2 M€) sont des arrondis. EBIT 2024 selon le rapport : −547 M€ (auparavant −549 ; écart 0,4 % – OK). 2020 y compris activités abandonnées (+3 M€). △ Effectifs : la version précédente mélangeait valeurs de clôture et moyennes ; les deux séries sont désormais séparées.',
+    'cf-title':'Flux de Trésorerie','cf-sub':'Tableau consolidé des flux · Chiffres en M€ · 2020–2024',
+    'cf-disc-lbl':'Source :','cf-disc-txt':'Tableaux consolidés des flux de trésorerie des rapports annuels 2021, 2023 et 2024 (exercices 2020–2024).',
     'ctab-table':'Tableau','ctab-chart':'Graphiques',
     'cf-cap':'L\'Entreprise – Tableau des flux de trésorerie consolidé (M€)',
     'cfh0':'Poste',
     'cfsa':'I. FLUX DE TRÉSORERIE D\'EXPLOITATION (FCO)',
-    'cf1':'Résultat net','cf2':'Amortissements, dépréciations &amp; pertes de valeur',
-    'cf3':'Var. BFR &amp; autres ajustements','cf4t':'Flux de trésorerie d\'exploitation (FCO)',
+    'cf1':'Résultat net','cf2':'Amortissements et dépréciations',
+    'cf3':'Autres postes (BFR, impôts, intérêts, etc.) – calculé','cf4t':'Flux de trésorerie d\'exploitation (FCO)',
     'cfsb':'II. FLUX DE TRÉSORERIE D\'INVESTISSEMENT (FCI)',
-    'cf5':'Investissements en immobilisations corporelles &amp; incorporelles (Capex)',
-    'cf6':'Acquisitions / Cessions (net)','cf7t':'Flux de trésorerie d\'investissement (FCI)',
+    'cf5':'Investissements en immobilisations incorporelles et corporelles (capex)',
+    'cf6':'Autres activités d’investissement (acquisitions, cessions, etc.) – calculé','cf7t':'Flux de trésorerie d\'investissement (FCI)',
     'cfsc':'III. FREE CASH FLOW (FCO + FCI)','cf8t':'Free Cash Flow',
     'cfsd':'IV. FLUX DE TRÉSORERIE DE FINANCEMENT',
-    'cf9':'Augmentations de capital / Dividendes / Rachats d\'actions',
-    'cf10':'Tirages / Remboursements d\'emprunts','cf11t':'Flux de trésorerie de financement',
-    'cf12t':'FLUX NET DE TRÉSORERIE (VAR. LIQUIDITÉS)',
+    
+    'cf11t':'Flux de trésorerie de financement',
+    'cf12t':'FLUX NET (FCO + FCI + FLUX DE FINANCEMENT)',
     'cfc1':'Vue d\'ensemble des flux (M€)','cfc2':'Trésorerie &amp; équivalents (M€)','cfc3':'FCO vs. Capex (M€)','cfc4':'Pairs : FCO 2024 (M€)',
-    'cf-fn':'Note : Détail FCO vérifié arithmétiquement. FCF = FCO + FCI. Totaux conformes aux données sources ; écarts partiels ≤ 5 % — OK.',
+    'cf-fn':'Sources : tableaux des flux de trésorerie des rapports annuels 2021 (2020/2021), 2023 (2022) et 2024 (2023 reclassé, 2024). △ = écart supérieur à 5 % par rapport à la version précédente de cette page, corrigé : amortissements, capex et flux net étaient erronés ; les lignes « augmentations de capital/dividendes/rachats d’actions » et « émission/remboursement de dettes portant intérêt » n’étaient étayées par aucun rapport et ont été supprimées. Changement de présentation : les intérêts payés figurent dans le flux opérationnel à partir de 2023 (2023 à l’origine : FCO 674, flux de financement 245) et dans le flux de financement pour 2020–2022. « Calculé » = différence par rapport au total correspondant. Effets de change et autres = variation de la trésorerie au bilan moins flux net (y compris reclassement de la trésorerie détenue en vue de la vente et arrondis) ; solde d’ouverture 2020 selon le tableau des flux : 500 M€.',
+    'nav-esg':'ESG',
+    'cvy1':'Carinthie',
+    'cvy2':'Études',
+    'cvy3':'Pratique',
+    'cvy5':'2022–24',
+    'cvy4':'Aujourd’hui',
+    'cv5-t':'Supervision',
+    'cv5-s':'De 2022 à 2024, inspecteur sur place des assurances et des caisses de pension auprès de l’Autorité autrichienne des marchés financiers (FMA). Depuis, je le sais : les chiffres les plus intéressants se trouvent souvent dans les notes de bas de page.',
+    'g15a':'Effectif au 31.12',
+    'g15b':'Effectif moyen (équivalents temps plein)',
+    'cfse':'V. RAPPROCHEMENT AVEC LA TRÉSORERIE',
+    'cf13':'Effets de change et autres – calculé',
+    'cf14t':'Trésorerie en fin d’exercice (bilan)',
+    'esg-title':'ESG',
+    'esg-sub':'Environnement · Social · Chiffres selon le rapport de durabilité · 2020–2024',
+    'esg-disc-lbl':'Source :',
+    'esg-disc-txt':'Rapport de durabilité du rapport annuel 2024 (synthèses sur cinq ans) ; rapproché du fichier maître (2022–2024). Tolérance ≤ 5 % = OK, au-delà △.',
+    'esg-intro-h':'Que signifie ESG ?',
+    'esg-intro':'ESG signifie Environnement, Social et Gouvernance. Cette page montre combien de gaz à effet de serre l’entreprise émet, combien d’énergie et d’eau elle consomme, combien de déchets elle produit et dans quelles conditions de sécurité et de formation travaille son personnel. Des émissions en baisse sont bonnes pour le climat ; des taux d’accidents en baisse sont bons pour les personnes.',
+    'etab-table':'Tableau',
+    'etab-chart':'Graphiques',
+    'eh0':'Poste',
+    'esa':'ENVIRONNEMENT',
+    'esb':'SOCIAL',
+    'e1':'Émissions de GES scope 1 (t CO₂e)',
+    'e2':'Émissions de GES scope 2, basées sur le marché (t CO₂e)',
+    'e3':'Émissions de GES scope 2, basées sur la localisation (t CO₂e)',
+    'e4t':'Émissions nettes de GES scope 1 + 2, basées sur le marché (t CO₂e)',
+    'e5':'Consommation totale d’énergie (MWh)',
+    'e6':'Part d’électricité renouvelable',
+    'e7':'Prélèvements d’eau (milliers de m³)',
+    'e8':'Déchets totaux (t)',
+    'e9':'Part des déchets recyclés',
+    'e10':'Effectif au 31.12',
+    'e11':'Effectif moyen (équivalents temps plein)',
+    'e12':'Taux de fréquence des accidents avec arrêt (LTIFR)',
+    'e13':'Taux de gravité des accidents',
+    'e14':'Heures de formation par salarié (moy.)',
+    'esg-fn':'Note : tous les chiffres selon le rapport de durabilité 2024 ; OK = concordance avec le fichier maître (2022–2024). △ Part d’électricité renouvelable : le fichier maître désigne cette valeur comme « part d’énergies renouvelables » ; rapportée à la consommation totale d’énergie, la part s’élevait à 50 % en 2024. « — » = non publié. Les indicateurs de gouvernance et les notations ESG ne sont pas inclus, car ils ne sont pas entièrement étayés par les documents.',
+    'esgc1':'Émissions nettes de GES scope 1 + 2 (t CO₂e)',
+    'esgc2':'Consommation d’énergie (MWh)',
+    'cl-rev':'Chiffre d’affaires',
+    'cl-ebit':'EBIT',
+    'cl-bs':'Total du bilan',
+    'cl-fcf':'Flux de trésorerie disponible',
+    'cl-st':'Courant',
+    'cl-lt':'Non courant',
+    'cl-eq':'Capitaux propres',
+    'cl-stl':'Dettes courantes',
+    'cl-ltl':'Dettes non courantes',
+    'cl-sta':'Actifs courants',
+    'cl-lta':'Actifs non courants',
+    'cl-ekq':'Ratio de fonds propres (%)',
+    'cl-gp':'Marge brute',
+    'cl-ni':'Résultat net',
+    'cl-cogs':'Coût des ventes',
+    'cl-rnd':'R&amp;D',
+    'cl-sga':'Ventes/admin.',
+    'cl-oth':'Autres charges',
+    'cl-gm':'Marge brute (%)',
+    'cl-em':'Marge d’EBIT (%)',
+    'cl-ocf':'Flux opérationnel',
+    'cl-icf':'Flux d’investissement',
+    'cl-fin':'Flux de financement',
+    'cl-cash':'Trésorerie',
+    'cl-capex':'Capex',
+    'cl-peer-ocf':'Flux opérationnel 2024 (M€)',
+    'cl-ghg':'GES nets scope 1 + 2',
+    'cl-energy':'Consommation d’énergie',
+    'prg-intro-h':'De quoi s’agit-il ?',
+    'prg-intro':'Cette page regarde deux ans en avant. Personne ne connaît l’avenir avec précision – l’ordinateur calcule donc 10 000 trajectoires possibles, un peu comme si l’on lançait un dé 10 000 fois. On obtient ainsi une valeur médiane (scénario de base) ainsi qu’un cas défavorable et un cas favorable. Plus bas, on voit aussi comment les chiffres réels du premier semestre 2025 s’y comparent.',
+    'prg-lbl-ist':'Comparaison avec les chiffres réels S1 2025',
+    'prg-ist-note':'Source : rapport semestriel 2025 (non audité). Montants en M€.',
+    'prg-ist-h0':'Poste',
+    'prg-ist-h1':'Réel 2025',
+    'prg-ist-h2':'Comparaison',
+    'prg-ist-h3':'Appréciation',
+    'prg-ist-r1':'Chiffre d’affaires, 1er semestre',
+    'prg-ist-r1b':'S1 2024',
+    'prg-ist-r1c':'−4,2 % sur un an ; la prévision de base suppose +2,0 % sur l’année.',
+    'prg-ist-r2':'EBIT, 1er semestre',
+    'prg-ist-r2b':'S1 2024',
+    'prg-ist-r2c':'De nouveau positif ; l’année précédente était grevée par des charges exceptionnelles de 625 M€.',
+    'prg-ist-r3':'Liquidité (date de clôture)',
+    'prg-ist-r3a':'30.06.2025',
+    'prg-ist-r3b':'31.12.2024',
+    'prg-ist-r3c':'−53 % depuis la fin de l’exercice, donc nettement en dessous de la valeur pessimiste pour 2025. L’hypothèse A3 (+1 %) est contredite par les chiffres réels.',
     // prognose
     'nav-prognose':'Prévisions',
     'prg-title':'Prévisions 2025–2026',
@@ -1741,10 +2095,10 @@ const T = {
     'prg-h1':'<strong>Périmètre des coûts.</strong> Coûts = chiffre d’affaires − EBIT. Une définition plus étroite modifie les lignes des coûts et de l’EBIT.',
     'prg-h2':'<strong>Indépendance.</strong> Chiffre d’affaires et coûts varient indépendamment. S’ils évoluent en partie ensemble, la fourchette d’EBIT se resserre nettement.',
     'prg-h3':'<strong>Volatilité des coûts de 20 %.</strong> Deux fois celle du chiffre d’affaires ; la base de coûts dépassant le chiffre d’affaires, elle détermine presque à elle seule la fourchette d’EBIT.',
-    'prg-h4':'<strong>Liquidité sans lien avec le résultat.</strong> Elle progresse de 1 % en moyenne alors que l’EBIT 2024 s’élève à −549 M€.',
+    'prg-h4':'<strong>Liquidité sans lien avec le résultat.</strong> Elle progresse de 1 % en moyenne alors que l’EBIT 2024 s’élève à −547 M€ – et au 30.06.2025, elle était en réalité tombée à 511 M€.',
     'prg-h5':'<strong>Effectifs.</strong> Une variation de ±20 % par an est élevée pour un effectif, et les effectifs n’influent pas sur les coûts. Un effectif plus élevé (P90) est ici considéré comme optimiste.',
     'prg-h6':'<strong>Année de base 2024.</strong> Si les comptes consolidés 2025 sont disponibles, 2025 devrait reposer sur les chiffres réels et seule l’année 2026 être prévue.',
-    'prg-fn':'Note : Effectifs = effectif moyen 2024 selon le compte de résultat (pas une valeur de clôture). Liquidité 2024 = trésorerie et équivalents selon le bilan <span class="warn-badge">△</span> : le flux de trésorerie net de la page Trésorerie (2024 : −111 M€) s’écarte de plus de 5 % de la variation de trésorerie au bilan (−48 M€) ; la valeur du bilan est retenue. Calcul modélisé ; ni prévision de l’entreprise, ni conseil en investissement.',
+    'prg-fn':'Note : Effectifs = salariés au 31.12.2024 selon le rapport annuel (valeur de clôture ; moyenne annuelle 19 577 équivalents temps plein). EBIT 2024 selon le rapport annuel : −547 M€ (la valeur antérieure de −549 M€ était la somme de postes arrondis ; écart 0,4 % – OK). Chiffres réels 2025 issus du rapport semestriel non audité. Calcul modélisé ; ni prévision de l’entreprise, ni conseil en investissement.',
     'prgx-pos':'Poste',
     'prgx-val':'Valeur 2024',
     'prgx-src':'Source / calcul',
@@ -1762,19 +2116,19 @@ const T = {
     'prgx-L':'Liquidité',
     'prgx-P':'Effectifs',
     'prgx-unit-m':'M€',
-    'prgx-unit-p':'salariés, moy.',
+    'prgx-unit-p':'salariés, 31.12',
     'prgx-derived':'dérivé',
     'prgx-a1':'Chiffre d’affaires en hausse',
     'prgx-a2':'Coûts en légère baisse',
     'prgx-a3':'Liquidité en légère hausse',
     'prgx-a4':'Effectifs en baisse',
     'prgx-srcU':'C&amp;R · chiffre d’affaires',
-    'prgx-srcE':'C&amp;R · EBIT (détail C&amp;R)',
+    'prgx-srcE':'C&amp;R · EBIT selon le rapport annuel 2024',
     'prgx-srcK':'R4 · chiffre d’affaires − EBIT',
     'prgx-srcL':'Bilan · trésorerie et équivalents',
-    'prgx-srcP':'Note C&amp;R · effectif moyen',
+    'prgx-srcP':'Rapport annuel · effectif au 31.12.2024',
     'prgx-start':'Valeur de départ',
-    'prgx-givenE':'Donné : détail C&amp;R',
+    'prgx-givenE':'Rapport annuel 2024',
     'prgx-runs':'CA − coûts par tirage',
     'prgx-err':'Veuillez saisir un nombre pour chaque hypothèse ; la volatilité ne peut pas être négative. D’ici là, les tableaux affichent le dernier état valide.',
     'prgx-legend':'P10 / P50 / P90 = 10e, 50e et 90e centiles des 10 000 tirages (R6).',
@@ -1798,12 +2152,15 @@ function setLang(lang) {
     if (el) el.innerHTML = val;
   }
   // Update nav labels
-  ['about','project','bilanz','guv','cashflow','prognose'].forEach(id => {
+  ['about','project','bilanz','guv','cashflow','esg','prognose'].forEach(id => {
     const el = document.getElementById('nav-'+id);
     if (el && t['nav-'+id]) el.textContent = t['nav-'+id];
   });
   buildAkzentDict();
   if (typeof window.prgRender === 'function') window.prgRender();
+  Object.keys(CHART_BUILT).forEach(k => { CHART_BUILT[k] = false; });
+  const act = document.querySelector('.page.active');
+  buildChartsFor(act ? act.id.replace('page-','') : 'home');
 }
 
 // ============================================================
@@ -1990,7 +2347,7 @@ function buildAkzentDict() {
   'use strict';
   const N = 10000, SEED = 20241231, PY = ['2025','2026'];
   const DEF = {U:{mu:0.02,s:0.10}, K:{mu:-0.005,s:0.20}, L:{mu:0.01,s:0.10}, P:{mu:-0.03,s:0.20}};
-  const HEADCOUNT_2024 = 19665;                 // G&V-Anm.: Ø Mitarbeiter 2024
+  const HEADCOUNT_2024 = 19665;                 // Mitarbeiter zum 31.12.2024 laut Geschäftsbericht 2024
   const i24 = YEARS.indexOf('2024');
   const S = {U:D.revenue[i24], E:D.ebit[i24], L:D.cash[i24], P:HEADCOUNT_2024};
   S.K = (S.U != null && S.E != null) ? S.U - S.E : null;          // R4
@@ -2050,7 +2407,7 @@ function buildAkzentDict() {
       [tr('prgx-U')+' ('+um+')', S.U, 1, tr('prgx-srcU'), ''],
       [tr('prgx-E')+' ('+um+')', S.E, 1, tr('prgx-srcE'), ''],
       [tr('prgx-K')+' ('+um+')', S.K, 1, tr('prgx-srcK')+': '+kCalc, ''],
-      [tr('prgx-L')+' ('+um+')', S.L, 1, tr('prgx-srcL'), ' <span class="warn-badge">△</span>'],
+      [tr('prgx-L')+' ('+um+')', S.L, 1, tr('prgx-srcL'), ' <span class="ok-badge">OK</span>'],
       [tr('prgx-P')+' ('+tr('prgx-unit-p')+')', S.P, 0, tr('prgx-srcP'), '']
     ];
     let h = '<thead><tr><th>'+tr('prgx-pos')+'</th><th>'+tr('prgx-val')+'</th><th class="prg-l">'+tr('prgx-src')+'</th></tr></thead><tbody>';
