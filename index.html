@@ -349,6 +349,43 @@ footer a:hover{color:var(--red) !important;}
 }
 .pub-link:hover{background:var(--light-grey);border-color:#aaa;}
 
+/* ===== PROGNOSE 2025–2026 ===== */
+.prg-grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+.prg-two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px;}
+@media(max-width:900px){.prg-grid2,.prg-two{grid-template-columns:1fr;}}
+.prg-note{font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--mid);margin:-6px 0 8px;max-width:80ch;}
+.prg-table{min-width:860px;}
+.prg-table td{vertical-align:top;}
+.prg-table th.prg-c{text-align:center;}
+.prg-table thead tr+tr th,.prg-table thead tr+tr th:first-child{text-align:right;}
+.prg-table th.prg-gs{border-left:1px solid #555;}
+.prg-table td.prg-gs{border-left:1px solid #e0e0e0;}
+.prg-table td.prg-base{background:#faf9f5;}
+.prg-table tr.subtotal td.prg-base{background:#e8e7e3;}
+.fin-table td.prg-l,.fin-table th.prg-l{text-align:left;}
+.prg-src{color:var(--mid);font-size:.74rem;}
+.prg-cell{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+.prg-v{font-weight:500;color:var(--dark);white-space:nowrap;font-variant-numeric:tabular-nums;}
+.prg-f{font-size:.66rem;color:var(--mid);white-space:nowrap;}
+.prg-pl{font-size:.62rem;font-weight:400;color:var(--mid);margin-right:5px;}
+.prg-name{display:block;color:var(--dark);font-weight:600;font-size:.8rem;}
+.prg-unit{display:block;font-size:.68rem;color:var(--mid);}
+.prg-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
+.prg-tag{font-family:'IBM Plex Sans',sans-serif;font-size:.62rem;font-weight:600;color:var(--red);border:1px solid #f0c4c2;background:#fff6f5;padding:0 4px;border-radius:2px;white-space:nowrap;}
+.prg-ph{display:inline-block;background:#fffbe6;border:1px solid #e8d58a;color:#665500;font-size:.66rem;padding:0 6px;border-radius:2px;}
+.prg-in{font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;width:64px;text-align:right;border:1px solid var(--border);padding:3px 6px;background:#fff;color:var(--dark);}
+.prg-in.invalid{border-color:var(--red);}
+.prg-in:focus-visible,.prg-btn:focus-visible{outline:2px solid var(--link);outline-offset:1px;}
+.prg-btn{background:var(--dark);color:#fff;border:none;font-family:'IBM Plex Sans',sans-serif;font-size:.72rem;padding:7px 14px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:background .2s;}
+.prg-btn:hover{background:var(--red);}
+.prg-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;font-family:'IBM Plex Sans',sans-serif;font-size:.72rem;color:var(--mid);}
+.prg-err{font-family:'IBM Plex Sans',sans-serif;font-size:.76rem;color:var(--red);margin-top:6px;}
+.prg-chg{display:block;font-size:.66rem;color:var(--mid);}
+.prg-refs{list-style:none;display:grid;gap:10px;font-size:.9rem;color:var(--mid);}
+.prg-refs li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:baseline;}
+.prg-refs code{font-family:ui-monospace,Consolas,monospace;font-size:.76rem;background:var(--light-grey);padding:0 4px;color:var(--dark);}
+.prg-refs strong{color:var(--dark);}
+@media(prefers-reduced-motion:reduce){.prg-btn{transition:none;}}
 /* ===== AKZENT PAGE HIDDEN ===== */
 #page-akzent { display: none !important; }
 </style>
@@ -371,6 +408,7 @@ footer a:hover{color:var(--red) !important;}
       <a onclick="showPage('bilanz')"   id="nav-bilanz">Bilanz</a>
       <a onclick="showPage('guv')"      id="nav-guv">G&amp;V</a>
       <a onclick="showPage('cashflow')" id="nav-cashflow">Cash Flow</a>
+      <a onclick="showPage('prognose')" id="nav-prognose">Prognose</a>
     </nav>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('de')" id="lang-de" title="Deutsch">🇦🇹</button>
@@ -866,6 +904,78 @@ footer a:hover{color:var(--red) !important;}
   </div>
 </div>
 
+<!-- ==================== PROGNOSE 2025–2026 ==================== -->
+<div id="page-prognose" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1 id="prg-title">Prognose 2025–2026</h1>
+      <p class="subtitle" id="prg-sub">Monte-Carlo-Simulation · 10.000 Läufe · Basisjahr 2024 · Angaben in Mio. €</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="disclaimer">
+      <strong id="prg-disc-lbl">Methodik:</strong> <span id="prg-disc-txt">Modellrechnung auf Basis der Startwerte 2024 aus G&amp;V und Bilanz dieser Plattform. Jede Zeile beruht auf einer benannten Annahme (A1–A4) und einem Rechenschritt (R1–R7). Keine Anlageberatung.</span>
+    </div>
+
+    <div class="prg-grid2">
+      <div>
+        <div class="section-label" id="prg-lbl-start">Startwerte 2024</div>
+        <div class="fin-table-wrap"><table class="fin-table" id="prg-start"></table></div>
+      </div>
+      <div>
+        <div class="section-label" id="prg-lbl-assump">Annahmen</div>
+        <p class="prg-note" id="prg-assump-note">Trend μ und Volatilität σ pro Jahr. Änderungen rechnen die Simulation sofort neu.</p>
+        <div class="fin-table-wrap"><table class="fin-table" id="prg-assump">
+          <thead><tr><th id="prgh-nr">Nr.</th><th class="prg-l" id="prgh-assump">Annahme</th><th id="prgh-trend">Trend μ</th><th id="prgh-vol">Volatilität σ</th></tr></thead>
+          <tbody id="prg-assump-body"></tbody>
+        </table></div>
+        <div class="prg-actions">
+          <button type="button" class="prg-btn" id="prg-reset">Ausgangsannahmen wiederherstellen</button>
+          <span id="prg-meta"></span>
+        </div>
+        <p class="prg-err" id="prg-err" hidden></p>
+      </div>
+    </div>
+
+    <div class="section-label" id="prg-lbl-prog">Prognose nach Perioden</div>
+    <p class="prg-note" id="prg-prog-note">Unter jedem Wert steht seine Berechnung. Die Kürzel unter jeder Position nennen die Annahme (A) und den Rechenschritt (R), auf denen die Zeile beruht.</p>
+    <div class="fin-table-wrap"><table class="fin-table prg-table" id="prg-prog"></table></div>
+    <p class="prg-note" id="prg-legend"></p>
+
+    <div class="section-label" id="prg-lbl-fak">Simulierte Faktoren</div>
+    <p class="prg-note" id="prg-fak-note">Faktor = Wert im Jahr ÷ Startwert 2024. Die Faktoren hängen nur von den Annahmen A1–A4 ab. Jeder Prognosewert ist Startwert × Faktor.</p>
+    <div class="fin-table-wrap"><table class="fin-table prg-table" id="prg-fak"></table></div>
+
+    <div class="prg-two">
+      <div class="e-card">
+        <h2 id="prg-rw-h">Rechenweg</h2>
+        <ol class="prg-refs">
+          <li><span class="prg-tag">R1</span><span id="prg-r1">Wachstum je Jahr und Lauf: <code>g = μ + σ × Z</code>, Z ist eine standardnormalverteilte Zufallszahl. Jede Größe und jedes Jahr erhält ein eigenes Z.</span></li>
+          <li><span class="prg-tag">R2</span><span id="prg-r2"><code>Faktor 2025 = 1 + g<sub>2025</sub></code>; <code>Faktor 2026 = Faktor 2025 × (1 + g<sub>2026</sub>)</code>.</span></li>
+          <li><span class="prg-tag">R3</span><span id="prg-r3"><code>Wert = Startwert 2024 × Faktor</code>. Gerechnet wird mit dem angezeigten, auf vier Stellen gerundeten Faktor; so lässt sich jede Zelle von Hand nachrechnen.</span></li>
+          <li><span class="prg-tag">R4</span><span id="prg-r4"><code>Kosten 2024 = Umsatz 2024 − EBIT 2024</code>. Kosten umfassen damit alle operativen Aufwendungen bis zum EBIT.</span></li>
+          <li><span class="prg-tag">R5</span><span id="prg-r5"><code>EBIT je Lauf = Umsatz je Lauf − Kosten je Lauf</code>. Das EBIT-Szenario ist das Perzentil dieser 10.000 Ergebnisse.</span></li>
+          <li><span class="prg-tag">R6</span><span id="prg-r6">Szenarien: pessimistisch = P10, Basis = P50 (Median), optimistisch = P90; bei den Kosten umgekehrt (P90 pessimistisch). Jede Zeile ist ihr eigenes Perzentil, daher ist das EBIT einer Spalte nicht Umsatz minus Kosten derselben Spalte.</span></li>
+          <li><span class="prg-tag">R7</span><span id="prg-r7">Perzentile mit linearer Interpolation (wie Excel PERZENTIL.INKL). Fester Zufalls-Startwert 20241231: gleiche Annahmen ergeben immer dieselben Werte.</span></li>
+        </ol>
+      </div>
+      <div class="e-card">
+        <h2 id="prg-hf-h">Annahmen zum Hinterfragen</h2>
+        <ol class="prg-refs">
+          <li><span class="prg-tag">H1</span><span id="prg-h1"><strong>Abgrenzung der Kosten.</strong> Kosten = Umsatz − EBIT. Eine engere Abgrenzung verändert Kosten- und EBIT-Zeile.</span></li>
+          <li><span class="prg-tag">H2</span><span id="prg-h2"><strong>Unabhängigkeit.</strong> Umsatz und Kosten schwanken unabhängig voneinander. Laufen sie teilweise mit, wird die EBIT-Spanne deutlich schmaler.</span></li>
+          <li><span class="prg-tag">H3</span><span id="prg-h3"><strong>Kostenvolatilität 20 %.</strong> Doppelt so hoch wie beim Umsatz; weil die Kostenbasis über dem Umsatz liegt, bestimmt sie die EBIT-Spanne fast allein.</span></li>
+          <li><span class="prg-tag">H4</span><span id="prg-h4"><strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −549 Mio. € liegt.</span></li>
+          <li><span class="prg-tag">H5</span><span id="prg-h5"><strong>Personalbestand.</strong> ±20 % Schwankung pro Jahr ist für eine Belegschaft viel, und der Personalbestand wirkt nicht auf die Kosten. Mehr Personal (P90) gilt hier als optimistisch.</span></li>
+          <li><span class="prg-tag">H6</span><span id="prg-h6"><strong>Basisjahr 2024.</strong> Liegt der Konzernabschluss 2025 vor, sollte 2025 aus Ist-Zahlen kommen und nur 2026 prognostiziert werden.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <p class="fn" id="prg-fn">Anm.: Personalbestand = Ø Mitarbeiter 2024 laut G&amp;V (kein Stichtagswert). Liquidität 2024 = Zahlungsmittel &amp; Äquivalente laut Bilanz <span class="warn-badge">△</span>: Der Netto-Cashflow der Cash-Flow-Seite (2024: −111 Mio. €) weicht von der Veränderung der Zahlungsmittel laut Bilanz (−48 Mio. €) um mehr als 5 % ab; maßgeblich für den Startwert ist die Bilanz. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.</p>
+  </div>
+</div>
+
 <!-- ==================== AKZENT KURS (HIDDEN) ==================== -->
 <div id="page-akzent" class="page" style="display:none!important;">
   <div class="page-header">
@@ -1238,6 +1348,71 @@ const T = {
     'cf12t':'NETTO-CASHFLOW (VERÄND. LIQUIDITÄT)',
     'cfc1':'Cashflow-Übersicht (Mio. €)','cfc2':'Kassenbestand (Mio. €)','cfc3':'OCF vs. Capex (Mio. €)','cfc4':'Peer Group: OCF 2024 (Mio. €)',
     'cf-fn':'Anm.: Detailgliederung OCF rechnerisch plausibilisiert. FCF = OCF + ICF. Ausgewiesene Gesamtsummen entsprechen Quelldaten; Abweichungen Teilpositionen ≤ 5 % – OK.',
+    // prognose
+    'nav-prognose':'Prognose',
+    'prg-title':'Prognose 2025–2026',
+    'prg-sub':'Monte-Carlo-Simulation · 10.000 Läufe · Basisjahr 2024 · Angaben in Mio. €',
+    'prg-disc-lbl':'Methodik:',
+    'prg-disc-txt':'Modellrechnung auf Basis der Startwerte 2024 aus G&amp;V und Bilanz dieser Plattform. Jede Zeile beruht auf einer benannten Annahme (A1–A4) und einem Rechenschritt (R1–R7). Keine Anlageberatung.',
+    'prg-lbl-start':'Startwerte 2024',
+    'prg-lbl-assump':'Annahmen',
+    'prg-assump-note':'Trend μ und Volatilität σ pro Jahr. Änderungen rechnen die Simulation sofort neu.',
+    'prg-reset':'Ausgangsannahmen wiederherstellen',
+    'prg-lbl-prog':'Prognose nach Perioden',
+    'prg-prog-note':'Unter jedem Wert steht seine Berechnung. Die Kürzel unter jeder Position nennen die Annahme (A) und den Rechenschritt (R), auf denen die Zeile beruht.',
+    'prg-lbl-fak':'Simulierte Faktoren',
+    'prg-fak-note':'Faktor = Wert im Jahr ÷ Startwert 2024. Die Faktoren hängen nur von den Annahmen A1–A4 ab. Jeder Prognosewert ist Startwert × Faktor.',
+    'prg-rw-h':'Rechenweg',
+    'prg-r1':'Wachstum je Jahr und Lauf: <code>g = μ + σ × Z</code>, Z ist eine standardnormalverteilte Zufallszahl. Jede Größe und jedes Jahr erhält ein eigenes Z.',
+    'prg-r2':'<code>Faktor 2025 = 1 + g<sub>2025</sub></code>; <code>Faktor 2026 = Faktor 2025 × (1 + g<sub>2026</sub>)</code>.',
+    'prg-r3':'<code>Wert = Startwert 2024 × Faktor</code>. Gerechnet wird mit dem angezeigten, auf vier Stellen gerundeten Faktor; so lässt sich jede Zelle von Hand nachrechnen.',
+    'prg-r4':'<code>Kosten 2024 = Umsatz 2024 − EBIT 2024</code>. Kosten umfassen damit alle operativen Aufwendungen bis zum EBIT.',
+    'prg-r5':'<code>EBIT je Lauf = Umsatz je Lauf − Kosten je Lauf</code>. Das EBIT-Szenario ist das Perzentil dieser 10.000 Ergebnisse.',
+    'prg-r6':'Szenarien: pessimistisch = P10, Basis = P50 (Median), optimistisch = P90; bei den Kosten umgekehrt (P90 pessimistisch). Jede Zeile ist ihr eigenes Perzentil, daher ist das EBIT einer Spalte nicht Umsatz minus Kosten derselben Spalte.',
+    'prg-r7':'Perzentile mit linearer Interpolation (wie Excel PERZENTIL.INKL). Fester Zufalls-Startwert 20241231: gleiche Annahmen ergeben immer dieselben Werte.',
+    'prg-hf-h':'Annahmen zum Hinterfragen',
+    'prg-h1':'<strong>Abgrenzung der Kosten.</strong> Kosten = Umsatz − EBIT. Eine engere Abgrenzung verändert Kosten- und EBIT-Zeile.',
+    'prg-h2':'<strong>Unabhängigkeit.</strong> Umsatz und Kosten schwanken unabhängig voneinander. Laufen sie teilweise mit, wird die EBIT-Spanne deutlich schmaler.',
+    'prg-h3':'<strong>Kostenvolatilität 20 %.</strong> Doppelt so hoch wie beim Umsatz; weil die Kostenbasis über dem Umsatz liegt, bestimmt sie die EBIT-Spanne fast allein.',
+    'prg-h4':'<strong>Liquidität ohne Ergebnisbezug.</strong> Sie wächst im Mittel um 1 %, obwohl das EBIT 2024 bei −549 Mio. € liegt.',
+    'prg-h5':'<strong>Personalbestand.</strong> ±20 % Schwankung pro Jahr ist für eine Belegschaft viel, und der Personalbestand wirkt nicht auf die Kosten. Mehr Personal (P90) gilt hier als optimistisch.',
+    'prg-h6':'<strong>Basisjahr 2024.</strong> Liegt der Konzernabschluss 2025 vor, sollte 2025 aus Ist-Zahlen kommen und nur 2026 prognostiziert werden.',
+    'prg-fn':'Anm.: Personalbestand = Ø Mitarbeiter 2024 laut G&amp;V (kein Stichtagswert). Liquidität 2024 = Zahlungsmittel &amp; Äquivalente laut Bilanz <span class="warn-badge">△</span>: Der Netto-Cashflow der Cash-Flow-Seite (2024: −111 Mio. €) weicht von der Veränderung der Zahlungsmittel laut Bilanz (−48 Mio. €) um mehr als 5 % ab; maßgeblich für den Startwert ist die Bilanz. Modellrechnung; keine Unternehmensprognose und keine Anlageberatung.',
+    'prgx-pos':'Position',
+    'prgx-val':'Wert 2024',
+    'prgx-src':'Quelle / Berechnung',
+    'prgx-ist':'2024 Ist',
+    'prgx-pess':'Pessimistisch',
+    'prgx-base':'Basis',
+    'prgx-opt':'Optimistisch',
+    'prgx-nr':'Nr.',
+    'prgx-assump':'Annahme',
+    'prgx-trend':'Trend μ',
+    'prgx-vol':'Volatilität σ',
+    'prgx-U':'Umsatz',
+    'prgx-K':'Kosten',
+    'prgx-E':'EBIT',
+    'prgx-L':'Liquidität',
+    'prgx-P':'Personalbestand',
+    'prgx-unit-m':'Mio. €',
+    'prgx-unit-p':'Mitarbeiter, Ø',
+    'prgx-derived':'abgeleitet',
+    'prgx-a1':'Umsatz steigend',
+    'prgx-a2':'Kosten leicht fallend',
+    'prgx-a3':'Liquidität leicht steigend',
+    'prgx-a4':'Personalbestand abnehmend',
+    'prgx-srcU':'G&amp;V · Umsatzerlöse',
+    'prgx-srcE':'G&amp;V · EBIT (G&amp;V-Detail)',
+    'prgx-srcK':'R4 · Umsatz − EBIT',
+    'prgx-srcL':'Bilanz · Zahlungsmittel &amp; Äquivalente',
+    'prgx-srcP':'G&amp;V-Anm. · Ø Mitarbeiter',
+    'prgx-start':'Startwert',
+    'prgx-givenE':'Vorgabe G&amp;V-Detail',
+    'prgx-runs':'Umsatz − Kosten je Lauf',
+    'prgx-err':'Bitte bei jeder Annahme eine Zahl eintragen, die Volatilität darf nicht negativ sein. Die Tabellen zeigen bis dahin den letzten gültigen Stand.',
+    'prgx-legend':'P10 / P50 / P90 = 10., 50. und 90. Perzentil der 10.000 Läufe (R6).',
+    'prgx-runsmeta':'Läufe · Zufalls-Startwert',
+    'prgx-ph':'Platzhalter',
     // footer
     'ft-disc':'Alle Angaben ohne Gewähr. Keine Anlageberatung.',
     'ft-copy':'© 2025–2026 Manfred Stückler'
@@ -1357,6 +1532,71 @@ const T = {
     'cf12t':'NET CASH FLOW (CHANGE IN LIQUIDITY)',
     'cfc1':'Cash Flow Overview (€m)','cfc2':'Cash &amp; Equivalents (€m)','cfc3':'OCF vs. Capex (€m)','cfc4':'Peer Group: OCF 2024 (€m)',
     'cf-fn':'Note: OCF detail arithmetically verified. FCF = OCF + ICF. All aggregate totals match source data; partial deviations ≤ 5% — OK.',
+    // prognose
+    'nav-prognose':'Forecast',
+    'prg-title':'Forecast 2025–2026',
+    'prg-sub':'Monte Carlo simulation · 10,000 runs · Base year 2024 · Figures in €m',
+    'prg-disc-lbl':'Method:',
+    'prg-disc-txt':'Model calculation based on the 2024 starting values from this platform’s P&amp;L and balance sheet. Each row rests on a named assumption (A1–A4) and a calculation step (R1–R7). Not investment advice.',
+    'prg-lbl-start':'Starting values 2024',
+    'prg-lbl-assump':'Assumptions',
+    'prg-assump-note':'Annual trend μ and volatility σ. Changes re-run the simulation immediately.',
+    'prg-reset':'Restore original assumptions',
+    'prg-lbl-prog':'Forecast by period',
+    'prg-prog-note':'Each value shows its calculation underneath. The codes under each item name the assumption (A) and calculation step (R) the row is based on.',
+    'prg-lbl-fak':'Simulated factors',
+    'prg-fak-note':'Factor = value in the year ÷ 2024 starting value. Factors depend only on assumptions A1–A4. Every forecast value is starting value × factor.',
+    'prg-rw-h':'Calculation steps',
+    'prg-r1':'Growth per year and run: <code>g = μ + σ × Z</code>, where Z is a standard normal random number. Each item and each year draws its own Z.',
+    'prg-r2':'<code>Factor 2025 = 1 + g<sub>2025</sub></code>; <code>Factor 2026 = Factor 2025 × (1 + g<sub>2026</sub>)</code>.',
+    'prg-r3':'<code>Value = 2024 starting value × factor</code>. The displayed factor, rounded to four decimals, is the one used, so every cell can be checked by hand.',
+    'prg-r4':'<code>Costs 2024 = revenue 2024 − EBIT 2024</code>. Costs therefore cover all operating expenses down to EBIT.',
+    'prg-r5':'<code>EBIT per run = revenue per run − costs per run</code>. The EBIT scenario is the percentile of these 10,000 results.',
+    'prg-r6':'Scenarios: pessimistic = P10, base = P50 (median), optimistic = P90; reversed for costs (P90 is pessimistic). Each row is its own percentile, so a column’s EBIT is not that column’s revenue minus costs.',
+    'prg-r7':'Percentiles with linear interpolation (as Excel PERCENTILE.INC). Fixed random seed 20241231: the same assumptions always give the same values.',
+    'prg-hf-h':'Assumptions to challenge',
+    'prg-h1':'<strong>Cost definition.</strong> Costs = revenue − EBIT. A narrower definition changes the cost and EBIT rows.',
+    'prg-h2':'<strong>Independence.</strong> Revenue and costs fluctuate independently. If they partly move together, the EBIT range narrows considerably.',
+    'prg-h3':'<strong>Cost volatility of 20%.</strong> Twice that of revenue; because the cost base exceeds revenue, it drives almost the entire EBIT range.',
+    'prg-h4':'<strong>Liquidity unlinked to earnings.</strong> It grows by 1% on average although 2024 EBIT was −€549m.',
+    'prg-h5':'<strong>Headcount.</strong> ±20% annual fluctuation is high for a workforce, and headcount does not feed into costs. A higher headcount (P90) counts as optimistic here.',
+    'prg-h6':'<strong>Base year 2024.</strong> If the 2025 consolidated accounts are available, 2025 should use actual figures and only 2026 be forecast.',
+    'prg-fn':'Note: Headcount = average employees 2024 per P&amp;L (not a year-end figure). Liquidity 2024 = cash &amp; equivalents per balance sheet <span class="warn-badge">△</span>: the net cash flow on the Cash Flow page (2024: −€111m) deviates by more than 5% from the change in cash per balance sheet (−€48m); the balance sheet figure is used. Model calculation; not a company forecast and not investment advice.',
+    'prgx-pos':'Item',
+    'prgx-val':'Value 2024',
+    'prgx-src':'Source / calculation',
+    'prgx-ist':'2024 actual',
+    'prgx-pess':'Pessimistic',
+    'prgx-base':'Base',
+    'prgx-opt':'Optimistic',
+    'prgx-nr':'No.',
+    'prgx-assump':'Assumption',
+    'prgx-trend':'Trend μ',
+    'prgx-vol':'Volatility σ',
+    'prgx-U':'Revenue',
+    'prgx-K':'Costs',
+    'prgx-E':'EBIT',
+    'prgx-L':'Liquidity',
+    'prgx-P':'Headcount',
+    'prgx-unit-m':'€m',
+    'prgx-unit-p':'employees, avg.',
+    'prgx-derived':'derived',
+    'prgx-a1':'Revenue rising',
+    'prgx-a2':'Costs slightly falling',
+    'prgx-a3':'Liquidity slightly rising',
+    'prgx-a4':'Headcount declining',
+    'prgx-srcU':'P&amp;L · revenue',
+    'prgx-srcE':'P&amp;L · EBIT (P&amp;L detail)',
+    'prgx-srcK':'R4 · revenue − EBIT',
+    'prgx-srcL':'Balance sheet · cash &amp; equivalents',
+    'prgx-srcP':'P&amp;L note · avg. employees',
+    'prgx-start':'Starting value',
+    'prgx-givenE':'Given: P&amp;L detail',
+    'prgx-runs':'Revenue − costs per run',
+    'prgx-err':'Please enter a number for every assumption; volatility must not be negative. Until then the tables show the last valid state.',
+    'prgx-legend':'P10 / P50 / P90 = 10th, 50th and 90th percentile of the 10,000 runs (R6).',
+    'prgx-runsmeta':'runs · random seed',
+    'prgx-ph':'Placeholder',
     'ft-disc':'All data without guarantee. Not investment advice.',
     'ft-copy':'© 2025–2026 Manfred Stückler'
   },
@@ -1475,6 +1715,71 @@ const T = {
     'cf12t':'FLUX NET DE TRÉSORERIE (VAR. LIQUIDITÉS)',
     'cfc1':'Vue d\'ensemble des flux (M€)','cfc2':'Trésorerie &amp; équivalents (M€)','cfc3':'FCO vs. Capex (M€)','cfc4':'Pairs : FCO 2024 (M€)',
     'cf-fn':'Note : Détail FCO vérifié arithmétiquement. FCF = FCO + FCI. Totaux conformes aux données sources ; écarts partiels ≤ 5 % — OK.',
+    // prognose
+    'nav-prognose':'Prévisions',
+    'prg-title':'Prévisions 2025–2026',
+    'prg-sub':'Simulation Monte-Carlo · 10 000 tirages · Année de base 2024 · Chiffres en M€',
+    'prg-disc-lbl':'Méthode :',
+    'prg-disc-txt':'Calcul modélisé à partir des valeurs de départ 2024 issues du compte de résultat et du bilan de cette plateforme. Chaque ligne repose sur une hypothèse nommée (A1–A4) et une étape de calcul (R1–R7). Pas de conseil en investissement.',
+    'prg-lbl-start':'Valeurs de départ 2024',
+    'prg-lbl-assump':'Hypothèses',
+    'prg-assump-note':'Tendance μ et volatilité σ annuelles. Toute modification relance immédiatement la simulation.',
+    'prg-reset':'Rétablir les hypothèses initiales',
+    'prg-lbl-prog':'Prévisions par période',
+    'prg-prog-note':'Sous chaque valeur figure son calcul. Les codes sous chaque poste indiquent l’hypothèse (A) et l’étape de calcul (R) sur lesquelles repose la ligne.',
+    'prg-lbl-fak':'Facteurs simulés',
+    'prg-fak-note':'Facteur = valeur de l’année ÷ valeur de départ 2024. Les facteurs ne dépendent que des hypothèses A1–A4. Chaque valeur prévue = valeur de départ × facteur.',
+    'prg-rw-h':'Étapes de calcul',
+    'prg-r1':'Croissance par année et par tirage : <code>g = μ + σ × Z</code>, Z étant un nombre aléatoire de loi normale centrée réduite. Chaque grandeur et chaque année reçoit son propre Z.',
+    'prg-r2':'<code>Facteur 2025 = 1 + g<sub>2025</sub></code> ; <code>Facteur 2026 = Facteur 2025 × (1 + g<sub>2026</sub>)</code>.',
+    'prg-r3':'<code>Valeur = valeur de départ 2024 × facteur</code>. Le facteur affiché, arrondi à quatre décimales, est celui utilisé : chaque cellule peut être recalculée à la main.',
+    'prg-r4':'<code>Coûts 2024 = chiffre d’affaires 2024 − EBIT 2024</code>. Les coûts couvrent donc toutes les charges opérationnelles jusqu’à l’EBIT.',
+    'prg-r5':'<code>EBIT par tirage = chiffre d’affaires par tirage − coûts par tirage</code>. Le scénario d’EBIT est le centile de ces 10 000 résultats.',
+    'prg-r6':'Scénarios : pessimiste = P10, base = P50 (médiane), optimiste = P90 ; inversé pour les coûts (P90 est pessimiste). Chaque ligne est son propre centile : l’EBIT d’une colonne n’est donc pas le chiffre d’affaires moins les coûts de cette colonne.',
+    'prg-r7':'Centiles par interpolation linéaire (comme CENTILE.INCLURE dans Excel). Graine aléatoire fixe 20241231 : les mêmes hypothèses donnent toujours les mêmes valeurs.',
+    'prg-hf-h':'Hypothèses à remettre en question',
+    'prg-h1':'<strong>Périmètre des coûts.</strong> Coûts = chiffre d’affaires − EBIT. Une définition plus étroite modifie les lignes des coûts et de l’EBIT.',
+    'prg-h2':'<strong>Indépendance.</strong> Chiffre d’affaires et coûts varient indépendamment. S’ils évoluent en partie ensemble, la fourchette d’EBIT se resserre nettement.',
+    'prg-h3':'<strong>Volatilité des coûts de 20 %.</strong> Deux fois celle du chiffre d’affaires ; la base de coûts dépassant le chiffre d’affaires, elle détermine presque à elle seule la fourchette d’EBIT.',
+    'prg-h4':'<strong>Liquidité sans lien avec le résultat.</strong> Elle progresse de 1 % en moyenne alors que l’EBIT 2024 s’élève à −549 M€.',
+    'prg-h5':'<strong>Effectifs.</strong> Une variation de ±20 % par an est élevée pour un effectif, et les effectifs n’influent pas sur les coûts. Un effectif plus élevé (P90) est ici considéré comme optimiste.',
+    'prg-h6':'<strong>Année de base 2024.</strong> Si les comptes consolidés 2025 sont disponibles, 2025 devrait reposer sur les chiffres réels et seule l’année 2026 être prévue.',
+    'prg-fn':'Note : Effectifs = effectif moyen 2024 selon le compte de résultat (pas une valeur de clôture). Liquidité 2024 = trésorerie et équivalents selon le bilan <span class="warn-badge">△</span> : le flux de trésorerie net de la page Trésorerie (2024 : −111 M€) s’écarte de plus de 5 % de la variation de trésorerie au bilan (−48 M€) ; la valeur du bilan est retenue. Calcul modélisé ; ni prévision de l’entreprise, ni conseil en investissement.',
+    'prgx-pos':'Poste',
+    'prgx-val':'Valeur 2024',
+    'prgx-src':'Source / calcul',
+    'prgx-ist':'2024 réel',
+    'prgx-pess':'Pessimiste',
+    'prgx-base':'Base',
+    'prgx-opt':'Optimiste',
+    'prgx-nr':'N°',
+    'prgx-assump':'Hypothèse',
+    'prgx-trend':'Tendance μ',
+    'prgx-vol':'Volatilité σ',
+    'prgx-U':'Chiffre d’affaires',
+    'prgx-K':'Coûts',
+    'prgx-E':'EBIT',
+    'prgx-L':'Liquidité',
+    'prgx-P':'Effectifs',
+    'prgx-unit-m':'M€',
+    'prgx-unit-p':'salariés, moy.',
+    'prgx-derived':'dérivé',
+    'prgx-a1':'Chiffre d’affaires en hausse',
+    'prgx-a2':'Coûts en légère baisse',
+    'prgx-a3':'Liquidité en légère hausse',
+    'prgx-a4':'Effectifs en baisse',
+    'prgx-srcU':'C&amp;R · chiffre d’affaires',
+    'prgx-srcE':'C&amp;R · EBIT (détail C&amp;R)',
+    'prgx-srcK':'R4 · chiffre d’affaires − EBIT',
+    'prgx-srcL':'Bilan · trésorerie et équivalents',
+    'prgx-srcP':'Note C&amp;R · effectif moyen',
+    'prgx-start':'Valeur de départ',
+    'prgx-givenE':'Donné : détail C&amp;R',
+    'prgx-runs':'CA − coûts par tirage',
+    'prgx-err':'Veuillez saisir un nombre pour chaque hypothèse ; la volatilité ne peut pas être négative. D’ici là, les tableaux affichent le dernier état valide.',
+    'prgx-legend':'P10 / P50 / P90 = 10e, 50e et 90e centiles des 10 000 tirages (R6).',
+    'prgx-runsmeta':'tirages · graine aléatoire',
+    'prgx-ph':'Valeur manquante',
     'ft-disc':'Toutes les données sans garantie. Pas de conseil en investissement.',
     'ft-copy':'© 2025–2026 Manfred Stückler'
   }
@@ -1493,11 +1798,12 @@ function setLang(lang) {
     if (el) el.innerHTML = val;
   }
   // Update nav labels
-  ['about','project','bilanz','guv','cashflow'].forEach(id => {
+  ['about','project','bilanz','guv','cashflow','prognose'].forEach(id => {
     const el = document.getElementById('nav-'+id);
     if (el && t['nav-'+id]) el.textContent = t['nav-'+id];
   });
   buildAkzentDict();
+  if (typeof window.prgRender === 'function') window.prgRender();
 }
 
 // ============================================================
@@ -1674,6 +1980,175 @@ function buildAkzentDict() {
   kd.innerHTML=dialect.kärntn.map(w=>`<div style="padding:5px 0;border-bottom:1px solid #eee;">${w}</div>`).join('');
   hd.innerHTML=dialect.hochdeutsch.map(w=>`<div style="padding:5px 0;border-bottom:1px solid #eee;">${w}</div>`).join('');
 }
+</script>
+<script>
+// ============================================================
+// PROGNOSE 2025–2026 · Monte-Carlo-Simulation
+// Startwerte aus D (G&V, Bilanz) · Texte aus T (DE/EN/FR)
+// ============================================================
+(function(){
+  'use strict';
+  const N = 10000, SEED = 20241231, PY = ['2025','2026'];
+  const DEF = {U:{mu:0.02,s:0.10}, K:{mu:-0.005,s:0.20}, L:{mu:0.01,s:0.10}, P:{mu:-0.03,s:0.20}};
+  const HEADCOUNT_2024 = 19665;                 // G&V-Anm.: Ø Mitarbeiter 2024
+  const i24 = YEARS.indexOf('2024');
+  const S = {U:D.revenue[i24], E:D.ebit[i24], L:D.cash[i24], P:HEADCOUNT_2024};
+  S.K = (S.U != null && S.E != null) ? S.U - S.E : null;          // R4
+  const VARS = [{k:'U',a:'A1',dec:1,u:'m'},{k:'K',a:'A2',dec:1,u:'m'},{k:'L',a:'A3',dec:1,u:'m'},{k:'P',a:'A4',dec:0,u:'p'}];
+  const PMAP = {U:[.1,.5,.9], K:[.9,.5,.1], E:[.1,.5,.9], L:[.1,.5,.9], P:[.1,.5,.9]};   // [pess, basis, opt] – R6
+  let par = JSON.parse(JSON.stringify(DEF));
+  const raw = {}, srt = {};
+  let ebit = null;
+
+  function tr(k){
+    const L = T[(typeof currentLang !== 'undefined' && T[currentLang]) ? currentLang : 'de'];
+    return (L && L[k] !== undefined) ? L[k] : (T.de[k] !== undefined ? T.de[k] : k);
+  }
+  function rng32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function simulate(){
+    const r = rng32(SEED);
+    const nrm = () => { let u=0; while(u===0) u=r(); const v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); };
+    VARS.forEach(v => { raw[v.k] = {'2025':new Float64Array(N), '2026':new Float64Array(N)}; });
+    for (let i=0; i<N; i++) {
+      for (const v of VARS) {
+        const m = par[v.k].mu, s = par[v.k].s;
+        const f25 = 1 + m + s*nrm();               // R1, R2
+        const f26 = f25 * (1 + m + s*nrm());       // R2
+        raw[v.k]['2025'][i] = f25; raw[v.k]['2026'][i] = f26;
+      }
+    }
+    VARS.forEach(v => { srt[v.k] = {}; PY.forEach(y => { srt[v.k][y] = Float64Array.from(raw[v.k][y]).sort(); }); });
+    ebit = null;
+    if (S.U != null && S.K != null) {                                   // R5
+      ebit = {};
+      PY.forEach(y => { const e = new Float64Array(N); for (let i=0;i<N;i++) e[i] = S.U*raw.U[y][i] - S.K*raw.K[y][i]; ebit[y] = e.sort(); });
+    }
+  }
+  function pct(a,p){ const h=(a.length-1)*p, lo=Math.floor(h), hi=Math.min(lo+1,a.length-1); return a[lo]+(h-lo)*(a[hi]-a[lo]); }   // R7
+  const r4 = x => Math.round(x*1e4)/1e4;                                                                                            // R3
+  function nf(x,d){ return x.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d}).replace('-','−'); }
+  function parseNum(str){
+    let s = String(str).trim().replace(/\s/g,'').replace(/−|–/g,'-').replace(/%$/,'');
+    if (s === '') return null;
+    if (s.indexOf(',') >= 0) s = s.replace(/\./g,'').replace(',','.');
+    else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+    const x = Number(s); return isFinite(x) ? x : NaN;
+  }
+  const ph   = () => '<span class="prg-ph">'+tr('prgx-ph')+'</span>';
+  const unit = v => v.u === 'm' ? tr('prgx-unit-m') : tr('prgx-unit-p');
+  const tags = l => '<span class="prg-tags">'+l.map(t => '<span class="prg-tag">'+t+'</span>').join('')+'</span>';
+  const pl   = p => 'P'+Math.round(p*100);
+  function cell(val,dec,f,cls,plab){
+    return '<td class="'+(cls||'')+'"><span class="prg-cell"><span class="prg-v">'+(plab?'<span class="prg-pl">'+plab+'</span>':'')+(val==null?ph():nf(val,dec))+'</span><span class="prg-f">'+f+'</span></span></td>';
+  }
+  function posCell(name,u,tg){ return '<td><span class="prg-name">'+name+'</span><span class="prg-unit">'+u+'</span>'+tags(tg)+'</td>'; }
+
+  function renderStart(){
+    const um = tr('prgx-unit-m');
+    const kCalc = (S.U==null?'[U]':nf(S.U,1))+' − ('+(S.E==null?'[EBIT]':nf(S.E,1))+')';
+    const rows = [
+      [tr('prgx-U')+' ('+um+')', S.U, 1, tr('prgx-srcU'), ''],
+      [tr('prgx-E')+' ('+um+')', S.E, 1, tr('prgx-srcE'), ''],
+      [tr('prgx-K')+' ('+um+')', S.K, 1, tr('prgx-srcK')+': '+kCalc, ''],
+      [tr('prgx-L')+' ('+um+')', S.L, 1, tr('prgx-srcL'), ' <span class="warn-badge">△</span>'],
+      [tr('prgx-P')+' ('+tr('prgx-unit-p')+')', S.P, 0, tr('prgx-srcP'), '']
+    ];
+    let h = '<thead><tr><th>'+tr('prgx-pos')+'</th><th>'+tr('prgx-val')+'</th><th class="prg-l">'+tr('prgx-src')+'</th></tr></thead><tbody>';
+    rows.forEach((r,i) => {
+      h += '<tr'+(i===2?' class="subtotal"':'')+'><td>'+r[0]+'</td><td>'+(r[1]==null?ph():nf(r[1],r[2]))+r[4]+'</td><td class="prg-l prg-src">'+r[3]+'</td></tr>';
+    });
+    document.getElementById('prg-start').innerHTML = h + '</tbody>';
+  }
+
+  function buildAssump(){
+    let h = '';
+    VARS.forEach((v,i) => {
+      h += '<tr><td><span class="prg-tag">'+v.a+'</span></td><td class="prg-l" id="prga-lbl-'+v.k+'"></td>'+
+           '<td><input type="text" inputmode="decimal" class="prg-in" id="prg-mu-'+v.k+'"> %</td>'+
+           '<td><input type="text" inputmode="decimal" class="prg-in" id="prg-s-'+v.k+'"> %</td></tr>';
+    });
+    document.getElementById('prg-assump-body').innerHTML = h;
+    fillAssump();
+    document.getElementById('prg-assump-body').addEventListener('input', onAssump);
+    document.getElementById('prg-reset').addEventListener('click', () => {
+      par = JSON.parse(JSON.stringify(DEF)); fillAssump();
+      document.querySelectorAll('#prg-assump .prg-in').forEach(x => x.classList.remove('invalid'));
+      document.getElementById('prg-err').hidden = true;
+      simulate(); window.prgRender();
+    });
+  }
+  function fillAssump(){
+    VARS.forEach(v => {
+      document.getElementById('prg-mu-'+v.k).value = nf(par[v.k].mu*100,1);
+      document.getElementById('prg-s-'+v.k).value  = nf(par[v.k].s*100,1);
+    });
+  }
+  function onAssump(){
+    let ok = true; const next = {};
+    VARS.forEach(v => {
+      const mi = document.getElementById('prg-mu-'+v.k), si = document.getElementById('prg-s-'+v.k);
+      const mu = parseNum(mi.value), s = parseNum(si.value);
+      const mb = (mu===null || isNaN(mu)), sb = (s===null || isNaN(s) || s<0);
+      mi.classList.toggle('invalid', mb); si.classList.toggle('invalid', sb);
+      if (mb || sb) ok = false; else next[v.k] = {mu:mu/100, s:s/100};
+    });
+    const err = document.getElementById('prg-err');
+    if (!ok) { err.hidden = false; err.textContent = tr('prgx-err'); return; }
+    err.hidden = true; par = next; simulate(); window.prgRender();
+  }
+  function renderAssumpLabels(){
+    VARS.forEach((v,i) => { document.getElementById('prga-lbl-'+v.k).textContent = tr('prgx-a'+(i+1)); });
+    document.getElementById('prgh-nr').textContent = tr('prgx-nr');
+    document.getElementById('prgh-assump').textContent = tr('prgx-assump');
+    document.getElementById('prgh-trend').textContent = tr('prgx-trend');
+    document.getElementById('prgh-vol').textContent = tr('prgx-vol');
+    document.getElementById('prg-meta').textContent = nf(N,0)+' '+tr('prgx-runsmeta')+' '+SEED;
+  }
+
+  function renderProg(){
+    const sc = '<th class="prg-gs">'+tr('prgx-pess')+'</th><th>'+tr('prgx-base')+'</th><th>'+tr('prgx-opt')+'</th>';
+    let h = '<thead><tr><th rowspan="2">'+tr('prgx-pos')+'</th><th rowspan="2" class="prg-gs">'+tr('prgx-ist')+'</th>'+
+            '<th colspan="3" class="prg-gs prg-c">2025</th><th colspan="3" class="prg-gs prg-c">2026</th></tr><tr>'+sc+sc+'</tr></thead><tbody>';
+    const startTxt = k => S[k]==null ? '[Start]' : nf(S[k], k==='P'?0:1);
+    function fcRow(v, f2024, tg, cls){
+      let r = '<tr'+(cls?' class="'+cls+'"':'')+'>'+posCell(tr('prgx-'+v.k), unit(v), tg) + cell(S[v.k], v.dec, f2024, 'prg-gs');
+      PY.forEach(y => PMAP[v.k].forEach((p,i) => {
+        const F = r4(pct(srt[v.k][y], p));
+        r += cell(S[v.k]==null?null:S[v.k]*F, v.dec, startTxt(v.k)+' × '+nf(F,4), (i===0?'prg-gs ':'')+(i===1?'prg-base':''), pl(p));
+      }));
+      return r + '</tr>';
+    }
+    h += fcRow(VARS[0], tr('prgx-start'), ['A1','R3']);
+    h += fcRow(VARS[1], (S.U==null?'[U]':nf(S.U,1))+' − ('+nf(S.E,1)+')', ['A2','R3','R4']);
+    let e = '<tr class="subtotal">'+posCell(tr('prgx-E'), tr('prgx-unit-m')+' · '+tr('prgx-derived'), ['A1','A2','R5']) + cell(S.E, 1, tr('prgx-givenE'), 'prg-gs');
+    PY.forEach(y => PMAP.E.forEach((p,i) => {
+      e += cell(ebit ? pct(ebit[y], p) : null, 1, tr('prgx-runs'), (i===0?'prg-gs ':'')+(i===1?'prg-base':''), pl(p));
+    }));
+    h += e + '</tr>';
+    h += fcRow(VARS[2], tr('prgx-start'), ['A3','R3']);
+    h += fcRow(VARS[3], tr('prgx-start'), ['A4','R3']);
+    document.getElementById('prg-prog').innerHTML = h + '</tbody>';
+    document.getElementById('prg-legend').textContent = tr('prgx-legend');
+  }
+
+  function renderFak(){
+    const pc = '<th class="prg-gs">P10</th><th>P50</th><th>P90</th>';
+    let h = '<thead><tr><th rowspan="2"></th><th colspan="3" class="prg-gs prg-c">2025</th><th colspan="3" class="prg-gs prg-c">2026</th></tr><tr>'+pc+pc+'</tr></thead><tbody>';
+    VARS.forEach(v => {
+      h += '<tr><td><span class="prg-name">'+tr('prgx-'+v.k)+'</span>'+tags([v.a])+'</td>';
+      PY.forEach(y => [.1,.5,.9].forEach((p,i) => {
+        const F = r4(pct(srt[v.k][y], p)), c = (F-1)*100;
+        h += '<td'+(i===0?' class="prg-gs"':'')+'>'+nf(F,4)+'<span class="prg-chg">'+(c>0?'+':'')+nf(c,1)+' %</span></td>';
+      }));
+      h += '</tr>';
+    });
+    document.getElementById('prg-fak').innerHTML = h + '</tbody>';
+  }
+
+  window.prgRender = function(){ renderStart(); renderAssumpLabels(); renderProg(); renderFak(); };
+  window.__prg = {raw:raw, srt:srt, get ebit(){return ebit;}, S:S, pct:pct, N:N};   // für Prüfzwecke
+  buildAssump(); simulate(); window.prgRender();
+})();
 </script>
 </body>
 </html>
