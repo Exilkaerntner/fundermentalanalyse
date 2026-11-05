@@ -411,6 +411,12 @@ header .lang-btn:focus-visible{outline:2px solid #ffffff;outline-offset:2px;}
 .upd-table td.upd-d{white-space:nowrap;}
 .upd-note{font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;color:var(--mid);margin-bottom:8px;}
 .two-col > *{min-width:0;}   /* breite Tabellen scrollen in ihrem Rahmen statt die Seite zu verbreitern (Mobil) */
+/* ===== UPDATE 05.11.2026: Kennzeichnung „Testversion“ (ESG, Prognose) ===== */
+.tv-badge{display:inline-block;margin-bottom:10px;background:var(--red);color:#ffffff;font-family:'IBM Plex Sans',sans-serif;font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;line-height:1.3;}
+.tv-banner{margin:0 0 24px;}
+.tv-banner strong{color:#ffffff;}
+.tv-ico{display:flex;flex-shrink:0;}
+.tv-ico svg{display:block;width:20px;height:20px;}
 </style>
 </head>
 <body>
@@ -622,6 +628,7 @@ header .lang-btn:focus-visible{outline:2px solid #ffffff;outline-offset:2px;}
         <table class="fin-table upd-table">
           <thead><tr><th class="upd-l" id="upd-h0">Datum</th><th class="upd-l" id="upd-h1">Bereich</th><th class="upd-l" id="upd-h2">Änderung</th></tr></thead>
           <tbody>
+            <tr><td class="upd-l upd-d" id="upd-d2-12" data-t="upd-d2">05.11.2026</td><td class="upd-l" id="upd-a12">ESG, Prognose</td><td class="upd-l" id="upd-c12">Beide Seiten als Testversion gekennzeichnet, die weiter überarbeitet wird: rotes Etikett „Testversion · in Überarbeitung“ im Seitenkopf und ein Hinweisbalken am Seitenanfang, in allen drei Sprachen. Zahlen, Tabellen, Diagramme und Berechnungen unverändert.</td></tr>
             <tr><td class="upd-l upd-d" id="upd-d1-0" data-t="upd-d1">04.11.2026</td><td class="upd-l" id="upd-a1">Alle Analyseseiten</td><td class="upd-l" id="upd-c1">Zeitraum auf 2021–2025 umgestellt (Geschäftsbericht 2025 vom 20.03.2026, Vorgabe 3.1). Die Spalte 2020 entfällt und mit ihr die Kennzeichnung ¹ der älteren Bilanzgliederung 2020. Jede Zahl 2025 über die Vorjahresspalte 2024 gegengeprüft.</td></tr>
             <tr><td class="upd-l upd-d" id="upd-d1-1" data-t="upd-d1">04.11.2026</td><td class="upd-l" id="upd-a2">Bilanz, G&amp;V, Cash Flow</td><td class="upd-l" id="upd-c2">Einleitung in einfacher Sprache am Seitenanfang ergänzt (Vorgabe 2.1). Auf ESG und Prognose steht die Einleitung jetzt ebenfalls vor dem Quellenhinweis.</td></tr>
             <tr><td class="upd-l upd-d" id="upd-d1-2" data-t="upd-d1">04.11.2026</td><td class="upd-l" id="upd-a3">Cash Flow</td><td class="upd-l" id="upd-c3">Werte 2021–2022 in älterer Gliederung mit ¹ gekennzeichnet (Vorgabe 3.5). △ bei Abschreibungen und Investitionen entfernt: Das Zeichen markierte bisher Korrekturen gegenüber der Vorversion, nicht Abweichungen zwischen Quellen. Abschreibungen stimmen mit dem Mastersheet überein (OK).</td></tr>
@@ -979,11 +986,16 @@ header .lang-btn:focus-visible{outline:2px solid #ffffff;outline-offset:2px;}
 <div id="page-esg" class="page">
   <div class="page-header">
     <div class="page-header-inner">
+      <span class="tv-badge" data-t="tv-badge">Testversion · in Überarbeitung</span>
       <h1 id="esg-title">ESG</h1>
       <p class="subtitle" id="esg-sub">Umwelt · Soziales · Angaben laut Nachhaltigkeitsberichten · 2021–2025</p>
     </div>
   </div>
   <div class="content-wrap">
+    <div class="construction-banner tv-banner" role="note">
+      <span class="tv-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5.2 9.1A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.9L14 9V3"/><path d="M7.5 15h9"/></svg></span>
+      <span id="esg-tv"><strong>Testversion:</strong> Diese Seite ist noch nicht fertig und wird weiter überarbeitet. Kennzahlen, Erklärungen und Darstellung können sich noch ändern. Fehlende Werte stehen als Platzhalter „…“ in der Tabelle.</span>
+    </div>
     <div class="e-card">
       <h2 id="esg-intro-h">Was bedeutet ESG?</h2>
       <p id="esg-intro">ESG steht für Umwelt (Environmental), Soziales (Social) und gute Unternehmensführung (Governance). Hier sehen Sie, wie viel Treibhausgas das Unternehmen ausstößt, wie viel Energie und Wasser es verbraucht, wie viel Abfall entsteht und wie sicher und gut ausgebildet die Belegschaft arbeitet. Sinkende Emissionen sind gut für das Klima; sinkende Unfallraten sind gut für die Menschen. Kürzel wie E1-6 verweisen auf die europäischen Berichtsstandards (ESRS), nach denen solche Berichte aufgebaut sind.</p>
@@ -1034,11 +1046,16 @@ header .lang-btn:focus-visible{outline:2px solid #ffffff;outline-offset:2px;}
 <div id="page-prognose" class="page">
   <div class="page-header">
     <div class="page-header-inner">
+      <span class="tv-badge" data-t="tv-badge">Testversion · in Überarbeitung</span>
       <h1 id="prg-title">Prognose 2025–2026</h1>
       <p class="subtitle" id="prg-sub">Monte-Carlo-Simulation · 10.000 Läufe · Basisjahr 2024 · Angaben in Mio. €</p>
     </div>
   </div>
   <div class="content-wrap">
+    <div class="construction-banner tv-banner" role="note">
+      <span class="tv-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5.2 9.1A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.9L14 9V3"/><path d="M7.5 15h9"/></svg></span>
+      <span id="prg-tv"><strong>Testversion:</strong> Diese Seite ist noch nicht fertig und wird weiter überarbeitet. Annahmen, Rechenweg und Darstellung können sich noch ändern. Die Werte sind eine Modellrechnung – keine Unternehmensprognose und keine Anlageberatung.</span>
+    </div>
     <div class="e-card">
       <h2 id="prg-intro-h">Worum geht es?</h2>
       <p id="prg-intro">Diese Seite schaut von 2024 aus zwei Jahre in die Zukunft. Niemand kennt die Zukunft genau – deshalb rechnet der Computer 10.000 mögliche Verläufe durch, so als würde man 10.000-mal würfeln. Daraus ergeben sich ein mittlerer Wert (Basis) sowie ein schlechter und ein guter Fall. Unten sieht man außerdem, wie die inzwischen bekannten Ist-Zahlen für 2025 und das erste Halbjahr 2026 dazu passen.</p>
@@ -1675,6 +1692,13 @@ const T = {
     'upd-c11':'Fehlende Übersetzungen ergänzt (Seitentitel, Fußzeile, Einheiten, Eckdaten, Firmenname in der Peer-Tabelle, Akzent-Kurs); deutsche Texte nach dem Sprachwechsel vereinheitlicht; „Pair“ durch „Peer“ ersetzt (FR); Tippfehler korrigiert.',
     'upd-a0':'Gesamte Seite',
     'upd-c0':'Ausgangsversion für dieses Log (Stand der Projektanweisungen vom 03.11.2026).',
+    // --- Update 05.11.2026: Testversion ESG und Prognose ---
+    'upd-d2':'05.11.2026',
+    'upd-a12':'ESG, Prognose',
+    'upd-c12':'Beide Seiten als Testversion gekennzeichnet, die weiter überarbeitet wird: rotes Etikett „Testversion · in Überarbeitung“ im Seitenkopf und ein Hinweisbalken am Seitenanfang, in allen drei Sprachen. Zahlen, Tabellen, Diagramme und Berechnungen unverändert.',
+    'tv-badge':'Testversion · in Überarbeitung',
+    'esg-tv':'<strong>Testversion:</strong> Diese Seite ist noch nicht fertig und wird weiter überarbeitet. Kennzahlen, Erklärungen und Darstellung können sich noch ändern. Fehlende Werte stehen als Platzhalter „…“ in der Tabelle.',
+    'prg-tv':'<strong>Testversion:</strong> Diese Seite ist noch nicht fertig und wird weiter überarbeitet. Annahmen, Rechenweg und Darstellung können sich noch ändern. Die Werte sind eine Modellrechnung – keine Unternehmensprognose und keine Anlageberatung.',
     'ps1-v':'−34 %',
     'ps2-v':'−2,2 Mrd.',
     'ps3-v':'+237',
@@ -2013,6 +2037,13 @@ const T = {
     'upd-c11':'Missing translations added (page title, footer, units, key data, company name in the peer table, accent course); German texts made identical after switching language; “Pair” replaced by “Peer” (FR); typos corrected.',
     'upd-a0':'Entire site',
     'upd-c0':'Baseline version for this log (project instructions as of 3 Nov 2026).',
+    // --- Update 05.11.2026: Testversion ESG und Prognose ---
+    'upd-d2':'5 Nov 2026',
+    'upd-a12':'ESG, Forecast',
+    'upd-c12':'Both pages marked as a test version that is still being revised: a red “Test version · under revision” label in the page header and a notice bar at the top of the page, in all three languages. Figures, tables, charts and calculations unchanged.',
+    'tv-badge':'Test version · under revision',
+    'esg-tv':'<strong>Test version:</strong> this page is not finished yet and is still being revised. Figures, explanations and presentation may still change. Missing values appear as placeholders “…” in the table.',
+    'prg-tv':'<strong>Test version:</strong> this page is not finished yet and is still being revised. Assumptions, calculation method and presentation may still change. The figures are a model calculation – not a company forecast and not investment advice.',
     'ps1-v':'−34%',
     'ps2-v':'−€2.2bn',
     'ps3-v':'+237',
@@ -2351,6 +2382,13 @@ const T = {
     'upd-c11':'Traductions manquantes ajoutées (titre de page, pied de page, unités, données clés, nom de l’entreprise dans le tableau des pairs, cours d’accent) ; textes allemands harmonisés après changement de langue ; « Pair » remplacé par « Peer » (FR) ; coquilles corrigées.',
     'upd-a0':'Ensemble du site',
     'upd-c0':'Version de référence de ce journal (instructions de projet du 03.11.2026).',
+    // --- Update 05.11.2026: Testversion ESG und Prognose ---
+    'upd-d2':'05.11.2026',
+    'upd-a12':'ESG, Prévisions',
+    'upd-c12':'Les deux pages sont signalées comme version de test, appelée à être révisée : étiquette rouge « Version de test · en cours de révision » dans l’en-tête et bandeau d’avertissement en haut de page, dans les trois langues. Chiffres, tableaux, graphiques et calculs inchangés.',
+    'tv-badge':'Version de test · en cours de révision',
+    'esg-tv':'<strong>Version de test :</strong> cette page n’est pas encore achevée et fait l’objet d’une révision. Les indicateurs, les explications et la présentation peuvent encore évoluer. Les valeurs manquantes figurent dans le tableau sous forme d’espaces réservés « … ».',
+    'prg-tv':'<strong>Version de test :</strong> cette page n’est pas encore achevée et fait l’objet d’une révision. Les hypothèses, la méthode de calcul et la présentation peuvent encore évoluer. Les chiffres résultent d’un calcul de modèle – il ne s’agit ni d’une prévision de l’entreprise ni d’un conseil en investissement.',
     'ps1-v':'−34 %',
     'ps2-v':'−2,2 Md €',
     'ps3-v':'+237',
